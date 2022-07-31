@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Genrator</title>
+    <link rel="stylesheet" href="/styles.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="branding"><a href="https://hack2skill.com"><img class="brandlogo" src="/logo.png"/></a></div>
+            <div class="heading">Action Panel</div>
+            <div class="variable__list">
+                <button class="createVariable" id="createVariable"onclick="createVariable()" disabled>Create Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
+                <div class="alert-info"><small><strong><i class="fa-solid fa-circle-info"></i> Note:</strong> Variables are the column names of your csv file. It is essential that one column of the csv is <strong>certificate_id</strong>. </div>
+            </div>
+            <div  class="variable__list">
+                <!-- Hidden Input to store variable id -->
+                <input id="currentVariable" value="" type="text" class="d-none"/>
+                <div class="heading">Customize Text:</div>
+                <h5>Select Font:</h5>
+                <select id="font" class=" form-control" onchange="changeFont(this)">
+                    <option>Poppins</option>
+                    <option>Roberto</option>
+                    <option>Arial</option>
+                    <option>Dancing Script</option>
+                    <option>Open Sans</option>
+                </select>
+                <h5>Font Size:</h5> <input class="form-control" type="number" id="size" value="11" onchange="changeSize(this)"/>
+                <div class="flex"><h5>Colour:</h5> &nbsp;&nbsp;&nbsp; <input type="color" id="color" onchange="changeColor(this)"/></div>
+                <h5>Set Alignment:</h5>
+                <select id="align" class="form-control" onchange="changeAlign(this)">
+                    <option>Left</option>
+                    <option>Right</option>
+                    <option>Center</option>
+                </select>
+                <button class="genCertificates" onclick="handleSubmit()">Upload Template</button>
+            </div>
+        </div>
+        <form action="/admin" method="POST"  enctype="multipart/form-data">
+        <div class="right">
+            <!-- Image Dropper -->
+            <div class="image__dropzone">
+                <div id="drop-area" >
+                        <input type="file" class="form-control" id="fileElem" name="file"accept="image/*" onchange="handleFiles(this.files)">
+                        <label class="button" for="fileElem">Darg or Click to Upload Certificate <strong>Image to get Started.</strong></label>
+                        
+                </div>
+            </div>
+            <!-- Image Display -->
+                <div id="gallery"><div>ll</div></div>
+            
+            <div class="csv__uploader"></div>
+        </div><div id="overlay">  </div>
+        <div id="modal"> 
+            <div style="margin-bottom: 20px;"><h4>Upload your Csv:</h4></div>
+            <div>
+                    <input class="d-none" id="variableData" name="variableData"/>
+                    <input id="fileSelect" name="csv" type="file" accept=".csv" />
+                    <button type="submit" class="genCertificates" style="margin: 20px;">Generate Certificates</button>
+            </div>
+        </div>
+    </form>
+    </div>
+    
+    
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+
+    <!-- Javascript -->
+    <script>
+        const changeAlign=(e)=>{
+            const current_id = document.getElementById('currentVariable').value;
+            document.getElementById(current_id).style.textAlign = e.value;
+        }
+        const changeColor=(e)=>{
+            const current_id = document.getElementById('currentVariable').value;
+            document.getElementById(current_id).style.color = e.value;
+        }
+        const changeSize=(e)=>{
+            const current_id = document.getElementById('currentVariable').value;
+            document.getElementById(current_id).style.fontSize = e.value + "px";
+        }
+        const changeFont=(e)=>{
+            const current_id = document.getElementById('currentVariable').value;
+            document.getElementById(current_id).style.fontFamily = e.value;
+        }
+        const createVariable =()=>{
+            // Creating input field
+            let variable = document.createElement('input');
+            variable.id = document.getElementById('gallery').children.length;
+            variable.classList.add('variable');
+            variable.style.fontFamily = document.getElementById('font').value;
+            variable.style.fontSize= document.getElementById('size').value+ "px";
+            variable.style.color=document.getElementById('color').value;
+            variable.style.textAlign=document.getElementById('align').value;
+            variable.maxLength=20;
+
+            // Event listeners on input field
+
+            variable.addEventListener("mousedown",()=>{
+                document.getElementById('currentVariable').value= variable.id;
+            variable.addEventListener("mousemove",onDrag);
+            })
+            document.addEventListener("mouseup",()=>{
+            variable.removeEventListener("mousemove",onDrag);
+            });
+
+            // Delete The input field
+            variable.onkeydown = function() {
+                var key = event.keyCode || event.charCode;
+                let i = parseInt(variable.id)+1;
+                let len = document.getElementById('gallery').children.length;
+                if(key == 46 )
+                    {
+                        variable.remove();
+                        for(i;i<len;i++){
+                            document.getElementById(i).id = i-1;
+                        }
+                    }
+            };
+
+            document.getElementById('gallery').appendChild(variable);
+
+            // On Drag Function
+            function onDrag(e){
+                let getStyle= window.getComputedStyle(variable);
+                let left = parseInt(getStyle.left);
+                let top = parseInt(getStyle.top);
+                variable.style.left = `${(e.movementX +left)}px`;
+                variable.style.top = `${(top + e.movementY)}px`;
+            }
+        }
+    </script>
+    <script>
+        const closeModal =() =>{
+            document.getElementById('overlay').style.display='none';
+        }
+        const handleSubmit=()=>{
+            let variables =[];
+            let variable__fonts =[];
+            let variable__colors=[];
+            let variable__sizes=[];
+            let variable__aligns=[];
+            let variable__tops=[];
+            let variable__lefts=[];
+            let len =document.getElementById('gallery').children.length;
+            let gallery__top =document.getElementById('gallery').getBoundingClientRect().top;
+            let gallery__left =document.getElementById('gallery').getBoundingClientRect().left;
+
+            for(let i=1;i<len;i++){
+                const inputVariable = document.getElementById(i);
+                variables.push(inputVariable.value);
+                variable__fonts.push(inputVariable.style.fontFamily);
+                variable__colors.push((inputVariable.style.color).slice(3));
+                variable__sizes.push(inputVariable.style.fontSize);
+                variable__aligns.push(inputVariable.style.textAlign);
+                variable__tops.push(inputVariable.getBoundingClientRect().top -gallery__top);  
+                if(inputVariable.style.textAlign === 'left'){
+                    variable__lefts.push(inputVariable.getBoundingClientRect().left -gallery__left);  
+                }else if(inputVariable.style.textAlign === 'right'){
+                    console.log("variable width:",inputVariable.clientWidth);
+                    variable__lefts.push((inputVariable.getBoundingClientRect().left + inputVariable.clientWidth ) -gallery__left);  
+                }else if(inputVariable.style.textAlign === 'center'){
+                    variable__lefts.push((inputVariable.getBoundingClientRect().left + (inputVariable.clientWidth/2)) -gallery__left);  
+                }
+            }
+
+            let submitObject ={
+                variables: variables,
+                fonts: variable__fonts,
+                colors: variable__colors,
+                sizes: variable__sizes,
+                aligns: variable__aligns,
+                tops: variable__tops,
+                lefts: variable__lefts,
+            }
+            let myObj = JSON.stringify(submitObject);
+            console.log(submitObject);
+            document.getElementById('variableData').value = myObj;
+            console.log(document.getElementById('variableData').value);
+            document.getElementById('overlay').style.display ="flex";
+            document.getElementById('modal').style.display ="flex";
+        }
+    </script>
+    <script>
+        // ************************ Drag and drop ***************** //
+        let dropArea = document.getElementById("drop-area");
+
+        // Prevent default drag behaviors
+        ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false)   
+        document.body.addEventListener(eventName, preventDefaults, false)
+        })
+
+        // Handle dropped files
+        dropArea.addEventListener('drop', handleDrop, false)
+
+        function preventDefaults (e) {
+        e.preventDefault()
+        e.stopPropagation()
+        }
+
+        function handleDrop(e) {
+        var dt = e.dataTransfer
+        var files = dt.files
+
+        handleFiles(files)
+        }
+
+        let uploadProgress = []
+
+        function updateProgress(fileNumber, percent) {
+        uploadProgress[fileNumber] = percent
+        let total = uploadProgress.reduce((tot, curr) => tot + curr, 0) / uploadProgress.length
+        progressBar.value = total
+        }
+
+        function handleFiles(files) {
+        files = [...files]
+        files.forEach(previewFile)
+        }
+
+        function previewFile(file) {
+        let reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onloadend = function() {
+            let img = document.createElement('img')
+            img.src = reader.result;
+            img.id='cert';
+            document.getElementById('gallery').replaceChild(img, document.getElementById('gallery').childNodes[0]);
+            document.getElementById('gallery').style.display ='block';
+            document.getElementById('drop-area').style.display ='none';
+            document.getElementById("createVariable").disabled= false;
+        }
+        }
+    </script>
+</body>
+</html>
+
+
+
