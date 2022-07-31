@@ -1,26 +1,28 @@
 const express = require("express");
 const router = express.Router();
 
+const User = require("../models/user");
+
 // Create Admin
-router.get("/addadmin", (req, res) => {
-    if (
-      req.user &&
-      req.user.userType == "admin" &&
-      superAdmins.includes(req.user.username)
-    ) {
-      Innovator.updateOne(
+router.get("/show-certificates/:email", (req, res) => {
+    var certificatesArray = [];
+   
+    //     user_datas = user.find({ "email": email}, { "certificate_link":1})
+    //     
+
+    //   
+    //     return certificates_array
+      User.find(
         {
-          email: req.query.email,
+          "email": req.params.email,
         },
-        {
-          $set: {
-            hackAdmin: "true",
-          },
+      ).then((u) => {
+        for(i=0;i<u.length;i++) {
+            var certificateId = u[i].certificateId;
+            certificatesArray.push(certificateId)
         }
-      ).then((u) => res.send(u));
-    } else {
-      res.render("404");
-    }
+        res.send(certificatesArray)
+      });
   
     // Innovator.updateOne({email: req.query.email}, {$set: {hackAdmin: 'true'}})
     // .then(u=>res.send(u));
