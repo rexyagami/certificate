@@ -3,7 +3,8 @@ const router = express.Router();
 const uploads = require("../config/s3");
 const multer = require("multer");
 const csv = require("csvtojson");
-const Image = require("../models/image")
+const Image = require("../models/image");
+const { sendCertificate } = require("../utils/mail");
 
 // Create Admin
 router.get("/", (req, res) => {
@@ -96,6 +97,7 @@ router.get("/mailer", (req, res) => {
 
 router.post("/mailer", (req, res) => {
     console.log(req.body)
+    sendCertificate("prachi", "prachi@hack2skill.com", "invinciblenobita.github.io", req.body.subject, req.body.body)
     // if (!req.files) {
     //     res.status(400).send("nofile");
     //     console.log(req.file);
