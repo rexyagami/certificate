@@ -40,6 +40,7 @@
                 <button class="genCertificates" onclick="handleSubmit()">Upload Template</button>
             </div>
         </div>
+        <form>
         <div class="right">
             <!-- Image Dropper -->
             <div class="image__dropzone">
@@ -52,17 +53,17 @@
             <!-- Image Display -->
                 <div id="gallery"><div>ll</div></div>
             
-        </div>
         <div id="overlay">  </div>
         <div id="modal"> 
-            <form action="/admin/upload/csv" method="POST"  enctype="multipart/form-data">
-                <div style="margin-bottom: 20px;"><h4>Upload your Csv:</h4></div>
+                <div style="margin-bottom: 20px;"><h4>Submit Changes</h4></div>
                 <div>
-                        <input id="fileSelect" name="csv" type="file" accept=".csv" />
-                        <button type="submit" class="genCertificates" style="margin: 20px;">Generate Certificates</button>
+                        <input id="variableData" name="variableData" class="d-none" />
+                        <button type="submit" class="genCertificates" style="margin: 20px;">Next Step</button>
                 </div>
-            </form>
         </div>
+        </form>
+    </div>
+        
     </div>
     
     
@@ -182,15 +183,7 @@
             }
             let myObj = JSON.stringify(submitObject);
             console.log(submitObject);
-            // POST REQUEST HERE For Variable data
-
-
-
-
-
-
-
-
+            document.getElementById('variableData').value = myObj
 
             document.getElementById('overlay').style.display ="flex";
             document.getElementById('modal').style.display ="flex";
@@ -232,7 +225,6 @@
         function handleFiles(files) {
         files = [...files]
         files.forEach(previewFile)
-        files.forEach(uploadFile)
         }
 
         function previewFile(file) {
@@ -247,15 +239,6 @@
             document.getElementById('drop-area').style.display ='none';
             document.getElementById("createVariable").disabled= false;
         }
-        }
-        function uploadFile(file){
-            // IMage UPload Function here Post Request
-            let image={
-                image : file,
-            }
-            image = JSON.stringify(image);
-
-
         }
     </script>
 </body>
