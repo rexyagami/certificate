@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var bcrypt = require('bcryptjs');
+// var bcrypt = require('bcryptjs');
 
 // User Schema
 var UserSchema = mongoose.Schema({
@@ -54,9 +54,9 @@ module.exports.getUserById = function (id, callback) {
     User.findById(id, callback);
 }
 
-module.exports.comparePassword = function (candidatePassword, hash, callback) {
-    bcrypt.compare(candidatePassword, hash, function (err, isMatch) {
-        if (err) throw err;
-        callback(null, isMatch);
-    });
-}
+// module.exports.comparePassword = function (candidatePassword, hash, callback) {
+//     bcrypt.compare(candidatePassword, hash, function (err, isMatch) {
+//         if (err) throw err;
+//         callback(null, isMatch);
+//     });
+// }
