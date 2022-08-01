@@ -16,14 +16,15 @@ router.get("/", (req, res) => {
 router.post("/", uploads.single('file'), (req, res) => {
     console.log(req.body)
     console.log(req.file);
-    if (!req.files) {
+    if (!req.file) {
             res.status(400).send("nofile");
             console.log(req.file);
             return;
           }
-    var imagePath = req.file.path
+    var imagePath = req.file.location
     Image.create({
-        image: imagePath
+        image: imagePath,
+        variableData: req.body.variableData
     });
 
     console.log(`Success!\n Image uploaded to ${imagePath}`);
@@ -33,7 +34,10 @@ router.post("/", uploads.single('file'), (req, res) => {
             // }
           
     // console.log(req.files[1],req.files[1].path)
-    res.send("done")
+    res.render("uploadCsv", {
+      imagePath: imagePath,
+      variableData: req.body.variableData
+    })
     // CreateHackathon.updateOne(
     //     { hackathonName: req.body.hackName },
     //     {
@@ -60,22 +64,31 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
-
+// router.get("/upload-csv/:imagePath", (req, res) => {
+//   res.render("uploadCsv");  
+// })
 router.post("/upload-csv", upload.single('csv'), (req, res) => {
+  console.log(req.body)
+  const imagePath = req.body.imagePath
+  const variableData = req.body.variableData
   csv()
     .fromFile(req.file.path)
     .then((jsonObj) => {
-      console.log(jsonObj);
+      //console.log(jsonObj);
       for (var x = 0; x < jsonObj.length; x++) {
         
-        
-        console.log(jsonObj[x]);
-        User.create(jsonObj[x], (err, data) => {
+        var user = jsonObj[x];
+        user.imagePath = imagePath
+        user.variableData = variableData
+        user.certificateLink = "https://invincible.github.io"
+        console.log(user);
+        User.create(user, (err, data) => {
           if (err) {
             console.log(err);
             throw err;
           } else console.log(data);
         });
+        
         // delete newUser[name]
         // Innovator.create(jsonObj[x], (err, data) => {
         //   if (err) {
@@ -87,16 +100,29 @@ router.post("/upload-csv", upload.single('csv'), (req, res) => {
       // res.redirect("/");
     //   res.redirect("back");
     });
-    res.redirect("/admin/mailer");
+    res.render("mailer", {
+      imagePath: imagePath
+    });
 })
 
-router.get("/mailer", (req, res) => {
-    res.render("mailer");  
-});
+// router.get("/mailer/:imagePath", (req, res) => {
+//     res.render("mailer");  
+// });
 
 router.post("/mailer", (req, res) => {
     console.log(req.body)
-    sendCertificate("prachi", "prachi@hack2skill.com", "invinciblenobita.github.io", req.body.subject, req.body.body)
+    const imagePath = req.body.imagePath
+    User.find(
+      {
+        "imagePath": imagePath
+      }
+    ).then((users) => {
+      console.log(users,"//////////////////////")
+      for(i=0;i<users.length;i++) {
+        sendCertificate(users[i].name, users[i].email, users[i].certificateLink, req.body.subject, req.body.body)
+      }
+    })
+    
     // if (!req.files) {
     //     res.status(400).send("nofile");
     //     console.log(req.file);

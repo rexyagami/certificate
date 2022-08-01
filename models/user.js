@@ -8,14 +8,14 @@ var UserSchema = mongoose.Schema({
     },
     certificateId: {
         type: String,
-        unique: true,
+        // unique: true,
     },
     email: {
         type: String,
     },
     variableData: {},
     imagePath: String,
-    certificate_link: String,
+    certificateLink: String,
     // userType: String,
     // secretKey: String,
     // username: String,
