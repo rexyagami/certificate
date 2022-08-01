@@ -5,13 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload-Csv</title>
+    <link rel="stylesheet" href="/styles.css"/>
 </head>
 <body>
-    <form action="/admin/upload-csv" method="POST" enctype="multipart/form-data">
-        <input type="text" name="imagePath" value="<%= imagePath %>">
-        <input type="text" name="variableData" value="<%= variableData %>">
-        <input type="file" name="csv">
-        <button type="submit">Upload csv</button>
-    </form>
+    <div class="container">
+        <div class="card d-flex-column">
+            <h3>Upload your CSV File:</h3>
+            <form action="/admin/upload-csv" method="POST" enctype="multipart/form-data" class="p-5">
+                <input type="text" name="imagePath" value="<%= imagePath %>" class="d-none">
+                <input type="text" name="variableData" value="<%= variableData %>" class="d-none">
+                <div><input type="file" name="csv"></div>
+                <div><button type="submit" class="genCertificates my-5">Upload csv</button></div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

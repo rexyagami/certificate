@@ -7,6 +7,11 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.d-flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
 .container {
     display: flex;
     background-color: #F7FAFF;
@@ -102,6 +107,15 @@ p {
     gap: 5px;
     padding: 10px;
     margin-bottom: 20px;
+
+}
+
+.p-5 {
+    padding: 10px;
+}
+
+.my-5 {
+    margin: 10px 0px;
 }
 
 .my-3 {
