@@ -5,6 +5,8 @@ const multer = require("multer");
 const csv = require("csvtojson");
 const Image = require("../models/image");
 const { sendCertificate } = require("../utils/mail");
+const path = require("path")
+const User = require("../models/user")
 
 // Create Admin
 router.get("/", (req, res) => {
@@ -59,17 +61,14 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-router.post("upload-csv", upload.single('csv'), (req, res) => {
+router.post("/upload-csv", upload.single('csv'), (req, res) => {
   csv()
     .fromFile(req.file.path)
     .then((jsonObj) => {
       console.log(jsonObj);
       for (var x = 0; x < jsonObj.length; x++) {
-        jsonObj[x].hackathon = [];
-        const i = jsonObj[x]["Total"];
-        for (j = 1; j <= i; j++) {
-          jsonObj[x].hackathon.push(jsonObj[x][`hackathon ${j}`]);
-        }
+        
+        
         console.log(jsonObj[x]);
         User.create(jsonObj[x], (err, data) => {
           if (err) {
