@@ -40,7 +40,6 @@
                 <button class="genCertificates" onclick="handleSubmit()">Upload Template</button>
             </div>
         </div>
-        <form action="/admin" method="POST"  enctype="multipart/form-data">
         <div class="right">
             <!-- Image Dropper -->
             <div class="image__dropzone">
@@ -53,17 +52,17 @@
             <!-- Image Display -->
                 <div id="gallery"><div>ll</div></div>
             
-            <div class="csv__uploader"></div>
-        </div><div id="overlay">  </div>
-        <div id="modal"> 
-            <div style="margin-bottom: 20px;"><h4>Upload your Csv:</h4></div>
-            <div>
-                    <input class="d-none" id="variableData" name="variableData"/>
-                    <input id="fileSelect" name="csv" type="file" accept=".csv" />
-                    <button type="submit" class="genCertificates" style="margin: 20px;">Generate Certificates</button>
-            </div>
         </div>
-    </form>
+        <div id="overlay">  </div>
+        <div id="modal"> 
+            <form action="/admin/upload/csv" method="POST"  enctype="multipart/form-data">
+                <div style="margin-bottom: 20px;"><h4>Upload your Csv:</h4></div>
+                <div>
+                        <input id="fileSelect" name="csv" type="file" accept=".csv" />
+                        <button type="submit" class="genCertificates" style="margin: 20px;">Generate Certificates</button>
+                </div>
+            </form>
+        </div>
     </div>
     
     
@@ -183,8 +182,16 @@
             }
             let myObj = JSON.stringify(submitObject);
             console.log(submitObject);
-            document.getElementById('variableData').value = myObj;
-            console.log(document.getElementById('variableData').value);
+            // POST REQUEST HERE For Variable data
+
+
+
+
+
+
+
+
+
             document.getElementById('overlay').style.display ="flex";
             document.getElementById('modal').style.display ="flex";
         }
@@ -225,6 +232,7 @@
         function handleFiles(files) {
         files = [...files]
         files.forEach(previewFile)
+        files.forEach(uploadFile)
         }
 
         function previewFile(file) {
@@ -239,6 +247,15 @@
             document.getElementById('drop-area').style.display ='none';
             document.getElementById("createVariable").disabled= false;
         }
+        }
+        function uploadFile(file){
+            // IMage UPload Function here Post Request
+            let image={
+                image : file,
+            }
+            image = JSON.stringify(image);
+
+
         }
     </script>
 </body>
