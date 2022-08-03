@@ -12,33 +12,53 @@
     <div class="container">
         <div class="left">
             <div class="branding"><a href="https://hack2skill.com"><img class="brandlogo" src="/logo.png"/></a></div>
-            <div class="heading">Action Panel</div>
-            <div class="variable__list">
-                <button class="createVariable" id="createVariable"onclick="createVariable()" disabled>Create Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
-                <div class="alert-info"><small><strong><i class="fa-solid fa-circle-info"></i> Note:</strong> Variables are the column names of your csv file. It is essential that one column of the csv is <strong>certificateId</strong>. </div>
+            <hr/>
+            <br/>
+            <div class="left__list">
+                <div class="left__list__item">Step 1 - Create Variables <i class="fa-solid fa-angle-down"></i></div>
+                <div class="list__dropdown">
+                     <div class="variable__list">
+                        <button class="createVariable" id="createVariable"onclick="createVariable('name')" disabled>Create Name Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
+                        <button class="createVariable" id="createVariable"onclick="createVariable('id')">Create Certificate Id Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
+                        <button class="createVariable" id="createVariable"onclick="createVariable('date')">Create Date of Issue Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
+                    </div>
+                    <!-- Hidden Input to store variable id -->
+                    <input id="currentVariable" value="" type="text" class="d-none"/>
+                    <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
+                        <h5>Font:</h5>
+                    <select id="font" class=" form-control" onchange="changeFont(this)">
+                        <option>Poppins</option>
+                        <option>Roberto</option>
+                        <option>Arial</option>
+                        <option>Dancing Script</option>
+                        <option>Open Sans</option>
+                    </select>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
+                    <h5>Size:</h5> <input class="form-control" type="number" id="size" value="11" onchange="changeSize(this)" style="width:60px;"/>
+                    <div class="flex"><h5>Colour:</h5> &nbsp;&nbsp;&nbsp; <input type="color" id="color" onchange="changeColor(this)"/></div></div>
+                    <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
+                        <h5>Align:</h5>
+                        <select id="align" class="form-control" onchange="changeAlign(this)">
+                            <option>Left</option>
+                            <option>Right</option>
+                            <option>Center</option>
+                        </select>
+                    </div>
+                    <button class="genCertificates" onclick="handleSubmit()">Upload Template</button>
+                </div>
+                <div class="left__list__item">Step 2 - Upload CSV File <i class="fa-solid fa-angle-up"></i></div>
+                <div class="list__dropdown" style="display: none;">
+                    <div class="dropper" onclick="clickUpload()" id="dropper"> Click to upload your Csv file.</div>
+                    <div class="dropper success" style="display: none;" id="success"> 
+                        <div style="font-size: large;"><i class="fa-solid fa-circle-check"></i></div>
+                        <div>File Uploadede SuccessFully.</div></div>
+                    <div><input type="file" name="csv" id="up" class="d-none" onchange="changeContent()"></div>
+                    <div><button type="submit" class="genCertificates my-5">Upload csv</button></div>
+                </div>
+
             </div>
-            <div  class="variable__list">
-                <!-- Hidden Input to store variable id -->
-                <input id="currentVariable" value="" type="text" class="d-none"/>
-                <div class="heading">Customize Text:</div>
-                <h5>Select Font:</h5>
-                <select id="font" class=" form-control" onchange="changeFont(this)">
-                    <option>Poppins</option>
-                    <option>Roberto</option>
-                    <option>Arial</option>
-                    <option>Dancing Script</option>
-                    <option>Open Sans</option>
-                </select>
-                <h5>Font Size:</h5> <input class="form-control" type="number" id="size" value="11" onchange="changeSize(this)"/>
-                <div class="flex"><h5>Colour:</h5> &nbsp;&nbsp;&nbsp; <input type="color" id="color" onchange="changeColor(this)"/></div>
-                <h5>Set Alignment:</h5>
-                <select id="align" class="form-control" onchange="changeAlign(this)">
-                    <option>Left</option>
-                    <option>Right</option>
-                    <option>Center</option>
-                </select>
-                <button class="genCertificates" onclick="handleSubmit()">Upload Template</button>
-            </div>
+           
         </div>
         <form action="" method="POST" enctype=multipart/form-data>
         <div class="right">
@@ -46,7 +66,10 @@
             <div class="image__dropzone">
                 <div id="drop-area" >
                         <input type="file" class="form-control" id="fileElem" name="file"accept="image/*" onchange="handleFiles(this.files)">
-                        <label class="button" for="fileElem">Darg or Click to Upload Certificate <strong>Image to get Started.</strong></label>
+                        
+                        <label class="button" for="fileElem" style="display: flex; flex-direction:column; align-items: center;">
+                            <div style="font-size:xx-large ; color:gray;"><i class="fa-solid fa-upload"></i></div>
+                            Darg or Click to Upload Certificate <strong>Image to get Started.</strong></label>
                         
                 </div>
             </div>
@@ -93,7 +116,7 @@
             const current_id = document.getElementById('currentVariable').value;
             document.getElementById(current_id).style.fontFamily = e.value;
         }
-        const createVariable =()=>{
+        const createVariable =(s)=>{
             // Creating input field
             let variable = document.createElement('input');
             variable.id = document.getElementById('gallery').children.length;
@@ -103,6 +126,14 @@
             variable.style.color=document.getElementById('color').value;
             variable.style.textAlign=document.getElementById('align').value;
             variable.maxLength=20;
+            if(s === 'name'){
+                variable.value = 'Name';
+            }else if(s=== 'id'){
+                variable.value = 'certificateId'
+            }else{
+                variable.value = 'dateOfIssue'
+            }
+            variable.readOnly = true;
 
             // Event listeners on input field
 
@@ -243,6 +274,23 @@
         }
         }
     </script>
+        <script>
+            function clickUpload(){
+                document.getElementById('up').click();
+            }
+            const changeContent=()=>{
+               if(document.getElementById('up').value != ''){
+                document.getElementById('dropper').style.display='none';
+                document.getElementById('success').style.display='flex';
+               }
+            }
+        </script>
+        <script>
+            const openDropdown= (e)=>{
+                e.nextElementSibling.style.display='flex';
+
+            }
+        </script>
 </body>
 </html>
 
