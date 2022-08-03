@@ -15,7 +15,7 @@
             <div class="heading">Action Panel</div>
             <div class="variable__list">
                 <button class="createVariable" id="createVariable"onclick="createVariable()" disabled>Create Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
-                <div class="alert-info"><small><strong><i class="fa-solid fa-circle-info"></i> Note:</strong> Variables are the column names of your csv file. It is essential that one column of the csv is <strong>certificate_id</strong>. </div>
+                <div class="alert-info"><small><strong><i class="fa-solid fa-circle-info"></i> Note:</strong> Variables are the column names of your csv file. It is essential that one column of the csv is <strong>certificateId</strong>. </div>
             </div>
             <div  class="variable__list">
                 <!-- Hidden Input to store variable id -->
@@ -55,9 +55,11 @@
             
         <div id="overlay">  </div>
         <div id="modal"> 
-                <div style="margin-bottom: 20px;"><h4>Submit Changes</h4></div>
+                <div style="margin-bottom: 20px;"><h2>Submit Changes</h2></div>
+                <div><p>Continue to the next step to upload your CSV file.</p></div>
                 <div>
-                        <input id="variableData" name="variableData" class="d-none" />
+                        
+                        <input id="variableData" name="variableData" class="d-none" required/>
                         <button type="submit" class="genCertificates" style="margin: 20px;">Next Step</button>
                 </div>
         </div>

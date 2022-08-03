@@ -20,7 +20,7 @@
             <input id="len" value="<%=variableData.variables.length%>" class="d-none"/>
             <input id="aligns" value="<%=variableData.aligns%>" class="d-none"/>
             <% for(i=0; i<variableData.variables.length;i++){%>
-               <div style="position: absolute; color: rgb<%=variableData.colors[i]%>; font-Family: <%=variableData.fonts[i]%>;
+               <div style="position: absolute; white-space: nowrap; color: rgb<%=variableData.colors[i]%>; font-Family: <%=variableData.fonts[i]%>;
                top: <%=(variableData.tops[i]+15)%>px; left: <%=variableData.lefts[i]%>px;
                font-size: <%=variableData.sizes[i]%>  " id="<%=i%>"><% currentVar = variableData.variables[i]%><%=currentVar%></div> 
             <%}%>
