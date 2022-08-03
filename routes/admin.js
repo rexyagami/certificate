@@ -3,56 +3,15 @@ const router = express.Router();
 const uploads = require("../config/s3");
 const multer = require("multer");
 const csv = require("csvtojson");
-const Image = require("../models/image");
 const { sendCertificate } = require("../utils/mail");
 const path = require("path")
 const User = require("../models/user")
+const adminController = require("../controllers/admin")
 
 // Create Admin
-router.get("/", (req, res) => {
-    res.render("upload");  
-});
+router.get("/", adminController.GetAdminPage);
 
-router.post("/", uploads.single('file'), (req, res) => {
-    console.log(req.body)
-    console.log(req.file);
-    if (!req.file) {
-            res.status(400).send("nofile");
-            console.log(req.file);
-            return;
-          }
-    var imagePath = req.file.location
-    Image.create({
-        image: imagePath,
-        variableData: req.body.variableData
-    });
-
-    console.log(`Success!\n Image uploaded to ${imagePath}`);
-
-            // if (i == req.files.length - 1) {
-            //   res.redirect("/mailer");
-            // }
-          
-    // console.log(req.files[1],req.files[1].path)
-    res.render("uploadCsv", {
-      imagePath: imagePath,
-      variableData: req.body.variableData
-    })
-    // CreateHackathon.updateOne(
-    //     { hackathonName: req.body.hackName },
-    //     {
-    //     $set: {
-    //         restrictions: {
-    //         email: true,
-    //         },
-    //     },
-    //     },
-    //     { upsert: false, multi: true }
-    // ).then((c) => {
-        // console.log(c);
-        // res.send({ status: "success", code: "done" });
-    // });
-});
+router.post("/", uploads.single('file'), adminController.PostAdminPage);
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -80,7 +39,8 @@ router.post("/upload-csv", upload.single('csv'), (req, res) => {
         var user = jsonObj[x];
         user.imagePath = imagePath
         user.variableData = variableData
-        user.certificateLink = "https://invincible.github.io"
+        // user.certificateLink = "https://invinciblenobita.github.io" //TODO: certifucatelink generation
+        user.certificateLink = `${process.env.DOMAIN}/user/${user.certificateId}` //TODO: certifucatelink generation
         console.log(user);
         User.create(user, (err, data) => {
           if (err) {
