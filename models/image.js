@@ -5,7 +5,7 @@ var ImageSchema = mongoose.Schema({
   // createdBy: String,
   eventName: {
     type: String,
-    unique: true
+    // unique: true
   },
   variableData: {},
   timestamp: {
