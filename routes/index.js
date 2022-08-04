@@ -4,7 +4,7 @@ const uploads = require("../config/s3");
 const indexController = require("../controllers/index")
 
 // Create Admin
-router.get("/", indexController.GetAdminPage);
+router.get("/", indexController.GetHomePage);
 
 router.get("/create", indexController.UploadImage);
 

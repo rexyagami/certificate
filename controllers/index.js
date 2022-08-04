@@ -4,7 +4,7 @@ const Image = require("../models/image");
 const mailer = require("../utils/mail");
 
 module.exports.GetAdminPage = (req, res) => {
-    res.render("admin");  
+    res.render("home");  
 }
 
 module.exports.UploadImage = (req, res) => {
@@ -58,6 +58,7 @@ module.exports.UploadCSV = (req, res) => {
       });
       res.redirect(`/mailer/${eventName}`);
   }
+
 module.exports.GetMailerPage = (req, res) => {
     res.render("mailer");  
 }
