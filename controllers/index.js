@@ -15,7 +15,6 @@ module.exports.UploadImage = (req, res) => {
 
 module.exports.PostUploadImage = (req, res) => {
     const variableDataObject = JSON.parse(req.body.variableData)
-    console.log(req.file);
     if (!req.file) {
             res.status(400).send("nofile");
             console.log(req.file);
@@ -25,7 +24,7 @@ module.exports.PostUploadImage = (req, res) => {
     Image.create({
         image: imagePath,
         variableData: variableDataObject,
-        eventName: req.body.variableDataObject.eventName
+        eventName: variableDataObject.eventName
     }).then((img) => {
         console.log(`Success!\n Image uploaded to ${imagePath}`);
         res.render("upload", {
