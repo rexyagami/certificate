@@ -47,7 +47,7 @@ module.exports.UploadCSV = (req, res) => {
           var user = jsonObj[x];
           user.eventName = eventName
           // user.certificateLink = "https://invinciblenobita.github.io" 
-          user.certificateLink = `${process.env.DOMAIN}/user/${user.certificateId}` 
+          user.certificateLink = `${process.env.DOMAIN}/user/${eventName}/${user.certificateId}` 
           User.create(user, (err, data) => {
             if (err) {
               console.log(err);

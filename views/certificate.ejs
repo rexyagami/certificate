@@ -13,10 +13,11 @@
 </head>
 <body>
     <div class="container">
-        <input class="d-none" id="user" value="<%=user%>"/>
+        <input class="d-none" id="img" value="<%=img%>"/>
         <div class="card pCard" id="card" style="width:800px; height:600px;">
-            <img id="bg" name="bg"src="<%= user.imagePath %>" style="width:800px; height:600px;" />
-            <% variableData = JSON.parse(user.variableData) %>
+            <img id="bg" name="bg"src="<%= img.imagePath %>" style="width:800px; height:600px;" />
+            <% variableData = JSON.parse(img.variableData) %>
+            console.log(<%= img %>,<%= user %>)
             <input id="len" value="<%=variableData.variables.length%>" class="d-none"/>
             <input id="aligns" value="<%=variableData.aligns%>" class="d-none"/>
             <% for(i=0; i<variableData.variables.length;i++){%>
@@ -36,7 +37,7 @@
         for(let i=0; i<len;i++){
             console.log(i)
             let currentVar = document.getElementById(i);
-            let user1= user.split('variableData');
+            let user1= user.split('variableData');          //TODO: @saxenaprachi now two objects / strings are coming one that contains imagePath and variableData and other just the user
             user1 = user1[0].split(',')
             console.log(user1);
             for(let j=0;j<user1.length;j++){
