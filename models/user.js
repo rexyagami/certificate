@@ -6,6 +6,10 @@ var UserSchema = mongoose.Schema({
     name: {
         type: String
     },
+    eventName: {
+        type: String,
+        required: true
+    },
     certificateId: {
         type: String,
         // unique: true,

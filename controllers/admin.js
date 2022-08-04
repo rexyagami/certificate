@@ -17,7 +17,8 @@ module.exports.PostAdminPage = (req, res) => {
     var imagePath = req.file.location
     Image.create({
         image: imagePath,
-        variableData: req.body.variableData
+        variableData: req.body.variableData,
+        eventName: req.body.eventName
     });
 
     console.log(`Success!\n Image uploaded to ${imagePath}`);
