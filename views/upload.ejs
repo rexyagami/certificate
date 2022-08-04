@@ -15,48 +15,51 @@
             <hr/>
             <br/>
             <div class="left__list">
-                <div class="left__list__item">Step 1 - Create Variables <i class="fa-solid fa-angle-down"></i></div>
-                <div class="list__dropdown">
-                     <div class="variable__list">
-                        <button class="createVariable" id="createVariable"onclick="createVariable('name')" disabled>Create Name Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
-                        <button class="createVariable" id="createVariable"onclick="createVariable('id')">Create Certificate Id Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
-                        <button class="createVariable" id="createVariable"onclick="createVariable('date')">Create Date of Issue Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
-                    </div>
-                    <!-- Hidden Input to store variable id -->
-                    <input id="currentVariable" value="" type="text" class="d-none"/>
-                    <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
-                        <h5>Font:</h5>
-                    <select id="font" class=" form-control" onchange="changeFont(this)">
-                        <option>Poppins</option>
-                        <option>Roberto</option>
-                        <option>Arial</option>
-                        <option>Dancing Script</option>
-                        <option>Open Sans</option>
-                    </select>
-                    </div>
-                    <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
-                    <h5>Size:</h5> <input class="form-control" type="number" id="size" value="11" onchange="changeSize(this)" style="width:60px;"/>
-                    <div class="flex"><h5>Colour:</h5> &nbsp;&nbsp;&nbsp; <input type="color" id="color" onchange="changeColor(this)"/></div></div>
-                    <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
-                        <h5>Align:</h5>
-                        <select id="align" class="form-control" onchange="changeAlign(this)">
-                            <option>Left</option>
-                            <option>Right</option>
-                            <option>Center</option>
-                        </select>
-                    </div>
-                    <button class="genCertificates" onclick="handleSubmit()">Upload Template</button>
-                </div>
+                <div class="left__list__item">Step 1 - Create Variables<i class="fa-solid fa-angle-down"></i></div>
+                <% if(uploadImage === true){%>
+                    <div class="list__dropdown">
+                        <div class="variable__list">
+                           <button class="createVariable" id="createVariable"onclick="createVariable('name')" disabled>Create Name Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
+                           <button class="createVariable" id="createVariable"onclick="createVariable('id')">Create Certificate Id Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
+                           <button class="createVariable" id="createVariable"onclick="createVariable('date')">Create Date of Issue Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
+                       </div>
+                       <!-- Hidden Input to store variable id -->
+                       <input id="currentVariable" value="" type="text" class="d-none"/>
+                       <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
+                           <h5>Font:</h5>
+                       <select id="font" class=" form-control" onchange="changeFont(this)">
+                           <option>Poppins</option>
+                           <option>Roberto</option>
+                           <option>Arial</option>
+                           <option>Dancing Script</option>
+                           <option>Open Sans</option>
+                       </select>
+                       </div>
+                       <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
+                       <h5>Size:</h5> <input class="form-control" type="number" id="size" value="11" onchange="changeSize(this)" style="width:60px;"/>
+                       <div class="flex"><h5>Colour:</h5> &nbsp;&nbsp;&nbsp; <input type="color" id="color" onchange="changeColor(this)"/></div></div>
+                       <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
+                           <h5>Align:</h5>
+                           <select id="align" class="form-control" onchange="changeAlign(this)">
+                               <option>Left</option>
+                               <option>Right</option>
+                               <option>Center</option>
+                           </select>
+                       </div>
+                       <button class="genCertificates" onclick="handleSubmit()">Upload Template</button>
+                   </div>
+                <%}%>
                 <div class="left__list__item">Step 2 - Upload CSV File <i class="fa-solid fa-angle-up"></i></div>
-                <div class="list__dropdown" style="display: none;">
-                    <div class="dropper" onclick="clickUpload()" id="dropper"> Click to upload your Csv file.</div>
-                    <div class="dropper success" style="display: none;" id="success"> 
-                        <div style="font-size: large;"><i class="fa-solid fa-circle-check"></i></div>
-                        <div>File Uploadede SuccessFully.</div></div>
-                    <div><input type="file" name="csv" id="up" class="d-none" onchange="changeContent()"></div>
-                    <div><button type="submit" class="genCertificates my-5">Upload csv</button></div>
-                </div>
-
+                <% if(uploadImage === false){%>
+                        <form  class="list__dropdown" action="/admin/upload-csv" method="POST" enctype="multipart/form-data">
+                        <div class="dropper" onclick="clickUpload()" id="dropper"> Click to upload your Csv file.</div>
+                        <div class="dropper success" style="display: none;" id="success"> 
+                            <div style="font-size: large;"><i class="fa-solid fa-circle-check"></i></div>
+                            <div>File Uploadede SuccessFully.</div></div>
+                        <div><input type="file" name="csv" id="up" class="d-none" onchange="changeContent()"></div>
+                        <div><button type="submit" class="genCertificates my-5">Upload csv</button></div>
+                        </form>
+                <%}%>
             </div>
            
         </div>
@@ -64,6 +67,7 @@
         <div class="right">
             <!-- Image Dropper -->
             <div class="image__dropzone">
+                <% if(uploadImage == true){%>
                 <div id="drop-area" >
                         <input type="file" class="form-control" id="fileElem" name="file"accept="image/*" onchange="handleFiles(this.files)">
                         
@@ -72,9 +76,11 @@
                             Darg or Click to Upload Certificate <strong>Image to get Started.</strong></label>
                         
                 </div>
+                <%}%>
             </div>
             <!-- Image Display -->
-                <div id="gallery"><div>ll</div></div>
+                <div id="gallery"><div>ll</div>
+                </div>
             
         <div id="overlay">  </div>
         <div id="modal"> 
