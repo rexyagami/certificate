@@ -7,6 +7,31 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.right__admin {
+    background-color: white;
+    height: 100vh;
+    width: 60vw;
+    border-radius: 100rem 0 0 100rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.left__admin {
+    height: 100vh;
+    width: 40vw;
+}
+
+header {
+    background-color: white;
+    width: 100vw;
+    height: 4.2rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    padding: 1rem;
+    display: flex;
+}
+
 .d-flex-column {
     display: flex;
     flex-direction: column;
