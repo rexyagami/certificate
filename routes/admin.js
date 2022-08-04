@@ -5,9 +5,10 @@ const { sendCertificate } = require("../utils/mail");
 const adminController = require("../controllers/admin")
 const User = require("../models/user");
 // Create Admin
-router.get("/", adminController.GetAdminPage);
+router.get("/", adminController.GetAdminIntialPage);
+router.get("/create", adminController.GetAdminPage);
 
-router.post("/", uploads.aws.single('file'), adminController.PostAdminPage);
+router.post("/create", uploads.aws.single('file'), adminController.PostAdminPage);
 
 // router.get("/upload-csv/:imagePath", (req, res) => {
 //   res.render("uploadCsv");  

@@ -2,6 +2,9 @@ const csv = require("csvtojson");
 const User = require("../models/user");
 const Image = require("../models/image");
 
+module.exports.GetAdminIntialPage = (req, res) => {
+    res.render("admin");  
+}
 module.exports.GetAdminPage = (req, res) => {
     res.render("upload", {
         uploadImage: true

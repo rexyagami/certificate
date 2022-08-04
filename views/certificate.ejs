@@ -15,7 +15,7 @@
     <div class="container">
         <input class="d-none" id="user" value="<%=user%>"/>
         <div class="card pCard" id="card" style="width:800px; height:600px;">
-            <img id="bg" name="bg"src="<%= user.imagePath %>" style="width:800px; height:600px;"/>
+            <img id="bg" name="bg"src="<%= user.imagePath %>" style="width:800px; height:600px;" />
             <% variableData = JSON.parse(user.variableData) %>
             <input id="len" value="<%=variableData.variables.length%>" class="d-none"/>
             <input id="aligns" value="<%=variableData.aligns%>" class="d-none"/>
@@ -64,13 +64,17 @@
     </script>
     <script>
         function saveDiv(){
-         html2canvas(document.getElementById("card")).then(function (canvas) {			var anchorTag = document.createElement("a");
-             document.body.appendChild(anchorTag);
-             anchorTag.download = "certificate.jpg";
-             console.log(canvas.value);
-             anchorTag.href = canvas.toDataURL();
-             anchorTag.target = '_blank';
-             anchorTag.click();
+            function downloadURI(uri, name) {
+                var link = document.createElement("a");
+                link.download = name;
+                link.href = uri;
+                document.body.appendChild(link);
+                link.click();  
+            }
+
+         html2canvas(document.getElementById("card"),{useCORS: true}).then(function (canvas) {	
+            var myImage = canvas.toDataURL();
+            downloadURI(myImage, "certificate.png");
          });
         }
      </script>
