@@ -25,7 +25,7 @@ module.exports.PostUploadImage = (req, res) => {
     Image.create({
         image: imagePath,
         variableData: variableDataObject,
-        eventName: req.body.eventName
+        eventName: req.body.variableDataObject.eventName
     }).then((img) => {
         console.log(`Success!\n Image uploaded to ${imagePath}`);
         res.render("upload", {
