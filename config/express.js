@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const indexRoutes = require("../routes/index");
 const userRoutes = require("../routes/user");
 const apiRoutes = require("../routes/api");
+const adminRoutes = require("../routes/admin")
 
 const errorController = require("../controllers/errorController");
 const logController = require("../controllers/logController");
@@ -29,6 +30,7 @@ module.exports = (app) => {
   // API Routes
   app.use("/", indexRoutes);
   app.use("/user", userRoutes);
+  app.use("/admin", adminRoutes);
   app.use("/api", apiRoutes);
 
   // Error Handlers
