@@ -7,9 +7,10 @@ const User = require("../models/user")
 const adminController = require("../controllers/admin")
 
 // Create Admin
-router.get("/", adminController.GetAdminPage);
+router.get("/", adminController.GetAdminIntialPage);
+router.get("/create", adminController.GetAdminPage);
 
-router.post("/", uploads.aws.single('file'), adminController.PostAdminPage);
+router.post("/create", uploads.aws.single('file'), adminController.PostAdminPage);
 
 // router.get("/upload-csv/:imagePath", (req, res) => {
 //   res.render("uploadCsv");  
