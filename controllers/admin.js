@@ -64,7 +64,7 @@ module.exports.GetMailerPage = (req, res) => {
 
 module.exports.PostMailerPage = (req, res) => {
     console.log(req.body)
-    const eventName = req.body.eventName
+    const eventName = req.params.eventName
     User.find(
       {
         "eventName": eventName
