@@ -26,11 +26,10 @@
                        <!-- Hidden Input to store variable id -->
                        <input id="currentVariable" value="" type="text" class="d-none"/>
                        <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
-                        <input name="eventName" placeholder="Event Name"/>
+                        <input name="eventName" id="eventName" placeholder="Event Name" class="form-control" required/>
                         </div>
                        <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
-                           <h5>Font:</h5>
-                       <select id="font" class=" form-control" onchange="changeFont(this)">
+                       <select id="font" style="width: 14rem;" class=" form-control" onchange="changeFont(this)">
                            <option>Poppins</option>
                            <option>Roberto</option>
                            <option>Arial</option>
@@ -39,16 +38,14 @@
                        </select>
                        </div>
                        <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
-                       <h5>Size:</h5> <input class="form-control" type="number" id="size" value="11" onchange="changeSize(this)" style="width:60px;"/>
-                       <div class="flex"><h5>Colour:</h5> &nbsp;&nbsp;&nbsp; <input type="color" id="color" onchange="changeColor(this)"/></div></div>
-                       <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
-                           <h5>Align:</h5>
-                           <select id="align" class="form-control" onchange="changeAlign(this)">
+                           <select id="align" style="width: 14rem;" class="form-control" onchange="changeAlign(this)">
                                <option>Left</option>
                                <option>Right</option>
                                <option>Center</option>
                            </select>
                        </div>
+                       <div style="display: flex; align-items: center; margin-top:15px; gap:5px;"> <input class="form-control" type="number" id="size" value="11" onchange="changeSize(this)" style="width:60px;"/>
+                        &nbsp;&nbsp;&nbsp; <input type="color" id="color" onchange="changeColor(this)"/></div>
                        <button class="genCertificates" onclick="handleSubmit()">Upload Template</button>
                    </div>
                 <%}%>
@@ -213,6 +210,7 @@
                     variable__lefts.push((inputVariable.getBoundingClientRect().left + (inputVariable.clientWidth/2)) -gallery__left);  
                 }
             }
+            let eventName = document.getElementById('eventName').value;
 
             let submitObject ={
                 variables: variables,
@@ -222,6 +220,7 @@
                 aligns: variable__aligns,
                 tops: variable__tops,
                 lefts: variable__lefts,
+                eventName: eventName,
             }
             let myObj = JSON.stringify(submitObject);
             console.log(submitObject);
