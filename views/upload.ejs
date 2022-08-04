@@ -26,6 +26,9 @@
                        <!-- Hidden Input to store variable id -->
                        <input id="currentVariable" value="" type="text" class="d-none"/>
                        <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
+                        <input name="eventName" placeholder="Event Name"/>
+                        </div>
+                       <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
                            <h5>Font:</h5>
                        <select id="font" class=" form-control" onchange="changeFont(this)">
                            <option>Poppins</option>
@@ -133,7 +136,7 @@
             variable.style.textAlign=document.getElementById('align').value;
             variable.maxLength=20;
             if(s === 'name'){
-                variable.value = 'Name';
+                variable.value = 'name';
             }else if(s=== 'id'){
                 variable.value = 'certificateId'
             }else{

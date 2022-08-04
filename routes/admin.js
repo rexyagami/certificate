@@ -1,32 +1,20 @@
 const express = require("express");
 const router = express.Router();
 const uploads = require("../config/s3");
-const multer = require("multer");
 const csv = require("csvtojson");
 const { sendCertificate } = require("../utils/mail");
-const path = require("path")
 const User = require("../models/user")
 const adminController = require("../controllers/admin")
 
 // Create Admin
 router.get("/", adminController.GetAdminPage);
 
-router.post("/", uploads.single('file'), adminController.PostAdminPage);
+router.post("/", uploads.aws.single('file'), adminController.PostAdminPage);
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    console.log(path.join(__dirname, "../public/upload/"));
-    cb(null, path.join(__dirname, "../public/upload/"));
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
-const upload = multer({ storage: storage });
 // router.get("/upload-csv/:imagePath", (req, res) => {
 //   res.render("uploadCsv");  
 // })
-router.post("/upload-csv", upload.single('csv'), (req, res) => {
+router.post("/upload-csv", uploads.localStorage.single('csv'), (req, res) => {
   console.log(req.body)
   const imagePath = req.body.imagePath
   const variableData = req.body.variableData

@@ -24,7 +24,7 @@ var UserSchema = mongoose.Schema({
     //     default: 1,
     // },
     // sectokenforce: String,
-    time: { type: Date, default: Date.now }
+    dateOfIssue: { type: Date, default: Date.now }
 });
 
 var User = module.exports = mongoose.model('User', UserSchema);

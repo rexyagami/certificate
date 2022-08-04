@@ -1,3 +1,4 @@
+const path = require("path");
 const aws = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
@@ -25,6 +26,18 @@ const S3Config = multerS3({
   },
 });
 
-module.exports = multer({
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    console.log(path.join(__dirname, "../public/upload/"));
+    cb(null, path.join(__dirname, "../public/upload/"));
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+module.exports.localStorage = multer({ storage: storage });
+
+module.exports.aws = multer({
   storage: S3Config,
 });
