@@ -1,17 +1,18 @@
 const csv = require("csvtojson");
 const User = require("../models/user");
 const Image = require("../models/image");
+const mailer = require("../utils/mail");
 
-module.exports.GetAdminIntialPage = (req, res) => {
+module.exports.GetAdminPage = (req, res) => {
     res.render("admin");  
 }
-module.exports.GetAdminPage = (req, res) => {
+module.exports.UploadImage = (req, res) => {
     res.render("upload", {
         uploadImage: true
     });  
 }
 
-module.exports.PostAdminPage = (req, res) => {
+module.exports.PostUploadImage = (req, res) => {
     const variableDataObject = JSON.parse(req.body.variableData)
     console.log(req.file);
     if (!req.file) {
@@ -57,3 +58,22 @@ module.exports.UploadCSV = (req, res) => {
       });
       res.redirect(`/admin/mailer/${eventName}`);
   }
+module.exports.GetMailerPage = (req, res) => {
+    res.render("mailer");  
+}
+
+module.exports.PostMailerPage = (req, res) => {
+    console.log(req.body)
+    const eventName = req.body.eventName
+    User.find(
+      {
+        "eventName": eventName
+      }
+    ).then((users) => {
+      console.log(users,"//////////////////////")
+      for(i=0;i<users.length;i++) {
+        mailer.sendCertificate(users[i].name, users[i].email, users[i].certificateLink, req.body.subject, req.body.body)
+      }
+    })
+    res.redirect("/admin");
+}
