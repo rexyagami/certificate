@@ -6,6 +6,7 @@ const mailer = require("../utils/mail");
 module.exports.GetAdminPage = (req, res) => {
     res.render("admin");  
 }
+
 module.exports.UploadImage = (req, res) => {
     res.render("upload", {
         uploadImage: true
@@ -56,7 +57,7 @@ module.exports.UploadCSV = (req, res) => {
         }
         // res.redirect("/");res.redirect("back");
       });
-      res.redirect(`/admin/mailer/${eventName}`);
+      res.redirect(`/mailer/${eventName}`);
   }
 module.exports.GetMailerPage = (req, res) => {
     res.render("mailer");  
@@ -75,5 +76,5 @@ module.exports.PostMailerPage = (req, res) => {
         mailer.sendCertificate(users[i].name, users[i].email, users[i].certificateLink, req.body.subject, req.body.body)
       }
     })
-    res.redirect("/admin");
+    res.redirect("/");
 }

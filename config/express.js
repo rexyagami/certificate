@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
-const adminRoutes = require("../routes/admin");
+const indexRoutes = require("../routes/index");
 const userRoutes = require("../routes/user");
 const apiRoutes = require("../routes/api");
 
@@ -27,7 +27,7 @@ module.exports = (app) => {
   app.use(logController.logAllRequests);
 
   // API Routes
-  app.use("/admin", adminRoutes);
+  app.use("/", indexRoutes);
   app.use("/user", userRoutes);
   app.use("/api", apiRoutes);
 
