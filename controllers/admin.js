@@ -11,6 +11,7 @@ module.exports.GetAdminPage = (req, res) => {
             email: email
         }
     ).then((img) => {
+        console.log(img)
         res.render("admin/admin", {
             img: img
         });

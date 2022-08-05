@@ -4,7 +4,23 @@ const Image = require("../models/image");
 const mailer = require("../utils/mail");
 
 module.exports.GetHomePage = (req, res) => {
-    res.render("home");  
+  if(req.user) {
+    email = req.user.email;
+    Image.find(
+        {
+            email: email
+        },{
+          variableData: -1, _id: -1
+        }
+    ).then((img) => {
+        console.log(img)
+        res.render("home", {
+            img: img
+        });
+    })  
+  } else {
+    res.redirect("/auth/login")
+  }
 }
 
 module.exports.UploadImage = (req, res) => {
@@ -26,7 +42,7 @@ module.exports.PostUploadImage = (req, res) => {
         image: imagePath,
         variableData: variableDataObject,
         eventName: variableDataObject.eventName,
-        createdBy: req.user._id || ObjectId("62ecab7e09731c7e4a362387")
+        createdBy: req.user._id 
     }).then((img) => {
         console.log(`Success!\n Image uploaded to ${imagePath}`);
         res.render("upload", {

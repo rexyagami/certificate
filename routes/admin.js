@@ -3,16 +3,18 @@ const router = express.Router();
 // const uploads = require("../config/s3");
 const adminController = require("../controllers/admin")
 
-
-function isAuthenticated(req, res, next) {
-    if (req.user) return next();
+function isSuperAdmin(req, res, next) {
+    if (
+        req.user &&
+        req.user.role == "superAdmin"
+    )
+        return next();
     res.render("404");
   }
-  
 // Create Admin
-router.get("/", isAuthenticated, adminController.GetAdminPage);
+router.get("/", isSuperAdmin, adminController.GetAdminPage);
 
-router.get("/all-certificates", isAuthenticated, adminController.GetUsersPage);
+router.get("/all-certificates", isSuperAdmin, adminController.GetUsersPage);
 
 // router.get("/create", adminController.UploadImage);
 

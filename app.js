@@ -18,9 +18,9 @@ connectDB();
 //Authentication & Session Management
 //**************************************************
 
-// const passport = require("passport");
-// require("./config/session")(app, passport);
-// require("./config/passport")(passport);
+const passport = require("passport");
+require("./config/session")(app, passport);
+require("./config/passport")(passport);
 
 //**************************************************
 //Middleware
