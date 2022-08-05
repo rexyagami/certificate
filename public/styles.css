@@ -68,6 +68,33 @@ header {
     cursor: pointer;
 }
 
+.eventModal__titles {
+    font-weight: 500;
+    display: flex;
+    justify-content: end;
+    padding: 0 5px;
+}
+
+.eventModal__Listing div {
+    width: 200px;
+    margin: 5px 0px;
+}
+
+.eventModal__Listing {
+    display: flex;
+}
+
+.eventModal {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    flex-direction: column;
+    z-index: 10;
+}
+
 .cert__Image {
     width: 100%;
     border-radius: 5px;
