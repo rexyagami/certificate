@@ -587,3 +587,16 @@ input[type='color'] {
     height: 30px;
     padding: 0 !important;
 }
+
+.no__certificates {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+
+}
+
+.no__certificates__icon {
+    font-size: 80px;
+}

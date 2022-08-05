@@ -22,16 +22,23 @@
                 
                 <button><a href="/create">+</a></button>
                 <p class="my-3"><a href="/create">Create New Certificate</a></p>
+                <br/>
+                <hr style="width: 500px;"/>
                 
             </div>
             <br/>
             <div class="displayCertificates">
-                <div class="certificate__display" onclick="openModal()">
+                <div class="no__certificates">
+                    <div class="no__certificates__icon"><i class="fa-solid fa-store-slash"></i></div>
+                    <p>Oops! no certificates found, click on the
+                         create Certificate button and get started now</p>
+                </div>
+                <!-- <div class="certificate__display" onclick="openModal()">
                     <img src="/mail.jpg" class="cert__Image"/>
                     <div class="event__Display">
                         Event Name Here
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="overlay" id="overlay" onclick="closeModal()"></div>
             <div class="eventModal" id="modal">
