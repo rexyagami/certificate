@@ -600,3 +600,76 @@ input[type='color'] {
 .no__certificates__icon {
     font-size: 80px;
 }
+
+.img__side {
+    width: 50vw;
+    height: 100vh;
+    background-color: #d1ecf1;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    padding: 4rem;
+    color: gray;
+}
+
+.form__side {
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: gray;
+}
+
+.logo__conatiner__signup {
+    margin-top: 6rem;
+    margin-bottom: 4rem;
+}
+
+.logo__conatiner {
+    margin-top: 10rem;
+    margin-bottom: 4rem;
+}
+
+.form__container div {
+    margin: 10px 0;
+}
+
+.form__container button {
+    padding: 10px;
+    border: 0;
+    background-color: rgb(105, 105, 205);
+    cursor: pointer;
+    border-radius: 10px;
+    color: white;
+}
+
+.form__container p {
+    display: flex;
+    justify-content: end;
+    font-size: smaller;
+}
+
+.form__container a {
+    color: blue;
+}
+
+.form__container label {
+    font-size: small;
+}
+
+.form__container input {
+    border: 0;
+    padding: 10px;
+    border-bottom: 1px solid gray;
+    width: 100%;
+}
+
+.form__container {
+    padding-top: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
