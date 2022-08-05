@@ -50,17 +50,6 @@
                    </div>
                 <%}%>
                 <div class="left__list__item">Step 2 - Upload CSV File <i class="fa-solid fa-angle-up"></i></div>
-                <% if(uploadImage === false){%>
-                        <form  class="list__dropdown" action="/upload-csv" method="POST" enctype="multipart/form-data">
-                            <input type="text" name="eventName" value="<%= eventName %>" hidden>
-                        <div class="dropper" onclick="clickUpload()" id="dropper"> Click to upload your Csv file.</div>
-                        <div class="dropper success" style="display: none;" id="success"> 
-                            <div style="font-size: large;"><i class="fa-solid fa-circle-check"></i></div>
-                            <div>File Uploadede SuccessFully.</div></div>
-                        <div><input type="file" name="csv" id="up" class="d-none" onchange="changeContent()"></div>
-                        <div><button type="submit" class="genCertificates my-5">Upload csv</button></div>
-                        </form>
-                <%}%>
             </div>
            
         </div>
@@ -78,6 +67,17 @@
                         
                 </div>
                 <%}%>
+                <% if(uploadImage === false){%>
+                    <form   action="/upload-csv" method="POST" enctype="multipart/form-data">
+                        <input type="text" name="eventName" value="<%= eventName %>" hidden>
+                    <div class="dropper" onclick="clickUpload()" id="dropper"> Click to upload your Csv file.</div>
+                    <div class="dropper success" style="display: none;" id="success"> 
+                        <div style="font-size: large;"><i class="fa-solid fa-circle-check"></i></div>
+                        <div>File Uploadede SuccessFully.</div></div>
+                    <div><input type="file" name="csv" id="up" class="d-none" onchange="changeContent()"></div>
+                    <div><button type="submit" class="genCertificates my-5">Upload csv</button></div>
+                    </form>
+            <%}%>
             </div>
             <!-- Image Display -->
                 <div id="gallery"><div>ll</div>
@@ -212,7 +212,11 @@
                 }
             }
             let eventName = document.getElementById('eventName').value;
-
+            if(eventName === ''){
+                alert("eventName is required.");
+                return;
+            }else{
+            
             let submitObject ={
                 variables: variables,
                 fonts: variable__fonts,
@@ -228,7 +232,8 @@
             document.getElementById('variableData').value = myObj
 
             document.getElementById('overlay').style.display ="flex";
-            document.getElementById('modal').style.display ="flex";
+            document.getElementById('modal').style.display ="flex";    
+            }
         }
     </script>
     <script>
