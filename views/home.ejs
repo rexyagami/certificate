@@ -13,10 +13,16 @@
         <div class="container" style="display: flex; flex-direction:column; justify-content: start; " >
             <header>
                 <img src="/logo.png" width="100"/>
+                <div class="header__list">
+                    <div class="header__list__item"><i class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp; Logout</div>
+
+                </div>
             </header>
             <div class="addCertificate">
-                <button>+</button>
-                <p class="my-3">Create New Certificate</p>
+                
+                <button><a href="/create">+</a></button>
+                <p class="my-3"><a href="/create">Create New Certificate</a></p>
+                
             </div>
             <br/>
             <div class="displayCertificates">
@@ -29,6 +35,10 @@
             </div>
             <div class="overlay" id="overlay" onclick="closeModal()"></div>
             <div class="eventModal" id="modal">
+                <div class="eventModal__header">
+                    <div>Certificate Details</div>
+                    <div style="cursor: pointer;" onclick="closeModal()">X</div>
+                </div>
                 <div class="eventModal__Listing">
                     <div class="eventModal__titles">Event Name: </div>
                     <div>Manishhh</div>
