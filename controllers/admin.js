@@ -4,7 +4,10 @@ const Image = require("../models/image");
 const mailer = require("../utils/mail");
 
 module.exports.GetAdminPage = (req, res) => {
-    res.render("admin");  
+    res.render("admin/admin");  
+}
+module.exports.GetUsersPage = (req, res) => {
+    res.render("admin/users");  
 }
 
 // module.exports.UploadImage = (req, res) => {

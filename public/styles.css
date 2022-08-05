@@ -75,6 +75,76 @@ header {
     justify-content: center;
 }
 
+.users__button__promote {
+    padding: 10px;
+    border-radius: 20px;
+    border: 0;
+    cursor: pointer;
+    color: white;
+    background-color: rgb(114, 210, 114);
+    display: none;
+}
+
+.users__button__demote {
+    padding: 10px;
+    border-radius: 20px;
+    border: 0;
+    cursor: pointer;
+    color: white;
+    background-color: rgb(234, 137, 115);
+}
+
+table {
+    border-spacing: 1;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 80%;
+    position: relative;
+    margin-top: 100px;
+    margin-bottom: 500px;
+    box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
+
+}
+
+table thead tr {
+    height: 60px;
+    background: #36304a;
+}
+
+.table100-head th {
+    font-family: OpenSans-Regular;
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.2;
+    font-weight: unset;
+    padding-left: 40px;
+}
+
+table tbody tr {
+    height: 55px;
+    border-bottom: 1px solid rgb(194, 193, 193);
+}
+
+tbody>tr:last-child {
+    border-bottom: 0;
+}
+
+tbody tr {
+    font-family: OpenSans-Regular;
+    font-size: 15px;
+    color: gray;
+    line-height: 1.2;
+    font-weight: unset;
+}
+
+table td,
+table th {
+    text-align: left;
+    padding-left: 40px;
+}
+
 .displayCertificates {
     display: flex;
     flex-wrap: wrap;
