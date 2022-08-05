@@ -12,6 +12,75 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-<%=img%>
+    <div class="container">
+        <canvas class="mt-3 certificate" id="myCan" width="800px" height="600px">
+        </canvas>
+    
+        <img src="<%= img.image %>" alt="Certificate" id="scream" hidden width="800px" height="600px">
+        <a id="link" onclick="downloadMe()" class="btn btn-primary btn-block" href="#"
+                                            role="button">Download Certificate</a>
+    </div>
 </body>
+<script>
+    window.onload = function () {
+        var c = document.getElementById('myCan');
+        var ctx = c.getContext("2d");
+        var img = document.getElementById("scream");
+        ctx.imageSmoothingEnabled = true;
+        ctx.drawImage(img, 0, 0, 800, 600)
+        // setting Variables
+        let fonts = '<%=img.variableData.fonts%>';
+        fonts = fonts.split(',');
+
+        let colors = '<%=img.variableData.colors%>';
+        colors = colors.split(',(');
+
+        let aligns = '<%=img.variableData.aligns%>';
+        aligns = aligns.split(',');
+
+        let sizes = '<%=img.variableData.sizes%>';
+        sizes = sizes.split(',');
+
+        let lefts = '<%=img.variableData.lefts%>';
+        lefts = lefts.split(',');
+
+        let tops = '<%=img.variableData.tops%>';
+        tops = tops.split(',');
+
+        let len ='<%=img.variableData.fonts.length%>';
+        len = parseInt(len);
+
+        for(let i =0 ; i< len;i++){
+            console.log(fonts[i]);
+            ctx.font = fonts[i];
+            let color = "rgb"+"("+colors[i].replace('(',"").replace(')',"") + ")";
+            console.log(color);
+            ctx.fillStyle = color;
+            ctx.textAlign = aligns[i];
+            ctx.fillText("<%=user.name%>", lefts[i], tops[i]);
+        }
+    };
+
+    var cd = document.getElementById('myCan');
+    // link.setAttribute('href', );
+    // $('meta[property=og\\:image]').attr('content', cd.toDataURL("image/png").replace("image/png",
+    //     "image/octet-stream"));
+    // $('meta[property=og\\:image]').attr('content', 'http://myweb.com/image.jpg');
+    $('meta[property=og\\:image]').attr('content', cd.toDataURL("image/png").replace("image/png",
+        "image/octet-stream"));
+    $('meta[name=og\\:image]').attr('content', cd.toDataURL("image/png").replace("image/png",
+        "image/octet-stream"));
+    // console.log();
+
+    function downloadMe() {
+        // Download
+        var link = document.getElementById('link');
+        var c = document.getElementById('myCan');
+        c.crossOrigin="anonymous"
+        link.setAttribute('download', 'Hack2Skill-Certificate.png');
+        link.setAttribute('href', c.toDataURL("image/png"));
+        // link.click();
+    }
+</script>
+
 </html>
