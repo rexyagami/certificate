@@ -3,7 +3,7 @@ const User = require("../models/user");
 const Image = require("../models/image");
 const mailer = require("../utils/mail");
 
-module.exports.GetAdminPage = (req, res) => {
+module.exports.GetHomePage = (req, res) => {
     res.render("home");  
 }
 
