@@ -39,8 +39,8 @@ module.exports.GetUsersPage = (req, res) => {
 //     });
 // }
 
-    });  
-}
+//     });  
+// }
 
 // module.exports.PostMailerPage = (req, res) => {
 //     console.log(req.body)
