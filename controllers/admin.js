@@ -4,7 +4,10 @@ const Image = require("../models/image");
 const mailer = require("../utils/mail");
 
 module.exports.GetAdminPage = (req, res) => {
-    res.render("admin");  
+    res.render("admin/admin");  
+}
+module.exports.GetUsersPage = (req, res) => {
+    res.render("admin/users");  
 }
 
 // module.exports.UploadImage = (req, res) => {
@@ -36,31 +39,7 @@ module.exports.GetAdminPage = (req, res) => {
 //     });
 // }
 
-// module.exports.UploadCSV = (req, res) => {
-//     console.log(req.body)
-//     const eventName = req.body.eventName
-//     csv()
-//       .fromFile(req.file.path)
-//       .then((jsonObj) => {
-//         //console.log(jsonObj);
-//         for (var x = 0; x < jsonObj.length; x++) {
-//           var user = jsonObj[x];
-//           user.eventName = eventName
-//           // user.certificateLink = "https://invinciblenobita.github.io" 
-//           user.certificateLink = `${process.env.DOMAIN}/user/${user.certificateId}` 
-//           User.create(user, (err, data) => {
-//             if (err) {
-//               console.log(err);
-//               throw err;
-//             } else console.log(data);
-//           });
-//         }
-//         // res.redirect("/");res.redirect("back");
-//       });
-//       res.redirect(`/mailer/${eventName}`);
-//   }
-// module.exports.GetMailerPage = (req, res) => {
-//     res.render("mailer");  
+//     });  
 // }
 
 // module.exports.PostMailerPage = (req, res) => {

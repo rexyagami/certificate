@@ -7,6 +7,34 @@
     font-family: 'Poppins', sans-serif;
 }
 
+a,
+a:hover,
+a:focus,
+a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+.active {
+    color: rgb(79, 39, 117) !important;
+
+}
+
+.header__list__item {
+    color: #0c5460;
+    cursor: pointer;
+    display: flex;
+    font-size: medium;
+    justify-content: center;
+    align-items: center;
+}
+
+.header__list {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    padding: 0 4rem;
+}
 
 header {
     background-color: white;
@@ -18,6 +46,7 @@ header {
     z-index: 2;
     padding: 1rem;
     display: flex;
+    justify-content: space-between;
 }
 
 .addCertificate button {
@@ -44,6 +73,76 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.users__button__promote {
+    padding: 10px;
+    border-radius: 20px;
+    border: 0;
+    cursor: pointer;
+    color: white;
+    background-color: rgb(114, 210, 114);
+    display: none;
+}
+
+.users__button__demote {
+    padding: 10px;
+    border-radius: 20px;
+    border: 0;
+    cursor: pointer;
+    color: white;
+    background-color: rgb(234, 137, 115);
+}
+
+table {
+    border-spacing: 1;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 80%;
+    position: relative;
+    margin-top: 100px;
+    margin-bottom: 500px;
+    box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
+
+}
+
+table thead tr {
+    height: 60px;
+    background: #36304a;
+}
+
+.table100-head th {
+    font-family: OpenSans-Regular;
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.2;
+    font-weight: unset;
+    padding-left: 40px;
+}
+
+table tbody tr {
+    height: 55px;
+    border-bottom: 1px solid rgb(194, 193, 193);
+}
+
+tbody>tr:last-child {
+    border-bottom: 0;
+}
+
+tbody tr {
+    font-family: OpenSans-Regular;
+    font-size: 15px;
+    color: gray;
+    line-height: 1.2;
+    font-weight: unset;
+}
+
+table td,
+table th {
+    text-align: left;
+    padding-left: 40px;
 }
 
 .displayCertificates {
@@ -84,13 +183,27 @@ header {
     display: flex;
 }
 
+.eventModal__header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, .03);
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+}
+
 .eventModal {
     display: none;
+    position: relative;
     justify-content: center;
     align-items: center;
-    width: 200px;
-    height: 200px;
-    border-radius: 20px;
+    width: 500px !important;
+    height: 250px !important;
+    border-radius: 10px !important;
+    padding: 20px;
     flex-direction: column;
     z-index: 10;
 }
@@ -473,4 +586,17 @@ input[type='color'] {
     width: 30px;
     height: 30px;
     padding: 0 !important;
+}
+
+.no__certificates {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+
+}
+
+.no__certificates__icon {
+    font-size: 80px;
 }

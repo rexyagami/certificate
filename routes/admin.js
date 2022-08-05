@@ -5,6 +5,7 @@ const adminController = require("../controllers/admin")
 
 // Create Admin
 router.get("/", adminController.GetAdminPage);
+router.get("/users", adminController.GetUsersPage);
 
 // router.get("/create", adminController.UploadImage);
 

@@ -5,6 +5,7 @@ const indexRoutes = require("../routes/index");
 const userRoutes = require("../routes/user");
 const apiRoutes = require("../routes/api");
 const adminRoutes = require("../routes/admin")
+const authRoutes = require("../routes/auth")
 
 const errorController = require("../controllers/errorController");
 const logController = require("../controllers/logController");
@@ -32,6 +33,7 @@ module.exports = (app) => {
   app.use("/user", userRoutes);
   app.use("/admin", adminRoutes);
   app.use("/api", apiRoutes);
+  app.use("/auth", authRoutes);
 
   // Error Handlers
   app.use(errorController.notFound);
