@@ -4,10 +4,26 @@ const Image = require("../models/image");
 const mailer = require("../utils/mail");
 
 module.exports.GetAdminPage = (req, res) => {
-    res.render("admin/admin");  
+    var email = "manish@hack2skill.com";
+    if(req.user) email = req.user.email;
+    Image.find(
+        {
+            email: email
+        }
+    ).then((img) => {
+        res.render("admin/admin", {
+            img: img
+        });
+    })
+    
+    
 }
 module.exports.GetUsersPage = (req, res) => {
-    res.render("admin/users");  
+    Image.find().then((img) => {
+        res.render("admin/allCertificates", {
+            img: img
+        }); 
+    }) 
 }
 
 // module.exports.UploadImage = (req, res) => {

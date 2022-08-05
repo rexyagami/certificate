@@ -7,6 +7,10 @@ var ImageSchema = mongoose.Schema({
     type: String,
     // unique: true
   },
+  createdBy : {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Innovator"
+  },
   variableData: {},
   timestamp: {
     type: Date,
