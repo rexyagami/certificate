@@ -14,7 +14,7 @@ function isSuperAdmin(req, res, next) {
 // Create Admin
 router.get("/", isSuperAdmin, adminController.GetAdminPage);
 
-router.get("/all-certificates", isSuperAdmin, adminController.GetUsersPage);
+router.get("/users", isSuperAdmin, adminController.GetUsersPage);
 
 // router.get("/create", adminController.UploadImage);
 

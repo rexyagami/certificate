@@ -1,30 +1,42 @@
 const csv = require("csvtojson");
 const User = require("../models/user");
+const Innovator = require("../models/innovator");
 const Image = require("../models/image");
 const mailer = require("../utils/mail");
 
 module.exports.GetAdminPage = (req, res) => {
-    var email = "manish@hack2skill.com";
-    if(req.user) email = req.user.email;
-    Image.find(
-        {
-            email: email
-        }
-    ).then((img) => {
+    Image.find({},{
+        variableData: 0, _id: 0
+      }).then((img) => {
         console.log(img)
         res.render("admin/admin", {
             img: img
-        });
-    })
-    
-    
-}
-module.exports.GetUsersPage = (req, res) => {
-    Image.find().then((img) => {
-        res.render("admin/allCertificates", {
-            img: img
         }); 
     }) 
+}
+module.exports.GetUsersPage = (req, res) => {
+    Innovator.find(
+        {
+            $or: 
+            [
+                {
+                    "role" : "innovator" 
+                },
+                {
+                    "role": "admin"
+                }
+            ]
+            
+        },{
+            _id: 0, password: 0,
+        }
+    ).then((users) => {
+        console.log(users)
+        res.render("admin/users", {
+            users: users
+        })
+    })
+    
 }
 
 // module.exports.UploadImage = (req, res) => {

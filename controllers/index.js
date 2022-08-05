@@ -10,7 +10,7 @@ module.exports.GetHomePage = (req, res) => {
         {
             email: email
         },{
-          variableData: -1, _id: -1
+          variableData: 0, _id: 0
         }
     ).then((img) => {
         console.log(img)
