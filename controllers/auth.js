@@ -89,7 +89,7 @@ module.exports.PostLoginPage = (req, res) => {
                                             if (req.query.src) {
                                                 res.redirect(`${req.query.src}`);
                                             } else {
-                                                res.redirect("/dashboard");
+                                                res.redirect("/");
                                             }
                                         }
                                     });
