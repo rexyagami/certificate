@@ -2,14 +2,13 @@
 //Modules
 //**************************************************
 
-var Innovator = require("../database/schemas/innovator");
-var User = require("../database/schemas/user");
+var Innovator = require("../models/innovator");
 // var msgService = require(process.env.msgApiName)(process.env.msgAuthKey, process.env.msgPara1, process.env.msgPara2);
 
-const LinkedInStrategy = require("passport-linkedin-oauth2").Strategy;
-const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
-const FacebookStrategy = require("passport-facebook").Strategy;
-const GitHubStrategy = require("passport-github2").Strategy;
+// const LinkedInStrategy = require("passport-linkedin-oauth2").Strategy;
+// const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
+// const FacebookStrategy = require("passport-facebook").Strategy;
+// const GitHubStrategy = require("passport-github2").Strategy;
 
 //**************************************************
 //Helper
@@ -34,7 +33,7 @@ module.exports = function (passport) {
   });
 
   passport.deserializeUser(function (id, done) {
-    User.findById(id, function (err, userFound) {
+    Innovator.findById(id, function (err, userFound) {
       done(err, userFound);
     });
   });
@@ -49,13 +48,13 @@ module.exports = function (passport) {
     "login",
     new LocalStrategy(
       {
-        usernameField: "otp",
-        passwordField: "otp",
+        usernameField: "email",
+        passwordField: "password",
         passReqToCallback: true,
       },
-      function (req, phone, password, done) {
+      function (req, email, password, done) {
         process.nextTick(function () {
-          User.findOne({ phone: req.session.phone }, function (err, result) {
+          Innovator.findOne({ email: req.session.email }, function (err, result) {
             if (err || !result) {
               done("Server Error!");
             } else if (result.otp != otp) {
@@ -73,13 +72,13 @@ module.exports = function (passport) {
     "register",
     new LocalStrategy(
       {
-        usernameField: "otp",
-        passwordField: "otp",
+        usernameField: "email",
+        passwordField: "password",
         passReqToCallback: true,
       },
-      function (req, otp, password, done) {
+      function (req, email, password, done) {
         process.nextTick(function () {
-          User.findOne({ phone: req.session.phone }, function (err, result) {
+          Innovator.findOne({ email: req.session.email }, function (err, result) {
             if (err || !result) {
               done("Server Error!");
             } else if (result.otp != otp) {
@@ -220,248 +219,248 @@ module.exports = function (passport) {
   //Google Registration
   //**************************************************
 
-  passport.use(
-    new GoogleStrategy(
-      {
-        clientID: process.env.GOOGLE_ID,
-        clientSecret: process.env.GOOGLE_SECRET,
-        callbackURL: process.env.DOMAIN + "/google/callback",
-      },
-      (token, refreshToken, profile, done) => {
-        User.findOne({ email: profile.emails[0].value }, (err, user) => {
-          if (err) throw err;
-          if (user) {
-            Innovator.updateOne(
-              { email: profile.emails[0].value },
-              { $set: { eIsVerified: true } }
-            ).then((dod) => {
-              return done(null, user);
-            });
-          } else {
-            let username =
-              profile.emails[0].value.split("@")[0].toLocaleLowerCase() +
-              Math.floor(1000 + Math.random() * 9000);
+//   passport.use(
+//     new GoogleStrategy(
+//       {
+//         clientID: process.env.GOOGLE_ID,
+//         clientSecret: process.env.GOOGLE_SECRET,
+//         callbackURL: process.env.DOMAIN + "/google/callback",
+//       },
+//       (token, refreshToken, profile, done) => {
+//         User.findOne({ email: profile.emails[0].value }, (err, user) => {
+//           if (err) throw err;
+//           if (user) {
+//             Innovator.updateOne(
+//               { email: profile.emails[0].value },
+//               { $set: { eIsVerified: true } }
+//             ).then((dod) => {
+//               return done(null, user);
+//             });
+//           } else {
+//             let username =
+//               profile.emails[0].value.split("@")[0].toLocaleLowerCase() +
+//               Math.floor(1000 + Math.random() * 9000);
 
-            var newUser = new User({
-              email: profile.emails[0].value,
-              username: username,
-              password: "abnhihoga",
-              userType: "innovator",
-              secretToken: profile.id,
-            });
+//             var newUser = new User({
+//               email: profile.emails[0].value,
+//               username: username,
+//               password: "abnhihoga",
+//               userType: "innovator",
+//               secretToken: profile.id,
+//             });
 
-            User.createUser(newUser, function (err, userCreated) {
-              if (err) throw err;
+//             User.createUser(newUser, function (err, userCreated) {
+//               if (err) throw err;
 
-              var newU = new Innovator({
-                email: profile.emails[0].value,
-                username: username,
-                name: profile.displayName,
-                uType: "innovator",
-                image: profile.photos[0].value,
-                eIsVerified: true,
-                authUsing: "google",
-              });
+//               var newU = new Innovator({
+//                 email: profile.emails[0].value,
+//                 username: username,
+//                 name: profile.displayName,
+//                 uType: "innovator",
+//                 image: profile.photos[0].value,
+//                 eIsVerified: true,
+//                 authUsing: "google",
+//               });
 
-              Innovator.createInnovator(newU, (err, user) => {
-                if (err) throw err;
-                return done(null, userCreated);
-              });
-            });
-          }
-        });
-      }
-    )
-  );
+//               Innovator.createInnovator(newU, (err, user) => {
+//                 if (err) throw err;
+//                 return done(null, userCreated);
+//               });
+//             });
+//           }
+//         });
+//       }
+//     )
+//   );
 
-  //**************************************************
-  //Facebook Registration
-  //**************************************************
+//   //**************************************************
+//   //Facebook Registration
+//   //**************************************************
 
-  passport.use(
-    new FacebookStrategy(
-      {
-        clientID: process.env.FACEBOOK_ID,
-        clientSecret: process.env.FACEBOOK_SECRET,
-        callbackURL: process.env.DOMAIN + "/auth/facebook/callback",
-        // profileFields: ['emails', 'displayName']
-        // scope: ['read_stream','emails']
-      },
-      (token, refreshToken, profile, done) => {
-        console.log(profile);
-        User.findOne({ email: profile.emails[0].value }, (err, user) => {
-          if (err) throw err;
+//   passport.use(
+//     new FacebookStrategy(
+//       {
+//         clientID: process.env.FACEBOOK_ID,
+//         clientSecret: process.env.FACEBOOK_SECRET,
+//         callbackURL: process.env.DOMAIN + "/auth/facebook/callback",
+//         // profileFields: ['emails', 'displayName']
+//         // scope: ['read_stream','emails']
+//       },
+//       (token, refreshToken, profile, done) => {
+//         console.log(profile);
+//         User.findOne({ email: profile.emails[0].value }, (err, user) => {
+//           if (err) throw err;
 
-          if (user) {
-            return done(null, user);
-          } else {
-            let username =
-              profile.emails[0].value.split("@")[0].toLocaleLowerCase() +
-              Math.floor(1000 + Math.random() * 9000);
+//           if (user) {
+//             return done(null, user);
+//           } else {
+//             let username =
+//               profile.emails[0].value.split("@")[0].toLocaleLowerCase() +
+//               Math.floor(1000 + Math.random() * 9000);
 
-            var newUser = new User({
-              email: profile.emails[0].value,
-              username: username,
-              password: "facebookauth",
-              userType: "innovator",
-              secretToken: profile.id,
-            });
+//             var newUser = new User({
+//               email: profile.emails[0].value,
+//               username: username,
+//               password: "facebookauth",
+//               userType: "innovator",
+//               secretToken: profile.id,
+//             });
 
-            User.createUser(newUser, function (err, userCreated) {
-              if (err) throw err;
-              var newU = new Innovator({
-                email: profile.emails[0].value,
-                username: username,
-                name: profile.displayName,
-                uType: "innovator",
-                //   image:profile.photos[0].value,
-                eIsVerified: true,
-                authUsing: "facebook",
-              });
+//             User.createUser(newUser, function (err, userCreated) {
+//               if (err) throw err;
+//               var newU = new Innovator({
+//                 email: profile.emails[0].value,
+//                 username: username,
+//                 name: profile.displayName,
+//                 uType: "innovator",
+//                 //   image:profile.photos[0].value,
+//                 eIsVerified: true,
+//                 authUsing: "facebook",
+//               });
 
-              Innovator.createInnovator(newU, (err, user) => {
-                if (err) throw err;
-                return done(null, userCreated);
-              });
-            });
-          }
-        });
-      }
-    )
-  );
+//               Innovator.createInnovator(newU, (err, user) => {
+//                 if (err) throw err;
+//                 return done(null, userCreated);
+//               });
+//             });
+//           }
+//         });
+//       }
+//     )
+//   );
 
-  //**************************************************
-  //Github Registration
-  //**************************************************
+//   //**************************************************
+//   //Github Registration
+//   //**************************************************
 
-  passport.use(
-    new GitHubStrategy(
-      {
-        clientID: process.env.GITHUB_ID,
-        clientSecret: process.env.GITHUB_SECRET,
-        callbackURL: process.env.DOMAIN + "/auth/github/callback",
-        scope: ["user:email"],
-      },
+//   passport.use(
+//     new GitHubStrategy(
+//       {
+//         clientID: process.env.GITHUB_ID,
+//         clientSecret: process.env.GITHUB_SECRET,
+//         callbackURL: process.env.DOMAIN + "/auth/github/callback",
+//         scope: ["user:email"],
+//       },
 
-      (token, refreshToken, profile, done) => {
-        console.log(JSON.stringify(profile), profile);
-        if (profile.emails) {
-          console.log(profile.emails[0].value);
-          User.findOne({ email: profile.emails[0].value }, (err, user) => {
-            if (err) throw err;
-            if (user) {
-              Innovator.updateOne(
-                { email: profile.emails[0].value },
-                {
-                  $set: {
-                    eIsVerified: true,
-                    authUsing: "github",
-                    hireable: profile._json.hireable,
-                    location: profile._json.location,
-                    org: profile._json.company,
-                    bio: profile._json.bio,
-                    github: profile.profileUrl,
-                  },
-                }
-              ).then((u) => console.log(u));
+//       (token, refreshToken, profile, done) => {
+//         console.log(JSON.stringify(profile), profile);
+//         if (profile.emails) {
+//           console.log(profile.emails[0].value);
+//           User.findOne({ email: profile.emails[0].value }, (err, user) => {
+//             if (err) throw err;
+//             if (user) {
+//               Innovator.updateOne(
+//                 { email: profile.emails[0].value },
+//                 {
+//                   $set: {
+//                     eIsVerified: true,
+//                     authUsing: "github",
+//                     hireable: profile._json.hireable,
+//                     location: profile._json.location,
+//                     org: profile._json.company,
+//                     bio: profile._json.bio,
+//                     github: profile.profileUrl,
+//                   },
+//                 }
+//               ).then((u) => console.log(u));
 
-              return done(null, user);
-            } else {
-              let username =
-                profile.emails[0].value.split("@")[0].toLocaleLowerCase() +
-                Math.floor(1000 + Math.random() * 9000);
+//               return done(null, user);
+//             } else {
+//               let username =
+//                 profile.emails[0].value.split("@")[0].toLocaleLowerCase() +
+//                 Math.floor(1000 + Math.random() * 9000);
 
-              var newUser = new User({
-                email: profile.emails[0].value,
-                username: username,
-                password: "abnhihoga",
-                userType: "innovator",
-                secretToken: profile.id,
-              });
+//               var newUser = new User({
+//                 email: profile.emails[0].value,
+//                 username: username,
+//                 password: "abnhihoga",
+//                 userType: "innovator",
+//                 secretToken: profile.id,
+//               });
 
-              User.createUser(newUser, function (err, userCreated) {
-                if (err) throw err;
-                var newU = new Innovator({
-                  email: profile.emails[0].value,
-                  username: username,
-                  name: profile.displayName,
-                  uType: "innovator",
-                  image: profile.photos[0].value,
-                  eIsVerified: true,
-                  authUsing: "github",
-                  hireable: profile._json.hireable,
-                  location: profile._json.location,
-                  org: profile._json.company,
-                  bio: profile._json.bio,
-                  github: profile.profileUrl,
-                });
+//               User.createUser(newUser, function (err, userCreated) {
+//                 if (err) throw err;
+//                 var newU = new Innovator({
+//                   email: profile.emails[0].value,
+//                   username: username,
+//                   name: profile.displayName,
+//                   uType: "innovator",
+//                   image: profile.photos[0].value,
+//                   eIsVerified: true,
+//                   authUsing: "github",
+//                   hireable: profile._json.hireable,
+//                   location: profile._json.location,
+//                   org: profile._json.company,
+//                   bio: profile._json.bio,
+//                   github: profile.profileUrl,
+//                 });
 
-                Innovator.createInnovator(newU, (err, user) => {
-                  if (err) throw err;
-                  return done(null, userCreated);
-                });
-              });
-            }
-          });
-        } else {
-          done("Emails not found");
-        }
-      }
-    )
-  );
+//                 Innovator.createInnovator(newU, (err, user) => {
+//                   if (err) throw err;
+//                   return done(null, userCreated);
+//                 });
+//               });
+//             }
+//           });
+//         } else {
+//           done("Emails not found");
+//         }
+//       }
+//     )
+//   );
 
-  //**************************************************
-  //Linkedin Registration
-  //**************************************************
+//   //**************************************************
+//   //Linkedin Registration
+//   //**************************************************
 
-  passport.use(
-    new LinkedInStrategy(
-      {
-        clientID: process.env.LINKEDIN_ID,
-        clientSecret: process.env.LINKEDIN_SECRET,
-        callbackURL: process.env.DOMAIN + "/auth/linkedin/callback",
-        scope: ["r_emailaddress", "r_liteprofile"],
-      },
-      (token, refreshToken, profile, done) => {
-        User.findOne({ email: profile.emails[0].value }, (err, user) => {
-          if (err) throw err;
+//   passport.use(
+//     new LinkedInStrategy(
+//       {
+//         clientID: process.env.LINKEDIN_ID,
+//         clientSecret: process.env.LINKEDIN_SECRET,
+//         callbackURL: process.env.DOMAIN + "/auth/linkedin/callback",
+//         scope: ["r_emailaddress", "r_liteprofile"],
+//       },
+//       (token, refreshToken, profile, done) => {
+//         User.findOne({ email: profile.emails[0].value }, (err, user) => {
+//           if (err) throw err;
 
-          if (user) {
-            return done(null, user);
-          } else {
-            let username =
-              profile.emails[0].value.split("@")[0].toLocaleLowerCase() +
-              Math.floor(1000 + Math.random() * 9000);
+//           if (user) {
+//             return done(null, user);
+//           } else {
+//             let username =
+//               profile.emails[0].value.split("@")[0].toLocaleLowerCase() +
+//               Math.floor(1000 + Math.random() * 9000);
 
-            var newUser = new User({
-              email: profile.emails[0].value,
-              username: username,
-              password: "abnhihoga",
-              userType: "innovator",
-              secretToken: profile.id,
-            });
+//             var newUser = new User({
+//               email: profile.emails[0].value,
+//               username: username,
+//               password: "abnhihoga",
+//               userType: "innovator",
+//               secretToken: profile.id,
+//             });
 
-            User.createUser(newUser, function (err, userCreated) {
-              if (err) throw err;
+//             User.createUser(newUser, function (err, userCreated) {
+//               if (err) throw err;
 
-              var newU = new Innovator({
-                email: profile.emails[0].value,
-                username: username,
-                name: profile.displayName,
-                uType: "innovator",
-                image: profile.photos[0].value,
-                eIsVerified: true,
-                authUsing: "linkedin",
-              });
+//               var newU = new Innovator({
+//                 email: profile.emails[0].value,
+//                 username: username,
+//                 name: profile.displayName,
+//                 uType: "innovator",
+//                 image: profile.photos[0].value,
+//                 eIsVerified: true,
+//                 authUsing: "linkedin",
+//               });
 
-              Innovator.createInnovator(newU, (err, user) => {
-                if (err) throw err;
-                return done(null, userCreated);
-              });
-            });
-          }
-        });
-      }
-    )
-  );
-};
+//               Innovator.createInnovator(newU, (err, user) => {
+//                 if (err) throw err;
+//                 return done(null, userCreated);
+//               });
+//             });
+//           }
+//         });
+//       }
+//     )
+//   );
+ }

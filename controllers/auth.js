@@ -18,9 +18,9 @@ module.exports.PostSignUpPage = (req, res) => {
             req.body.email.split("@")[0].toLocaleLowerCase() +
             Math.floor(1000 + Math.random() * 9000);
             // secretToken = randomstring.generate();
-            console.log(req.body);
-            if (req.body.password !== req.body.cpassword) {
-                res.redirect("/");
+            //console.log(req.body);
+            if (req.body.password !== req.body.confirmpassword) {
+                res.redirect("/auth/signup");
             } else {
                 var newUser = new Innovator({
                     email: req.body.email.toLocaleLowerCase(),
@@ -32,17 +32,24 @@ module.exports.PostSignUpPage = (req, res) => {
                     if (err) throw err;
                     console.log(user);
                     req.login(newUser, function (err) {
-                        if (err) throw err;
+                        if (err) {
+                            console.log(err)
+                            res.redirect("/")
+                        }
+                            
                         req.session.cookie.maxAge = 10 * 24 * 60 * 60 * 1000;
                         if (req.query.src) {
                             res.redirect(`${req.query.src}`);
                         } else {
-                            res.redirect("/dashboard");
+                            res.redirect("/");
                         }
                     });
                 });
             }
         };
+    }).catch((err) => {
+        console.log(err);
+        res.redirect("/auth/signup")
     });
 }
             

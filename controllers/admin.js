@@ -1,13 +1,42 @@
 const csv = require("csvtojson");
 const User = require("../models/user");
+const Innovator = require("../models/innovator");
 const Image = require("../models/image");
 const mailer = require("../utils/mail");
 
 module.exports.GetAdminPage = (req, res) => {
-    res.render("admin/admin");  
+    Image.find({},{
+        variableData: 0, _id: 0
+      }).then((img) => {
+        console.log(img)
+        res.render("admin/admin", {
+            img: img
+        }); 
+    }) 
 }
 module.exports.GetUsersPage = (req, res) => {
-    res.render("admin/users");  
+    Innovator.find(
+        {
+            $or: 
+            [
+                {
+                    "role" : "innovator" 
+                },
+                {
+                    "role": "admin"
+                }
+            ]
+            
+        },{
+            _id: 0, password: 0,
+        }
+    ).then((users) => {
+        console.log(users)
+        res.render("admin/users", {
+            users: users
+        })
+    })
+    
 }
 
 // module.exports.UploadImage = (req, res) => {
