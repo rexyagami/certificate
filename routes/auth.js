@@ -11,7 +11,7 @@ router.get("/login", authController.GetLoginPage);
 
 router.post("/login", authController.PostLoginPage);
 
-
+router.get("/logout", authController.Logout);
 
 
 module.exports = router;

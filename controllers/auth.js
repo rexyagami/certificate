@@ -60,56 +60,56 @@ module.exports.GetLoginPage = (req, res) => {
 
 module.exports.PostLoginPage = (req, res) => {
     Innovator.findOne(
-        { email: req.body.email.toLocaleLowerCase().trim() },
-    //   { twoFacAuth: 1, email: 1 }
-    ).then((eVinfo) => {
-        console.log(eVinfo);
-        if (eVinfo) {
-            Innovator.findOne(
-                {
-                    email: req.body.email.toLocaleLowerCase(),
-                },
-                (err, user) => {
-                    if (err) throw err;
-                    if (user) {
-                        Innovator.comparePassword(
-                            req.body.password,
-                            user.password,
-                            function (err, isMatch) {
+        {
+            email: req.body.email.toLocaleLowerCase(),
+        },
+        (err, user) => {
+            if (err) throw err;
+            if (user) {
+                Innovator.comparePassword(
+                    req.body.password,
+                    user.password,
+                    function (err, isMatch) {
+                        if (err) throw err;
+                        // || req.body.password === 'IncubateInd@2020#'
+                        if (isMatch) {
+                            console.log(eVinfo);
+                            req.login(user, function (err) {
                                 if (err) throw err;
-                                // || req.body.password === 'IncubateInd@2020#'
-                                if (isMatch) {
-                                    console.log(eVinfo);
-                                    req.login(user, function (err) {
-                                        if (err) throw err;
-                                        req.session.cookie.maxAge = 10 * 24 * 60 * 60 * 1000;
-                                        if (req.user && req.user.role == "superAdmin") {
-                                            res.redirect("/admin");
-                                        } else {
-                                            if (req.query.src) {
-                                                res.redirect(`${req.query.src}`);
-                                            } else {
-                                                res.redirect("/dashboard");
-                                            }
-                                        }
-                                    });
+                                req.session.cookie.maxAge = 10 * 24 * 60 * 60 * 1000;
+                                if (req.user && req.user.role == "superAdmin") {
+                                    res.redirect("/admin");
+                                } else {
+                                    if (req.query.src) {
+                                        res.redirect(`${req.query.src}`);
+                                    } else {
+                                        res.redirect("/");
+                                    }
                                 }
-                            }
-                        );
-                    } else
-                        res.render("auth/login", {
-                            err: true,
-                            homepage: true,
-                        });
-                }
-            );
-        } else {
-        res.render("auth/login", {
-            err: true,
-            homepage: true,
-        });
+                            });
+                        }
+                    }
+                );
+            } else
+                res.render("auth/signup", {
+                    err: true,
+                    homepage: true,
+                });
         }
-    });
+    );
     // res.send("done")
 }
+
+module.exports.Logout = (req, res) => {
+  if (req.user) {
+    console.log("Success logout", req.user);
+    req.logOut();
+    req.session.destroy(function (err) {
+      res.redirect("/"); //Inside a callback… bulletproof!
+    });
+  } else {
+    res.redirect("/");
+  }
+};
+
     
