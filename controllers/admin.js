@@ -8,10 +8,22 @@ module.exports.GetAdminPage = (req, res) => {
     Image.find({},{
         variableData: 0, _id: 0
       }).then((img) => {
-        console.log(img)
-        res.render("admin/admin", {
-            img: img
-        }); 
+        // console.log(img)
+        // res.render("admin/admin", {
+        //     img: img
+        // }); 
+        Innovator.find(
+            {},{
+                 password: 0,
+            }
+        ).then((users) => {
+            console.log(users)
+            res.render("admin/admin", {
+                users: users,
+                img:img
+            })
+        })
+
     }) 
 }
 module.exports.GetUsersPage = (req, res) => {

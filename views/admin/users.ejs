@@ -28,33 +28,25 @@
                 <th class="column2">User</th>
                 <th class="column3">Events Created</th>
                 <th class="column4">No of certificates Genrated</th>
-                <th class="column5">Email</th>
                 <th class="column6">Role</th>
                 </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="column1">1</td>
-                        <td class="column2">Prachi</td>
-                        <td class="column3">5</td>
-                        <td class="column4">6000</td>
-                        <td class="column5">prachi@hack2skill.com</td>
-                        <td class="column6">
-                            <button class="users__button__promote">Promote</button>
-                            <button class="users__button__demote">Demote</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="column1">1</td>
-                        <td class="column2">Prachi</td>
-                        <td class="column3">5</td>
-                        <td class="column4">6000</td>
-                        <td class="column5">prachi@hack2skill.com</td>
-                        <td class="column6">
-                            <button class="users__button__promote">Promote</button>
-                            <button class="users__button__demote">Demote</button>
-                        </td>
-                    </tr>
+                    <% for (i =0; i<users.length; i++){%>
+                        <tr>
+                            <td><%=(i+1)%></td>
+                            <td><%= users[i].email%></td>
+                            <td><%= users[i].eventName.length%></td>
+                            <td><%= users[i].createdAt%></td>
+                            <td class="column6">
+                                <%if(users[i].role==="innovator"){%>
+                                    <button class="users__button__promote">Promote</button>
+                                <%} else{%>
+                                <button class="users__button__demote">Demote</button>
+                                <%}%>
+                            </td>
+                        </tr>
+                    <%}%>
                 </tbody>
                 </table>
         </div>

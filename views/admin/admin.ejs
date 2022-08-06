@@ -38,7 +38,13 @@
                     </div>
                 <%} else{%>
                     <% for(i =0; i<img.length; i++){%>
-                        <div class="certificate__display" onclick="openModal('<%=img[i].eventName%>','<%=img[i].image%>','<%=img[i].timestamp%>','<%=img[i].createdBy%>')">
+                        <% let by = ''%>
+                        <% for(j =0; j<users.length; j++){%>
+                            <% if(users[j]._id.equals(img[i].createdBy)){%>
+                                <% by = users[j].email%>
+                            <%}%>
+                        <%}%>
+                        <div class="certificate__display" onclick="openModal('<%=img[i].eventName%>','<%=img[i].image%>','<%=img[i].timestamp%>','<%=by%>')">
                             <img src="<%=img[i].image%>" class="cert__Image"/>
                             <div class="event__Display">
                                 <%=img[i].eventName%>
