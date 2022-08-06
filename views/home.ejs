@@ -28,17 +28,22 @@
             </div>
             <br/>
             <div class="displayCertificates">
-                <div class="no__certificates">
-                    <div class="no__certificates__icon"><i class="fa-solid fa-store-slash"></i></div>
-                    <p>Oops! no certificates found, click on the
-                         create Certificate button and get started now</p>
-                </div>
-                <!-- <div class="certificate__display" onclick="openModal()">
-                    <img src="/mail.jpg" class="cert__Image"/>
-                    <div class="event__Display">
-                        Event Name Here
+                <% if(img.length===0){%>
+                    <div class="no__certificates">
+                        <div class="no__certificates__icon"><i class="fa-solid fa-store-slash"></i></div>
+                        <p>Oops! no certificates found, click on the
+                             create Certificate button and get started now</p>
                     </div>
-                </div> -->
+                <%} else{%>
+                    <% for(i =0; i<img.length; i++){%>
+                        <div class="certificate__display" onclick="openModal('<%=img[i].eventName%>','<%=img[i].image%>','<%=img[i].timestamp%>')">
+                            <img src="<%=img[i].image%>" class="cert__Image"/>
+                            <div class="event__Display">
+                                <%=img[i].eventName%>
+                            </div>
+                        </div>
+                    <%}%>
+                <%}%>
             </div>
             <div class="overlay" id="overlay" onclick="closeModal()"></div>
             <div class="eventModal" id="modal">
@@ -48,26 +53,28 @@
                 </div>
                 <div class="eventModal__Listing">
                     <div class="eventModal__titles">Event Name: </div>
-                    <div>Manishhh</div>
+                    <div id="eventName"></div>
                 </div>
                 <div class="eventModal__Listing">
-                    <div class="eventModal__titles">Number of Certificates: </div>
-                    <div>Manishhh</div>
+                    <div class="eventModal__titles">Created On: </div>
+                    <div id="certOn"></div>
                 </div>
                 <div class="eventModal__Listing">
                     <div class="eventModal__titles">Image: </div>
-                    <div>Manishhh</div>
-                </div>
-                <div class="eventModal__Listing">
-                    <div class="eventModal__titles">Email Body: </div>
-                    <div>Manishhh</div>
+                    <div><a id="certImage" href="">Link</a></div>
                 </div>
                 
             </div>
 
         </div>
         <script>
-            const openModal= ()=>{
+            const openModal= (e, img, date)=>{
+                console.log(e)
+                console.log(img)
+                console.log(date)
+                document.getElementById('eventName').innerHTML=e;
+                document.getElementById('certOn').innerHTML=date.slice(0,15);
+                document.getElementById('certImage').href =img;
                 document.getElementById('modal').style.display = "flex";
                 document.getElementById('overlay').style.display = "flex";
 
