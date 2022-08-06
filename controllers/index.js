@@ -82,7 +82,7 @@ module.exports.GetMailerPage = (req, res) => {
 }
 
 module.exports.PostMailerPage = (req, res) => {
-    console.log(req.body)
+    console.log(req.body.body)
     const eventName = req.params.eventName
     User.find(
       {
@@ -92,6 +92,7 @@ module.exports.PostMailerPage = (req, res) => {
       console.log(users,"//////////////////////")
       for(i=0;i<users.length;i++) {
         mailer.sendCertificate(users[i].name, users[i].email, users[i].certificateLink, req.body.subject, req.body.body)
+        console.log(req.body);
       }
     })
     res.redirect("/");

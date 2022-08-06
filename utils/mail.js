@@ -59,15 +59,15 @@ var mailGenerator = new Mailgen({
     var text = `${body} || Hey ${name} Here's your certificate Link: ${certificateLink}`;
     let mailOptions = {
         from: {
-          name: `prince`,
+          name: `certificate.Hack2skill`,
           address: `certificate@update.hack2skill.com`,
         },
         // from: `hack2skill@no-reply.hack2skill.com`,
         to: email,
         replyTo: "support@hack2skill.com",
         subject: subject,
-        html: text,
-        text: text,
+        html:text,
+        text:text
       };
     sendEmailOne(mailOptions);
   }
