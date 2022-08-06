@@ -52,18 +52,27 @@
             lefts = lefts.split(',');
             let tops = '<%=img.variableData.tops%>';
             tops = tops.split(',');
+            let vars = '<%=img.variableData.variables%>';
+            vars = vars.split(",");
             let len = '<%=img.variableData.fonts.length%>';
             len = parseInt(len);
             for (let i = 0; i < len; i++) {
-                console.log(fonts[i]);
                 ctx.font = fonts[i];
                 let color = "rgb" + "(" + colors[i].replace('(', "").replace(')', "") + ")";
                 console.log(color);
                 ctx.fillStyle = color;
-                ctx.textAlign = aligns[i];
-                ctx.fillText("<%=user.name%>", lefts[i], tops[i]);
+                 let left = lefts[i];
+                if(vars[i]==="name"){
+                    ctx.fillText(`<%=user.name%>`, left, tops[i]);
+                }else if(vars[i]==="certificateId"){
+                    ctx.fillText(`<%=user.certificateId%>`, left, tops[i]);
+                }else if(vars[i]==="dateOfIssue"){
+                    let date =`<%=user.dateOfIssue%>`;
+                    ctx.fillText(date.slice(0, 15), left, tops[i]);
+                }
             }
     };
+    
     var cd = document.getElementById('myCan');
     // link.setAttribute('href', );
     // $('meta[property=og\\:image]').attr('content', cd.toDataURL("image/png").replace("image/png",
@@ -91,7 +100,7 @@
 <script>
     function getCanvas() {
         console.log("Function Called");
-        html2canvas($('#preview'), { logging: true, letterRendering: 1, allowTaint: false, useCors: true,
+        html2canvas($('#preview'), { logging: true, letterRendering: 1, allowTaint: true, useCors: true,
             onrendered: function (canvas) {
                 var a = document.createElement('a');
                 var canvasImg = canvas.toDataURL("image/jpg");

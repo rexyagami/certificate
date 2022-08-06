@@ -19,10 +19,16 @@
                 <% if(uploadImage === true){%>
                     <div class="list__dropdown">
                         <div class="variable__list">
-                           <button class="createVariable" id="createVariable"onclick="createVariable('name')" disabled>Create Name Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
-                           <button class="createVariable" id="createVariable"onclick="createVariable('id')">Create Certificate Id Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
-                           <button class="createVariable" id="createVariable"onclick="createVariable('date')">Create Date of Issue Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
-                       </div>
+                           <button class="createVariable" id="createVariable"onclick="createVariable(this,'name')" disabled>Create Name Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
+                           <button style="display: none;" class="createVariable" id="createVariable" onclick="removeVariable(this,'name')">Remove Name Variable &nbsp; <i class="fa-solid fa-circle-minus"></i></button>
+                           
+                           <button class="createVariable" id="createVariable"onclick="createVariable(this,'id')">Create Id Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
+                           <button style="display: none;" class="createVariable" id="createVariable" onclick="removeVariable(this,'certificateId')">Remove Id Variable &nbsp; <i class="fa-solid fa-circle-minus"></i></button>
+
+                           <button class="createVariable" id="createVariable"onclick="createVariable(this,'date')">Create Date Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
+                           <button style="display: none;" class="createVariable" id="createVariable" onclick="removeVariable(this,'dateOfIssue')">Remove Date Variable &nbsp; <i class="fa-solid fa-circle-minus"></i></button>
+
+                        </div>
                        <!-- Hidden Input to store variable id -->
                        <input id="currentVariable" value="" type="text" class="d-none"/>
                        <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
@@ -129,10 +135,14 @@
             const current_id = document.getElementById('currentVariable').value;
             document.getElementById(current_id).style.fontFamily = e.value;
         }
-        const createVariable =(s)=>{
+        const removeVariable = (e, s)=>{
+            document.getElementById(s).remove();
+           e.style.display="none"
+           e.previousElementSibling.style.display="block";
+        }
+        const createVariable =(e, s)=>{
             // Creating input field
             let variable = document.createElement('input');
-            variable.id = document.getElementById('gallery').children.length;
             variable.classList.add('variable');
             variable.style.fontFamily = document.getElementById('font').value;
             variable.style.fontSize= document.getElementById('size').value+ "px";
@@ -141,10 +151,20 @@
             variable.maxLength=20;
             if(s === 'name'){
                 variable.value = 'name';
+                e.style.display="none";
+                e.nextElementSibling.style.display="block";
+                variable.id="name";
+                
             }else if(s=== 'id'){
                 variable.value = 'certificateId'
+                variable.id='certificateId';
+                e.style.display="none";
+                e.nextElementSibling.style.display="block";
             }else{
                 variable.value = 'dateOfIssue'
+                variable.id='dateOfIssue'
+                e.style.display="none";
+                e.nextElementSibling.style.display="block";
             }
             variable.readOnly = true;
 
@@ -200,10 +220,12 @@
             let len =document.getElementById('gallery').children.length;
             let gallery__top =document.getElementById('gallery').getBoundingClientRect().top;
             let gallery__left =document.getElementById('gallery').getBoundingClientRect().left;
-
+            let vars =["name", "certificateId","dateOfIssue"]
             for(let i=1;i<len;i++){
-                const inputVariable = document.getElementById(i);
-                variables.push(inputVariable.value);
+                const inputVariable = document.getElementById(vars[i-1]);
+                console.log(inputVariable);
+                if(inputVariable){
+                    variables.push(inputVariable.value);
                 variable__fonts.push(inputVariable.style.fontFamily);
                 variable__colors.push((inputVariable.style.color).slice(3));
                 variable__sizes.push(inputVariable.style.fontSize);
@@ -216,6 +238,7 @@
                     variable__lefts.push((inputVariable.getBoundingClientRect().left + inputVariable.clientWidth ) -gallery__left);  
                 }else if(inputVariable.style.textAlign === 'center'){
                     variable__lefts.push((inputVariable.getBoundingClientRect().left + (inputVariable.clientWidth/2)) -gallery__left);  
+                }
                 }
             }
             let eventName = document.getElementById('eventName').value;
