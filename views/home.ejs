@@ -35,7 +35,7 @@
                              create Certificate button and get started now</p>
                     </div>
                 <%} else{%>
-                    <% for(i =0; i<img.length; i++){%>
+                    <% for(i =img.length-1; i>=0; i--){%>
                         <div class="certificate__display" onclick="openModal('<%=img[i].eventName%>','<%=img[i].image%>','<%=img[i].timestamp%>')">
                             <img src="<%=img[i].image%>" class="cert__Image"/>
                             <div class="event__Display">
