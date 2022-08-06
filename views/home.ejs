@@ -14,7 +14,7 @@
             <header>
                 <img src="/logo.png" width="100"/>
                 <div class="header__list">
-                    <div class="header__list__item"><i class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp; Logout</div>
+                    <div class="header__list__item" onclick="logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp; Logout</div>
 
                 </div>
             </header>
@@ -77,6 +77,17 @@
                 document.getElementById('overlay').style.display = "none";
 
             }
+            const logout =() =>{
+                $.get('/auth/logout').then((res)=>{
+                        console.log(res); 
+                    if(res== 'done'){
+                        window.location.reload();
+                    }
+                })
+
+            }
+
+            // /api/change-role  (post) (req.body)
         </script>
     </body>
 </html>
