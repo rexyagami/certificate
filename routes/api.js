@@ -2,6 +2,16 @@ const express = require("express");
 const router = express.Router();
 
 const User = require("../models/user");
+const apiController = require("../controllers/api");
+
+function isSuperAdmin(req, res, next) {
+  if (
+      req.user &&
+      req.user.role == "superAdmin"
+  )
+      return next();
+  res.render("404");
+}
 
 // Create Admin
 router.get("/show-certificates/:email", (req, res) => {
@@ -28,4 +38,6 @@ router.get("/show-certificates/:email", (req, res) => {
     // .then(u=>res.send(u));
   });
   
+router.post("/change-role", isSuperAdmin, apiController.ChangeInnovatorRole);
+
 module.exports = router;
