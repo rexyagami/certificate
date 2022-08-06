@@ -73,7 +73,6 @@ module.exports.PostLoginPage = (req, res) => {
                         if (err) throw err;
                         // || req.body.password === 'IncubateInd@2020#'
                         if (isMatch) {
-                            console.log(eVinfo);
                             req.login(user, function (err) {
                                 if (err) throw err;
                                 req.session.cookie.maxAge = 10 * 24 * 60 * 60 * 1000;
@@ -86,6 +85,11 @@ module.exports.PostLoginPage = (req, res) => {
                                         res.redirect("/");
                                     }
                                 }
+                            });
+                        } else {
+                            res.render("auth/login", {
+                                err: true,
+                                homepage: true,
                             });
                         }
                     }

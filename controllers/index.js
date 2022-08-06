@@ -5,10 +5,10 @@ const mailer = require("../utils/mail");
 
 module.exports.GetHomePage = (req, res) => {
   if(req.user) {
-    email = req.user.email;
+    const createdBy = req.user._id;
     Image.find(
         {
-            email: email
+            createdBy: createdBy
         },{
           variableData: 0, _id: 0
         }
