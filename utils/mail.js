@@ -25,37 +25,6 @@ var mailGenerator = new Mailgen({
   }
 
   function sendCertificate(name, email, certificateLink, subject, body) {
-    // Prepare email contents
-    // var eEmail = {
-    //   body: {
-    //     greeting: "Dear",
-    //     name: name,
-    //     intro: [
-    //       `Thank you for registering for ${hackName}.`,
-    //       `For participant’s assistance, we strongly suggest you join our discord community as it will be our primary mode of communication.`,
-    //       `All the updates, next steps to follow, and communication regarding the challenge will be done on our discord community and through emails.`,
-    //       `Join us on Discord: https://discord.gg/KMKtbxBJpW`,
-    //     ],
-    //     action: [
-    //       {
-    //         instructions: "To join our community:",
-    //         button: {
-    //           text: "Click Here",
-    //           link: "https://discord.gg/KMKtbxBJpW",
-    //         },
-    //       },
-    //     ],
-    //     outro:
-    //       "If you have any queries, you can reach out to us at support@hack2skill.com.",
-    //     signature: "Regards",
-    //   },
-    // };
-  
-    // Generate an HTML email with the provided contents
-    // var emailBody = mailGenerator.generate(eEmail);
-  
-    // // Generate the plaintext version of the e-mail (for clients that do not support HTML)
-    // var emailText = mailGenerator.generatePlaintext(eEmail);
     var text = `${body} || Hey ${name} Here's your certificate Link: ${certificateLink}`;
     let mailOptions = {
         from: {
@@ -72,7 +41,55 @@ var mailGenerator = new Mailgen({
     sendEmailOne(mailOptions);
   }
 
+  function requestAccess(name, email, innovatorName, innovatorEmail) {
+    //Prepare email contents
+    var eEmail = {
+      body: {
+        greeting: "Dear",
+        name: name,
+        intro: [
+          `Someone has requested access. Details:`,
+          `Name: ${innovatorName} `,
+          `Email: ${innovatorEmail}`,
+        ],
+        action: [
+          {
+            instructions: "To join our community:",
+            button: {
+              text: "Click Here",
+              link: "https://discord.gg/KMKtbxBJpW",
+            },
+          },
+        ],
+        outro:
+          "If you have any queries, you can reach out to us at support@hack2skill.com.",
+        signature: "Regards",
+      },
+    };
+  
+    //Generate an HTML email with the provided contents
+    var emailBody = mailGenerator.generate(eEmail);
+  
+    // Generate the plaintext version of the e-mail (for clients that do not support HTML)
+    var emailText = mailGenerator.generatePlaintext(eEmail);
+    // var text = `${body} || Hey ${name} Here's your certificate Link: ${certificateLink}`;
+    let mailOptions = {
+        from: {
+          name: `certificate.Hack2skill`,
+          address: `certificate@update.hack2skill.com`,
+        },
+        // from: `hack2skill@no-reply.hack2skill.com`,
+        to: email,
+        replyTo: "support@hack2skill.com",
+        subject: `Certificate Generation Request Access`,
+        html:emailBody,
+        text:emailText
+      };
+    sendEmailOne(mailOptions);
+  }
+
   module.exports = {
     sendCertificate: sendCertificate,
+    requestAccess: requestAccess
   }
   

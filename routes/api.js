@@ -40,4 +40,6 @@ router.get("/show-certificates/:email", (req, res) => {
   
 router.post("/change-role", isSuperAdmin, apiController.ChangeInnovatorRole);
 
+router.post("/request-access", apiController.RequestAccess);
+
 module.exports = router;

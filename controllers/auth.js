@@ -24,7 +24,7 @@ module.exports.PostSignUpPage = (req, res) => {
             } else {
                 var newUser = new Innovator({
                     email: req.body.email.toLocaleLowerCase(),
-                    //username: username,
+                    name: req.body.name,
                     password: req.body.password,
                     role: "innovator",
                 });

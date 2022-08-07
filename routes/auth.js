@@ -3,13 +3,22 @@ const router = express.Router();
 // const uploads = require("../config/s3");
 const authController = require("../controllers/auth")
 
-router.get("/signup", authController.GetSignUpPage);
+function isLoggedIn(req, res, next) {
+    if (
+        req.user
+    )
+        
+        res.redirect("/");
+    else return next();
+  }
 
-router.post("/signup", authController.PostSignUpPage);
+router.get("/signup", isLoggedIn, authController.GetSignUpPage);
 
-router.get("/login", authController.GetLoginPage);
+router.post("/signup", isLoggedIn, authController.PostSignUpPage);
 
-router.post("/login", authController.PostLoginPage);
+router.get("/login", isLoggedIn, authController.GetLoginPage);
+
+router.post("/login", isLoggedIn, authController.PostLoginPage);
 
 router.get("/logout", authController.Logout);
 

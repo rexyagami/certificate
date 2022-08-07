@@ -11,12 +11,12 @@
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>    </head>
     <body>
         
-        <% if(users[0].role === "innovator"){%>
+        <% if(user.role === "innovator"){%>
             <div class="overlay" id="overlay" style="display: flex;"></div>
             <div class="modal" id="modal" style="display: flex; justify-content: center; gap: 10px;">
                 <div><h3>Acess to Genrate Certificates</h3></div>
                 <p style="    text-align: center;">Oops! it seems you do not have acess to genrate certificates, request access now to start.</p>   
-                <div><button class="genCertificates">Request Access</button></div>
+                <div><button class="genCertificates" onclick="request(`<%= user.email%>`,`<%= user.name%>`)">Request Access</button></div>
             </div>
         <%}%>
         <div class="container" style="display: flex; flex-direction:column; justify-content: start; " >
@@ -94,7 +94,17 @@
 
             }
             const logout =() =>{
-                $.get('/auth/logout').then((res)=>{
+                $.get('/auth/logout').then((res) => {
+                    if(res== 'done'){
+                        location.reload();
+                    }
+                })
+            }
+            const request = (email, name) => {
+                $.post("/api/request-access",{
+                    email: email,
+                    name: name
+                }).then((res) => {
                     if(res== 'done'){
                         location.reload();
                     }
