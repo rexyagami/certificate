@@ -107,12 +107,17 @@ module.exports.PostLoginPage = (req, res) => {
 module.exports.Logout = (req, res) => {
   if (req.user) {
     console.log("Success logout", req.user);
-    req.logOut();
+    req.logOut((err) => {
+        if (err) {
+            console.log(err);
+            res.send("error")
+        }
+    })
     req.session.destroy(function (err) {
-      res.redirect("/"); //Inside a callback… bulletproof!
+        res.send("done") //Inside a callback… bulletproof!
     });
   } else {
-    res.redirect("/");
+    res.send("done")
   }
 };
 

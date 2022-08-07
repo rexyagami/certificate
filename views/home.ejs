@@ -86,12 +86,10 @@
             }
             const logout =() =>{
                 $.get('/auth/logout').then((res)=>{
-                        console.log(res); 
                     if(res== 'done'){
-                        window.location.reload();
+                        location.reload();
                     }
                 })
-
             }
 
             // /api/change-role  (post) (req.body)

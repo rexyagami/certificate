@@ -5,7 +5,7 @@ const indexController = require("../controllers/index")
 
 function isAuthenticated(req, res, next) {
     if (req.user) return next();
-    res.render("404");
+    res.redirect("/");
   }
   
 

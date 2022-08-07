@@ -40,9 +40,9 @@
                             <td><%= users[i].createdAt%></td>
                             <td class="column6">
                                 <%if(users[i].role==="innovator"){%>
-                                    <button class="users__button__promote">Promote</button>
+                                    <button class="users__button__promote" onclick="changeRole(`<%= users[i].email%>`,`admin`)">Promote</button>
                                 <%} else{%>
-                                <button class="users__button__demote">Demote</button>
+                                <button class="users__button__demote" onclick="changeRole(`<%= users[i].email%>`,`innovator`)">Demote</button>
                                 <%}%>
                             </td>
                         </tr>
@@ -50,5 +50,15 @@
                 </tbody>
                 </table>
         </div>
+        <script>
+            const changeRole = (email, role) => {
+                $.post("/api/change-role", {
+                    "email": email,
+                    "role": role
+                }).then((res) => {
+                    if(res==="done") location.reload();
+                })
+            }
+        </script>
     </body>
 </html>

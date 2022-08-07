@@ -4,7 +4,8 @@ module.exports.ChangeInnovatorRole = (req, res) => {
     Innovator.updateOne(
         {
             "email": req.body.email
-        },{
+        },
+        {
             $set: {
                 "role": req.body.role
             }

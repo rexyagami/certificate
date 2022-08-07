@@ -10,7 +10,7 @@ function isSuperAdmin(req, res, next) {
       req.user.role == "superAdmin"
   )
       return next();
-  res.render("404");
+    res.redirect("/");
 }
 
 // Create Admin

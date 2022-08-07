@@ -1,6 +1,7 @@
 const csv = require("csvtojson");
 const User = require("../models/user");
 const Image = require("../models/image");
+const Innovator = require("../models/innovator")
 const mailer = require("../utils/mail");
 
 module.exports.GetHomePage = (req, res) => {
@@ -74,7 +75,22 @@ module.exports.UploadCSV = (req, res) => {
         }
         // res.redirect("/");res.redirect("back");
       });
-      res.redirect(`/mailer/${eventName}`);
+      Innovator.findOneAndUpdate(
+        {
+          "_id": req.user._id
+        },
+        {
+          $push: {
+            "eventName": eventName 
+          }
+        }
+      ).then((doc) => {
+        console.log(doc)
+        res.redirect(`/mailer/${eventName}`);
+      }).catch((err) => {
+        console.log(err);
+        res.redirect(`/mailer/${eventName}`);
+      })
   }
 
 module.exports.GetMailerPage = (req, res) => {

@@ -5,26 +5,29 @@ const Image = require("../models/image");
 const mailer = require("../utils/mail");
 
 module.exports.GetAdminPage = (req, res) => {
-    Image.find({},{
-        variableData: 0, _id: 0
-      }).then((img) => {
-        // console.log(img)
-        // res.render("admin/admin", {
-        //     img: img
-        // }); 
-        Innovator.find(
-            {},{
-                 password: 0,
-            }
-        ).then((users) => {
-            console.log(users)
-            res.render("admin/admin", {
-                users: users,
-                img:img
+    if(req.user) {
+        Image.find({},{
+            variableData: 0, _id: 0
+        }).then((img) => {
+            // console.log(img)
+            // res.render("admin/admin", {
+            //     img: img
+            // }); 
+            Innovator.find(
+                {},{
+                    password: 0,
+                }
+            ).then((users) => {
+                console.log(users)
+                res.render("admin/admin", {
+                    users: users,
+                    img:img
+                })
             })
-        })
-
-    }) 
+        }) 
+    } else {
+        res.redirect("/")
+    }
 }
 module.exports.GetUsersPage = (req, res) => {
     Innovator.find(
