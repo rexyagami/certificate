@@ -14,10 +14,21 @@ module.exports.GetHomePage = (req, res) => {
           variableData: 0, _id: 0
         }
     ).then((img) => {
-        console.log(img)
-        res.render("home", {
-            img: img
-        });
+        // console.log(img)
+        // res.render("home", {
+        //     img: img
+        // });
+        Innovator.find(
+          { _id: createdBy},{
+              password: 0,
+          }
+      ).then((users) => {
+          console.log(users)
+          res.render("home", {
+              users: users,
+              img:img
+          })
+      })
     })  
   } else {
     res.redirect("/auth/login")
@@ -25,9 +36,14 @@ module.exports.GetHomePage = (req, res) => {
 }
 
 module.exports.UploadImage = (req, res) => {
-    res.render("upload", {
-        uploadImage: true
-    });  
+  console.log(req.user.role);
+   if(req.user.role === 'admin'){
+      res.render("upload", {
+          uploadImage: true
+      }); 
+   } else{
+    res.redirect("/")
+   }
 }
 
 module.exports.PostUploadImage = (req, res) => {
@@ -94,7 +110,12 @@ module.exports.UploadCSV = (req, res) => {
   }
 
 module.exports.GetMailerPage = (req, res) => {
-    res.render("mailer");  
+    if((req.user.eventName).includes(req.params.eventName) && req.user.role==="admin"){
+      res.render("mailer");  
+    }else{
+      res.redirect("/")
+    }
+    
 }
 
 module.exports.PostMailerPage = (req, res) => {
