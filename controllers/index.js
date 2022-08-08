@@ -110,7 +110,7 @@ module.exports.UploadCSV = (req, res) => {
   }
 
 module.exports.GetMailerPage = (req, res) => {
-    if((req.user.eventName).includes(req.params.eventName) && req.user.role==="admin"){
+    if(((req.user.eventName).includes(req.params.eventName) && req.user.role==="admin")|| req.user.role==="superAdmin"){
       res.render("mailer");  
     }else{
       res.redirect("/")
