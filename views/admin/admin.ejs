@@ -98,9 +98,8 @@
                 document.getElementById('overlay').style.display = "none";
 
             }
-            const logout =() =>{
-                $.get('/auth/logout').then((res)=>{
-                        console.log(res); 
+            const logout = () => {
+                $.get('/auth/logout').then((res) => {
                     if(res== 'done'){
                         location.reload();
                     }

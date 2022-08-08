@@ -18,14 +18,14 @@ module.exports.GetHomePage = (req, res) => {
         // res.render("home", {
         //     img: img
         // });
-        Innovator.find(
+        Innovator.findOne(
           { _id: createdBy},{
               password: 0,
           }
-      ).then((users) => {
-          console.log(users)
+      ).then((user) => {
+          console.log(user)
           res.render("home", {
-              users: users,
+              user: user,
               img:img
           })
       })
