@@ -37,7 +37,7 @@ module.exports.GetHomePage = (req, res) => {
 
 module.exports.UploadImage = (req, res) => {
   console.log(req.user.role);
-   if(req.user.role === 'admin'){
+   if(req.user.role === 'admin' || req.user.role === 'superAdmin' ){
       res.render("upload", {
           uploadImage: true
       }); 
