@@ -40,7 +40,12 @@
                             <td><%= users[i].createdAt%></td>
                             <td class="column6">
                                 <%if(users[i].role==="innovator"){%>
+                                    <% if(users[i].requestAccess === false){%>
                                     <button class="users__button__promote" onclick="changeRole(`<%= users[i].email%>`,`admin`)">Promote</button>
+                                    <%}else{%>
+                                        <button class="users__button__promote" onclick="changeRole(`<%= users[i].email%>`,`admin`)">Grant Access</button>
+                                    <%}%>
+
                                 <%} else{%>
                                 <button class="users__button__demote" onclick="changeRole(`<%= users[i].email%>`,`innovator`)">Demote</button>
                                 <%}%>
