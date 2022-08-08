@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mail</title>
+    <link rel="stylesheet" href="/styles.css"/>
+    <!-- Include stylesheet -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+</head>
+
+<body class="mailContainer">
+    <div class="image">
+        <img src="/mail.svg" class="image"/>
+    </div>
+    <div class="mailForm">
+        <div>
+            <h3>Send Certificates as Mail.</h3>
+            <p style="color: gray; font-size:smaller;">Add custom Subject and Body to the emails, that will be send to all winners.</p>
+            <br/>
+        </div>
+            <div>
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
+            </div>
+            <div style="margin-bottom: 10px;">
+                <!-- <textarea type="text" class="form-control" name="body" placeholder="Body" style="width: 100%; height:300px;"></textarea> -->
+                <!-- Create the editor container -->
+                <div id="editor"  name="body" style="height:200px;">
+                    <p>Dear Winners</p>
+                    <p>Please Find attached your <strong>Certificate</strong>.</p>
+                    <p><br></p>
+                </div>
+            </div>
+            <button onclick="submit()" class="genCertificates">Send Mails</button>
+    </div>
+
+
+    <!-- Include the Quill library -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+    <!-- Initialize Quill editor -->
+    <script>
+    var quill = new Quill('#editor', {
+        theme: 'snow'
+    });
+    const submit= ()=>{
+        $.post(window.location.href,{
+            subject: document.getElementById("subject").value,
+            body: document.getElementById("editor").firstChild.innerHTML,
+        }).then((res)=>{
+            window.location.href='/';
+        })
+    }
+    </script>
+</body>
+</html>

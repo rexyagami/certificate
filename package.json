@@ -1,0 +1,36 @@
+{
+  "name": "certificate",
+  "version": "1.0.0",
+  "description": "Provided with a template image and a CSV containing participants details it will create certificates for each individual and mail them.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon bin/www",
+    "start": "node bin/www"
+  },
+  "author": "hack2skill",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.958.0",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "connect-mongodb-session": "^3.1.1",
+    "cookie-parser": "^1.4.6",
+    "csv-to-json": "^0.1.2",
+    "csvtojson": "^2.0.10",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "mailgen": "^2.0.27",
+    "mongoose": "^6.5.0",
+    "multer": "^1.4.5-lts.1",
+    "multer-s3": "^2.9.0",
+    "nodemailer": "^6.7.7",
+    "nodemon": "^2.0.19",
+    "passport": "^0.5.3",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7"
+  }
+}

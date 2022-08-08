@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title> Home | Certificate Automation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/styles.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>    </head>
+    <body>
+        
+        <% if(user.role === "innovator"){%>
+            <div class="overlay" id="overlay" style="display: flex;"></div>
+            <div class="modal" id="modal" style="display: flex; justify-content: center; gap: 10px;">
+                <div><h3>Acess to Genrate Certificates</h3></div>
+                <% if(user.requestAccess === false){%>
+                    <p style="text-align: center;">Oops! it seems you do not have acess to genrate certificates, request access now to start.</p>   
+                    <div><button class="genCertificates" onclick="request(`<%=user.email%>`, `<%=user.name%>`)">Request Access</button></div>
+                <%} else{%>
+                    <p style="text-align: center;">Access Request please be patient, till the request is granted.</p>   
+                    <div><button class="genCertificates">Access Requested</button></div>
+                <%}%>
+            </div>
+        <%}%>
+        <div class="container" style="display: flex; flex-direction:column; justify-content: start; " >
+            <header>
+                <img src="/logo.png" width="100"/>
+                <div class="header__list">
+                    <% if(user.role =="superAdmin"){%>
+                        <div class="header__list__item">
+                            <a href="/admin"><i class="fa-solid fa-screwdriver-wrench"></i> &nbsp; Admin</a>
+                        </div>
+                    <%}%>
+                    <div class="header__list__item" onclick="logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp; Logout</div>
+
+                </div>
+            </header>
+            <div class="addCertificate">
+                
+                <button><a href="/create">+</a></button>
+                <p class="my-3"><a href="/create">Create New Certificate</a></p>
+                <br/>
+                <hr style="width: 500px;"/>
+                
+            </div>
+            <br/>
+            <div class="displayCertificates">
+                <% if(img.length===0){%>
+                    <div class="no__certificates">
+                        <div class="no__certificates__icon"><i class="fa-solid fa-store-slash"></i></div>
+                        <p>Oops! no certificates found, click on the
+                             create Certificate button and get started now</p>
+                    </div>
+                <%} else{%>
+                    <% for(i =img.length-1; i>=0; i--){%>
+                        <div class="certificate__display" onclick="openModal('<%=img[i].eventName%>','<%=img[i].image%>','<%=img[i].timestamp%>')">
+                            <img src="<%=img[i].image%>" class="cert__Image"/>
+                            <div class="event__Display">
+                                <%=img[i].eventName%>
+                            </div>
+                        </div>
+                    <%}%>
+                <%}%>
+            </div>
+            <div class="overlay" id="overlay" onclick="closeModal()"></div>
+            <div class="eventModal" id="modal">
+                <div class="eventModal__header">
+                    <div>Certificate Details</div>
+                    <div style="cursor: pointer;" onclick="closeModal()">X</div>
+                </div>
+                <div class="eventModal__Listing">
+                    <div class="eventModal__titles">Event Name: </div>
+                    <div id="eventName"></div>
+                </div>
+                <div class="eventModal__Listing">
+                    <div class="eventModal__titles">Created On: </div>
+                    <div id="certOn"></div>
+                </div>
+                <div class="eventModal__Listing">
+                    <div class="eventModal__titles">Image: </div>
+                    <div><a id="certImage" href="">Link</a></div>
+                </div>
+                
+            </div>
+
+        </div>
+        <script>
+            const openModal= (e, img, date)=>{
+                console.log(e)
+                console.log(img)
+                console.log(date)
+                document.getElementById('eventName').innerHTML=e;
+                document.getElementById('certOn').innerHTML=date.slice(0,15);
+                document.getElementById('certImage').href =img;
+                document.getElementById('modal').style.display = "flex";
+                document.getElementById('overlay').style.display = "flex";
+
+            }
+            const closeModal= ()=>{
+                document.getElementById('modal').style.display = "none";
+                document.getElementById('overlay').style.display = "none";
+
+            }
+            const logout =() =>{
+                $.get('/auth/logout').then((res) => {
+                    if(res== 'done'){
+                        location.reload();
+                    }
+                })
+            }
+            const request = (email, name) => {
+                $.post("/api/request-access",{
+                    email: email,
+                    name: name
+                }).then((res) => {
+                    if(res== 'done'){
+                        location.reload();
+                    }
+                })
+            }
+
+            // /api/change-role  (post) (req.body)
+        </script>
+    </body>
+</html>

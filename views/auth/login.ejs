@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/styles.css">
+    </head>
+    <body style="display: flex;">
+        <div class="img__side">
+            <div class="auth__img">
+                <img src="/login.svg" width="500"/>
+            </div>
+            <div>
+               <h1>Certificate.Hack2skill</h1> 
+            </div>
+            <div>
+                Automate Certificate Genration with Hack2Skill
+            </div>
+        </div>
+        <div class="form__side">
+            <div class="logo__conatiner">
+                <img src="/logo.png" width="120"/>
+            </div>
+            <div>
+                <h2>Welcome to Certificate.Hack2Skill</h2>
+            </div>
+            <div class="form__container">
+                <form style="width: 70%;" method="POST">
+                    <div>
+                        <div><label>Email:</label></div>
+                        <input name="email" type="email" placeholder="john.doe@abc.xyz" required/>
+                    </div>
+                    <div>
+                        <div><label>Password:</label></div>
+                        <input name="password" type="password" placeholder="*********" required/>
+                    </div>
+                    <p>Do not have an account? <a href="/auth/signup">Sign up</a></p>
+                    <div>
+                        <button type="submit"> Login </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

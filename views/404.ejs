@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>404 Error | Hack2skill</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/new/favicon.jpg" type="image/x-icon">
+
+  <!-- Core css -->
+  <!-- All css files are included here. -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/vendor/iconfont.min.css">
+  <link rel="stylesheet" href="assets/css/vendor/helper.css">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+  <!-- <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: white;
+      overflow-X: hidden;
+    }
+
+
+    header {
+      background-color: white;
+    }
+
+    a,
+    a:hover {
+      color: white;
+      text-decoration: none;
+    }
+
+    h1 {
+      font-size: 3rem;
+    }
+
+    .btn {
+      background-color: #27447E;
+      border-radius: 20px;
+      border-color: #27447E;
+    }
+
+    #logo {
+      width: 10%;
+    }
+
+    #graphic {
+      width: 60%;
+    }
+
+    #textgraphic {
+      width: 45%;
+    }
+
+    @media (min-width: 990px) {
+
+      h1 {
+        font-size: 4rem;
+      }
+
+      #logo {
+        width: 7%;
+      }
+
+      #graphic {
+        width: 80%;
+      }
+
+      #textgraphic {
+        width: 55%;
+      }
+    }
+
+    body {
+      background-color: #2F3242;
+    }
+
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -250px;
+      margin-left: -400px;
+    }
+
+    .message-box {
+      height: 200px;
+      width: 380px;
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      margin-top: -100px;
+      margin-left: 50px;
+      color: #FFF;
+      font-family: Roboto;
+      font-weight: 300;
+    }
+
+    .message-box h1 {
+      font-size: 60px;
+      line-height: 46px;
+      margin-bottom: 40px;
+    }
+
+    .buttons-con .action-link-wrap {
+      margin-top: 40px;
+    }
+
+    .buttons-con .action-link-wrap a {
+      background: #68c950;
+      padding: 8px 25px;
+      border-radius: 4px;
+      color: #FFF;
+      font-weight: bold;
+      font-size: 14px;
+      transition: all 0.3s linear;
+      cursor: pointer;
+      text-decoration: none;
+      margin-right: 10px
+    }
+
+    .buttons-con .action-link-wrap a:hover {
+      background: #5A5C6C;
+      color: #fff;
+    }
+
+    #Polygon-1,
+    #Polygon-2,
+    #Polygon-3,
+    #Polygon-4,
+    #Polygon-4,
+    #Polygon-5 {
+      animation: float 1s infinite ease-in-out alternate;
+    }
+
+    #Polygon-2 {
+      animation-delay: .2s;
+    }
+
+    #Polygon-3 {
+      animation-delay: .4s;
+    }
+
+    #Polygon-4 {
+      animation-delay: .6s;
+    }
+
+    #Polygon-5 {
+      animation-delay: .8s;
+    }
+
+    @keyframes float {
+      100% {
+        transform: translateY(20px);
+      }
+    }
+
+    @media (max-width: 450px) {
+      svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -250px;
+        margin-left: -190px;
+      }
+
+      .message-box {
+        top: 30%;
+        left: 50%;
+        margin-top: -100px;
+        margin-left: -190px;
+        text-align: center;
+      }
+    }
+
+
+    .stack {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .stack span {
+      font-weight: bolder;
+      grid-row-start: 1;
+      grid-column-start: 1;
+      font-size: 10rem;
+      --stack-height: calc(100% / var(--stacks) - 1px);
+      --inverse-index: calc(calc(var(--stacks) - 1) - var(--index));
+      --clip-top: calc(var(--stack-height) * var(--index));
+      --clip-bottom: calc(var(--stack-height) * var(--inverse-index));
+      clip-path: inset(var(--clip-top) 0 var(--clip-bottom) 0);
+      animation: stack 340ms cubic-bezier(.46, .29, 0, 1.24) 1 backwards calc(var(--index) * 120ms), glitch 2s ease infinite 2s alternate-reverse;
+    }
+
+    .stack span:nth-child(odd) {
+      --glitch-translate: 20px;
+    }
+
+    .stack span:nth-child(even) {
+      --glitch-translate: -20px;
+    }
+
+    @keyframes stack {
+      0% {
+        opacity: 0;
+        transform: translateX(-50%);
+        text-shadow: -2px 3px 0 red, 2px -3px 0 blue;
+      }
+
+      ;
+
+      60% {
+        opacity: 0.5;
+        transform: translateX(50%);
+      }
+
+      80% {
+        transform: none;
+        opacity: 1;
+        text-shadow: 2px -3px 0 red, -2px 3px 0 blue;
+      }
+
+      100% {
+        text-shadow: none;
+      }
+    }
+
+    @keyframes glitch {
+      0% {
+        text-shadow: -2px 3px 0 red, 2px -3px 0 blue;
+        transform: translate(var(--glitch-translate));
+      }
+
+      2% {
+        text-shadow: 2px -3px 0 red, -2px 3px 0 blue;
+      }
+
+      4%,
+      100% {
+        text-shadow: none;
+        transform: none;
+      }
+    }
+
+    .pnf {
+      font-size: 3rem;
+    }
+  </style> -->
+
+  <!-- Google font Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      /* Location of the image */
+      background-image: url("/4042.png");
+
+      /* Background image is centered vertically and horizontally at all times */
+      background-position: top left;
+
+      /* Background image doesn't tile */
+      background-repeat: no-repeat;
+
+      /* Background image is fixed in the viewport so that it doesn't move when
+the content's height is greater than the image's height */
+      background-attachment: fixed;
+
+      /* This is what makes the background image rescale based
+on the container's size */
+      background-size: cover;
+
+      /* Set a background color that will be displayed
+while the background image is loading */
+      background-color: #464646;
+
+      /* font */
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+
+  <style>
+    /* Navbar Css */
+    nav {
+      background-color: white;
+      z-index: 2;
+    }
+
+    .container-fluid {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* text */
+    .text {
+      color: #C1A8C7;
+      padding: 1rem;
+    }
+
+    .heading {
+      font-size: 11rem;
+    }
+
+    .glow {
+      color: #C0BAE3;
+      filter: drop-shadow(0px 3px 12px);
+      font-weight: 900;
+      animation: neon 3s ease 1s infinite alternate forwards;
+    }
+
+
+    a,
+    a:hover {
+      color: #C0BAE3;
+      text-decoration: none;
+    }
+
+    p {
+      font-size: 1.5rem;
+      padding: 1rem;
+      color: #A07C9F;
+    }
+
+    .pnf {
+      font-size: xx-large;
+      font-weight: bold;
+    }
+
+
+    /* Animation */
+    @keyframes neon {
+      0% {
+        filter: drop-shadow(0px 3px 6px);
+      }
+
+      25% {
+        filter: drop-shadow(0px 0px 0px);
+      }
+
+      50% {
+        filter: drop-shadow(0px 3px 6px);
+      }
+
+      100% {
+        filter: drop-shadow(0px 4px 8px);
+      }
+
+    }
+
+    /* Button css */
+    .btn-primary {
+      border-radius: 20px;
+      background: linear-gradient(to bottom, #0F39A8 0%, #3C1458 100%);
+      border: none;
+      color: #C0BAE3;
+      padding: 1rem 1.1rem;
+      font-size: 1.5rem;
+      font: weight 600px;
+    }
+
+    .btn-primary:hover {
+      border-radius: 20px;
+      background: linear-gradient(to bottom, #0F39A8 0%, #3C1458 100%);
+      border: none;
+      color: #C0BAE3;
+      padding: 1rem 1.1rem;
+      font-size: 1.5rem;
+      font: weight 600px;
+    }
+  </style>
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+      });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-MRJCX96');
+  </script>
+  <!-- End Google Tag Manager -->
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRJCX96" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <div class="container-fluid">
+    <header class=" container-fluid">
+      <nav class="navbar navbar-expand-md navbar-light bg-white fixed-top shadow-sm">
+        <div class="m-2">
+          <a href="/">
+            <img src="/new/H2S-Gradient.png" alt="logo" width="100" />
+          </a>
+        </div>
+        <button class="navbar-toggler d-lg-none border-0" type="button" data-toggle="collapse"
+          data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/organizeHack">
+                Organize Hackathon
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/career">
+                We're Hiring
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class=" d-flex flex-column justify-content-center mt-5 pt-lg-5">
+      <div class=" col-lg-5 text p-lg-3 d-flex flex-column justify-content-center align-items-center">
+        <h1 class="glow heading">
+          404
+        </h1>
+        <h2 class="pnf">
+          Page Not Found
+        </h2>
+        <p class=" text-center col-lg-8">
+          Unfortunately, the page you were looking for does not exsists in this metaverse. Try returning back to the
+          home page
+        </p>
+        <h3 class="">
+          <a href="/">
+            <button class="btn btn-primary">
+              Return to Home
+            </button>
+          </a>
+        </h3>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

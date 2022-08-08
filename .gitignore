@@ -6,6 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
+.env
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
@@ -102,3 +103,13 @@ dist
 
 # TernJS port file
 .tern-port
+<<<<<<< HEAD
+=======
+
+# MacBook Temp File
+.DS_Store
+.vscode
+
+# ec2 server pull file
+serverpull.sh
+>>>>>>> f24253dc92e5a8b055f9147d0c36a4f3d85d46a5
