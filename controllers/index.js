@@ -47,14 +47,14 @@ module.exports.UploadImage = (req, res) => {
 }
 
 module.exports.PostUploadImage = (req, res) => {
-    console.log(req.user._id)
+    console.log(req.user._id, req.file)
     const variableDataObject = JSON.parse(req.body.variableData)
     if (!req.file) {
             res.status(400).send("nofile");
             console.log(req.file);
             return;
           }
-    var imagePath = req.file.location
+    var imagePath = `/upload/${req.file.filename}`
     Image.create({
         image: imagePath,
         variableData: variableDataObject,

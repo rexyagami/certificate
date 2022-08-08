@@ -14,7 +14,8 @@ router.get("/", indexController.GetHomePage);
 
 router.get("/create", isAuthenticated, indexController.UploadImage);
 
-router.post("/create", uploads.aws.single('file'), isAuthenticated, indexController.PostUploadImage);
+// router.post("/create", uploads.aws.single('file'), isAuthenticated, indexController.PostUploadImage);
+router.post("/create", uploads.localStorage.single('file'), isAuthenticated, indexController.PostUploadImage);
 
 // router.get("/upload-csv/:imagePath", (req, res) => {
 //   res.render("uploadCsv");  
