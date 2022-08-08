@@ -15,14 +15,20 @@
             <div class="overlay" id="overlay" style="display: flex;"></div>
             <div class="modal" id="modal" style="display: flex; justify-content: center; gap: 10px;">
                 <div><h3>Acess to Genrate Certificates</h3></div>
-                <p style="    text-align: center;">Oops! it seems you do not have acess to genrate certificates, request access now to start.</p>   
-                <div><button class="genCertificates" onclick="request(`<%= user.email%>`,`<%= user.name%>`)">Request Access</button></div>
+                <div><%=users[0]%></div>
+                <p style="text-align: center;">Oops! it seems you do not have acess to genrate certificates, request access now to start.</p>   
+                <div><button class="genCertificates">Request Access</button></div>
             </div>
         <%}%>
         <div class="container" style="display: flex; flex-direction:column; justify-content: start; " >
             <header>
                 <img src="/logo.png" width="100"/>
                 <div class="header__list">
+                    <% if(users[0].role =="superAdmin"){%>
+                        <div class="header__list__item">
+                            <a href="/admin"><i class="fa-solid fa-screwdriver-wrench"></i> &nbsp; Admin</a>
+                        </div>
+                    <%}%>
                     <div class="header__list__item" onclick="logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp; Logout</div>
 
                 </div>

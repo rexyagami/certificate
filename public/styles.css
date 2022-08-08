@@ -178,13 +178,12 @@ table th {
     padding: 0 5px;
 }
 
-.eventModal__Listing div {
-    width: 200px;
-    margin: 5px 0px;
-}
+.eventModal__Listing div {}
 
 .eventModal__Listing {
     display: flex;
+    margin-bottom: 10px;
+
 }
 
 .eventModal__header {
@@ -205,9 +204,10 @@ table th {
     justify-content: center;
     align-items: center;
     width: 500px !important;
-    height: 250px !important;
+    height: fit-content !important;
     border-radius: 10px !important;
     padding: 20px;
+    padding-top: 70px !important;
     flex-direction: column;
     z-index: 10;
 }
