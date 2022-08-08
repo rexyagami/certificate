@@ -28,6 +28,10 @@ var InnovatorSchema = mongoose.Schema({
     email: {
         type: String,
     },
+    requestAccess: {
+        type: Boolean,
+        default: false
+    },
     // userType: String,
     // secretKey: String,
     // username: String,

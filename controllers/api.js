@@ -34,8 +34,22 @@ module.exports.RequestAccess  = (req, res) => {
             // const link if we want to generate a link 
             mailer.requestAccess(docs[i].name, docs[i].email, req.body.name, req.body.email)
         }
-        res.send("done")
+        Innovator.findOneAndUpdate(
+            {
+                "email": req.body.email
+            },
+            {
+                $set: {
+                    "requestAccess": true
+                }
+            }
+        ).then((doc) => {
+            res.send("done")
         // res.redirect("/admin/users")
+        }).catch((err) => {
+            console.log(err)
+            res.redirect("/")
+        })
     }).catch((err) => {
         console.log(err)
         res.redirect("/")
