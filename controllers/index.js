@@ -121,16 +121,36 @@ module.exports.GetMailerPage = (req, res) => {
 module.exports.PostMailerPage = (req, res) => {
     console.log(req.body.body)
     const eventName = req.params.eventName
-    User.find(
+    Image.findOneAndUpdate(
       {
         "eventName": eventName
+      },
+      {
+        $set: {
+          "emailSubject": req.body.subject,
+          "emailBody": req.body.body
+        }
       }
-    ).then((users) => {
-      console.log(users,"//////////////////////")
-      for(i=0;i<users.length;i++) {
-        mailer.sendCertificate(users[i].name, users[i].email, users[i].certificateLink, req.body.subject, req.body.body)
-        console.log(req.body);
-      }
+    ).then((doc) => {
+      console.log(doc)
+      User.find(
+        {
+          "eventName": eventName
+        }
+      ).then((users) => {
+        console.log(users,"//////////////////////")
+        for(i=0;i<users.length;i++) {
+          mailer.sendCertificate(users[i].name, users[i].email, users[i].certificateLink, req.body.subject, req.body.body)
+          console.log(req.body);
+        }
+      }).catch((err) => {
+        console.log(err)
+        res.redirect("/");
+      })
+      res.redirect("/");
+    }).catch((err) => {
+        console.log(err)
+        res.redirect("/");
     })
-    res.redirect("/");
+    
 }
