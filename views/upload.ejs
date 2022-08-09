@@ -56,7 +56,17 @@
                    </div>
                 <%}%>
                 <div class="left__list__item">Step 2 - Upload CSV File <i class="fa-solid fa-angle-up"></i></div>
-            </div>
+                <% if(uploadImage=== false){%>
+                    <div class="list__dropdown">
+                        <div class="alert-info">
+                            Note:<br/>
+                            Here is the link to a smaple CSV Template <a href="https://docs.google.com/spreadsheets/d/1M_Lo20PAvNtsTjjWTkJa212lJZpFQ0jdW2AVf82r4WE/edit#gid=0"><strong>Link</strong></a>.<br/>
+                            Your csv file should follow the same CSV format.
+
+                        </div>
+                    </div>
+                <%}%>
+               </div>
            
         </div>
         

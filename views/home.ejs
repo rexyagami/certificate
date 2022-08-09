@@ -55,7 +55,7 @@
                     </div>
                 <%} else{%>
                     <% for(i =img.length-1; i>=0; i--){%>
-                        <div class="certificate__display" onclick="openModal('<%=img[i].eventName%>','<%=img[i].image%>','<%=img[i].timestamp%>')">
+                        <div class="certificate__display" onclick="openModal('<%=img[i].eventName%>','<%=img[i].image%>','<%=img[i].timestamp%>', '<%=img[i].emailSubject%>','<%=img[i].emailBody%> ')">
                             <img src="<%=img[i].image%>" class="cert__Image"/>
                             <div class="event__Display">
                                 <%=img[i].eventName%>
@@ -70,35 +70,53 @@
                     <div>Certificate Details</div>
                     <div style="cursor: pointer;" onclick="closeModal()">X</div>
                 </div>
-                <div class="eventModal__Listing">
-                    <div class="eventModal__titles">Event Name: </div>
-                    <div id="eventName"></div>
+                <div id="event_details">
+                    <div class="eventModal__Listing">
+                        <div class="eventModal__titles">Event Name: </div>
+                        <div id="eventName"></div>
+                    </div>
+                    <div class="eventModal__Listing">
+                        <div class="eventModal__titles">Created On: </div>
+                        <div id="certOn"></div>
+                    </div>
+                    <div class="eventModal__Listing">
+                        <div class="eventModal__titles">Image: </div>
+                        <div><a id="certImage" href="">Link</a></div>
+                    </div>
+                    <div class="eventModal__Listing">
+                        <div class="eventModal__titles">Email: </div>
+                        <div id="mail" class="mail__sub"></div>
+                    </div>
                 </div>
-                <div class="eventModal__Listing">
-                    <div class="eventModal__titles">Created On: </div>
-                    <div id="certOn"></div>
-                </div>
-                <div class="eventModal__Listing">
-                    <div class="eventModal__titles">Image: </div>
-                    <div><a id="certImage" href="">Link</a></div>
+                <div id="mailBodyContainer" style="display: none;">
+                    <div><strong>Email Body:</strong>  </div>
+                    <div id = "mailBody"></div>
                 </div>
                 
             </div>
 
         </div>
         <script>
-            const openModal= (e, img, date)=>{
+            const openModal= (e, img, date, sub, body)=>{
                 console.log(e)
                 console.log(img)
                 console.log(date)
                 document.getElementById('eventName').innerHTML=e;
                 document.getElementById('certOn').innerHTML=date.slice(0,15);
                 document.getElementById('certImage').href =img;
+                document.getElementById('mail').innerHTML= sub;
+                document.getElementById('mail').addEventListener('click', function(){
+                    document.getElementById('event_details').style.display="none";
+                    document.getElementById('mailBodyContainer').style.display="block";
+                    document.getElementById('mailBody').innerHTML= body;
+                })
                 document.getElementById('modal').style.display = "flex";
                 document.getElementById('overlay').style.display = "flex";
 
             }
             const closeModal= ()=>{
+                    document.getElementById('mailBodyContainer').style.display="none";
+                    document.getElementById('event_details').style.display="block";
                 document.getElementById('modal').style.display = "none";
                 document.getElementById('overlay').style.display = "none";
 
