@@ -14,7 +14,7 @@
         <% if(user.role === "innovator"){%>
             <div class="overlay" id="overlay" style="display: flex;"></div>
             <div class="modal" id="modal" style="display: flex; justify-content: center; gap: 10px;">
-                <div><h3>Acess to Genrate Certificates</h3></div>
+                <div><h3>Access to Genrate Certificates</h3></div>
                 <% if(user.requestAccess === false){%>
                     <p style="text-align: center;">Oops! it seems you do not have acess to genrate certificates, request access now to start.</p>   
                     <div><button class="genCertificates" onclick="request(`<%=user.email%>`, `<%=user.name%>`)">Request Access</button></div>
