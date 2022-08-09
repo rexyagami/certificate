@@ -536,7 +536,8 @@ p {
     border: 1px dashed;
     border-radius: 5px;
     margin-top: 5px;
-    width: 220px;
+    min-width: 220px;
+    font-size: small;
 }
 
 .form-control {
@@ -692,4 +693,36 @@ input[type='color'] {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.mail__note {
+    font-size: smaller;
+    background-color: #f3f4f4;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.mail__variable {
+    padding: 2px 10px;
+    font-weight: 600;
+    background-color: rgb(245, 207, 207);
+    width: fit-content;
+    border-radius: 5px;
+}
+
+.mail__var__container {
+    max-width: 325px;
+    background-color: #f6fafb;
+    border-radius: 5px;
+    padding: 10px;
+
+}
+
+.mail__sub {
+    cursor: pointer;
+
 }
