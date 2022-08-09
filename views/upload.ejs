@@ -35,7 +35,7 @@
                         <input name="eventName" id="eventName" placeholder="Event Name" class="form-control" required/>
                         </div>
                        <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
-                       <select id="font" style="width: 14rem;" class=" form-control" onclick="changeFont(this)">
+                       <select id="font" style="width: 14rem;" class=" form-control" onclick="changeFont(this)" onchange="changeFont(this)">
                            <option>Poppins</option>
                            <option>Roberto</option>
                            <option>Arial</option>
@@ -44,14 +44,14 @@
                        </select>
                        </div>
                        <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
-                           <select id="align" style="width: 14rem;" class="form-control" onclick="changeAlign(this)">
+                           <select id="align" style="width: 14rem;" class="form-control" onclick="changeAlign(this)" onchange="changeAlign(this)">
                                <option>Left</option>
                                <option>Right</option>
                                <option>Center</option>
                            </select>
                        </div>
-                       <div style="display: flex; align-items: center; margin-top:15px; gap:5px;"> <input class="form-control" type="number" id="size" value="11" onchange="changeSize(this)" style="width:70px;"/>
-                        &nbsp;&nbsp;&nbsp; <input type="color" id="color" onclick="changeColor(this)"/></div>
+                       <div style="display: flex; align-items: center; margin-top:15px; gap:5px;"> <input class="form-control" type="number" id="size" value="11" onchange="changeSize(this)"    onclick="changeSize(this)" style="width:70px;"/>
+                        &nbsp;&nbsp;&nbsp; <input type="color" id="color" onclick="changeColor(this)" onchange="changeColor(this)"/></div>
                        <button class="genCertificates" onclick="handleSubmit()">Upload Template</button>
                    </div>
                 <%}%>
@@ -72,7 +72,7 @@
                         
                         <label class="button" for="fileElem" style="display: flex; flex-direction:column; align-items: center;">
                             <div style="font-size:xx-large ; color:gray;"><i class="fa-solid fa-upload"></i></div>
-                            Darg or Click to Upload Certificate <strong>Image to get Started.</strong></label>
+                            Click to Upload Certificate <strong>Image to get Started.</strong></label>
                         
                 </div>
                 <%}%>
@@ -309,6 +309,7 @@
         function previewFile(file) {
         let reader = new FileReader()
         reader.readAsDataURL(file)
+        
         reader.onloadend = function() {
             let img = document.createElement('img')
             img.src = reader.result;
