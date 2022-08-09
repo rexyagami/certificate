@@ -140,7 +140,7 @@ module.exports.PostMailerPage = (req, res) => {
       ).then((users) => {
         console.log(users,"//////////////////////")
         for(i=0;i<users.length;i++) {
-          mailer.sendCertificate(users[i].name, users[i].email, users[i].certificateLink, req.body.subject, req.body.body)
+          mailer.sendCertificate(users[i].name, users[i].email, users[i].certificateLink, eventName, req.body.subject, req.body.body)
           console.log(req.body);
         }
       }).catch((err) => {
