@@ -75,7 +75,7 @@
                     ctx.fillText("<%=user.certificateId%>", lefts[i], top+5);
                 }else if(variables[i]==='dateOfIssue'){
                     let date = "<%=user.dateOfIssue%>";
-                    ctx.fillText( date.slice(0,15), lefts[i], top);
+                    ctx.fillText( date.slice(0,15), lefts[i], top + 5);
                 }
                 console.log("len:", ctx.canvas.clientWidth)
             }
