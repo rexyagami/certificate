@@ -67,7 +67,7 @@
                 let color = "rgb" + "(" + colors[i].replace('(', "").replace(')', "") + ")";
                 ctx.fillStyle = color;
                 ctx.textAlign = aligns[i];
-                let top =parseFloat(tops[i])+  parseInt(sizes[i].replace(/px/g,"")/2)+5;
+                let top =parseFloat(tops[i])+  parseInt(sizes[i].replace(/px/g,""));
                 console.log( parseInt(sizes[i].replace(/px/g,"")));
                 if(variables[i]==='name'){
                     ctx.fillText("<%=user.name%>", lefts[i], top);
