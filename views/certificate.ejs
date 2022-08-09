@@ -70,9 +70,9 @@
                 let top =parseFloat(tops[i])+  parseInt(sizes[i].replace(/px/g,""));
                 console.log( parseInt(sizes[i].replace(/px/g,"")));
                 if(variables[i]==='name'){
-                    ctx.fillText("<%=user.name%>", lefts[i], top);
+                    ctx.fillText("<%=user.name%>", lefts[i], top + 5);
                 }else if(variables[i]==='certificateId'){
-                    ctx.fillText("<%=user.certificateId%>", lefts[i], top);
+                    ctx.fillText("<%=user.certificateId%>", lefts[i], top+5);
                 }else if(variables[i]==='dateOfIssue'){
                     let date = "<%=user.dateOfIssue%>";
                     ctx.fillText( date.slice(0,15), lefts[i], top);
