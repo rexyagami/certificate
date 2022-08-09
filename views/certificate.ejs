@@ -37,9 +37,6 @@
         var img = document.createElement('img');
         img.crossOrigin = 'anonymous';
         img.src = '<%= img.image %>';
-        // img.src =
-        //     'https://s3-h2s-v2.s3.ap-south-1.amazonaws.com/2022-08-05T11%3A53%3A25.174Z-download%20%282%29.jpg';
-        img.crossOrigin = "anonymous";
         img.onload = function (e) {
             ctx.imageSmoothingEnabled = true;
             ctx.drawImage(img, 0, 0, 800, 600)
@@ -62,20 +59,20 @@
             len = parseInt(len);
             for (let i = 0; i < len; i++) {
                 let trail = document.getElementById('trial');
-                ctx.font = sizes[i]+" "+fonts[i].replace(/&#34;/g,"");
+                ctx.font = sizes[i] + " " + fonts[i].replace(/&#34;/g, "");
                 trail.style.fontFamily = fonts[i];
                 let color = "rgb" + "(" + colors[i].replace('(', "").replace(')', "") + ")";
                 ctx.fillStyle = color;
                 ctx.textAlign = aligns[i];
-                let top =parseFloat(tops[i])+  parseInt(sizes[i].replace(/px/g,"")/2)+5;
-                console.log( parseInt(sizes[i].replace(/px/g,"")));
-                if(variables[i]==='name'){
+                let top = parseFloat(tops[i]) + parseInt(sizes[i].replace(/px/g, "") / 2) + 5;
+                console.log(parseInt(sizes[i].replace(/px/g, "")));
+                if (variables[i] === 'name') {
                     ctx.fillText("<%=user.name%>", lefts[i], top);
-                }else if(variables[i]==='certificateId'){
+                } else if (variables[i] === 'certificateId') {
                     ctx.fillText("<%=user.certificateId%>", lefts[i], top);
-                }else if(variables[i]==='dateOfIssue'){
+                } else if (variables[i] === 'dateOfIssue') {
                     let date = "<%=user.dateOfIssue%>";
-                    ctx.fillText( date.slice(0,15), lefts[i], top);
+                    ctx.fillText(date.slice(0, 15), lefts[i], top);
                 }
                 console.log("len:", ctx.canvas.clientWidth)
             }
