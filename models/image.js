@@ -12,6 +12,14 @@ var ImageSchema = mongoose.Schema({
     ref: "Innovator"
   },
   variableData: {},
+  emailSubject: {
+    type: String,
+    default: '',
+  },
+  emailBody: {
+    type: String,
+    default: '',
+  },
   timestamp: {
     type: Date,
     default: Date.now()

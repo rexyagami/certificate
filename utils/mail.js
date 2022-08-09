@@ -24,8 +24,16 @@ var mailGenerator = new Mailgen({
     });
   }
 
-  function sendCertificate(name, email, certificateLink, subject, body) {
-    var text = `${body}`;
+  function sendCertificate(name, email, certificateLink, eventName, subject, body) {
+    var certbody ='';
+    var namebody = body.split("@name").join(name);
+    var eventbody = namebody.split("@eventName").join(eventName);
+    if(eventbody.includes("@certificateLink")) {
+      certbody = eventbody.split("@certificateLink").join(certificateLink);
+    } else {
+      certbody =`${eventbody} || Certificate Link: ${certificateLink}`;
+    }
+    var text = `${certbody}`;
     let mailOptions = {
         from: {
           name: `certificate.Hack2skill`,
