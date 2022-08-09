@@ -36,7 +36,8 @@ const storage = multer.diskStorage({
   },
 });
 
-module.exports.localStorage = multer({ storage: storage });
+const maxSize = 1 * 1024 * 1024; //1MB
+module.exports.localStorage = multer({ storage: storage,  limits: {fileSize: maxSize}});
 
 module.exports.aws = multer({
   storage: S3Config,
