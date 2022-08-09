@@ -25,7 +25,7 @@ var mailGenerator = new Mailgen({
   }
 
   function sendCertificate(name, email, certificateLink, subject, body) {
-    var text = `${body} || Hey ${name} Here's your certificate Link: ${certificateLink}`;
+    var text = `${body}`;
     let mailOptions = {
         from: {
           name: `certificate.Hack2skill`,
