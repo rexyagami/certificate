@@ -33,7 +33,21 @@ module.exports.GetAdminPage = async (req, res) => {
         res.redirect("/")
     }
 }
-module.exports.GetUsersPage = (req, res) => {
+module.exports.GetUsersPage = async (req, res) => {
+    const page = req.params.page || 1;
+    const limit = 10;
+    var count = await Innovator.find({
+        $or: 
+        [
+            {
+                "role" : "innovator" 
+            },
+            {
+                "role": "admin"
+            }
+        ]
+    }).count();
+    console.log(count)
     Innovator.find(
         {
             $or: 
@@ -49,10 +63,11 @@ module.exports.GetUsersPage = (req, res) => {
         },{
             _id: 0, password: 0,
         }
-    ).then((users) => {
+    ).sort({ "_id" : -1}).skip(limit*page).limit(10).then((users) => {
         console.log(users)
         res.render("admin/users", {
-            users: users
+            users: users,
+            count: count
         })
     })
     
