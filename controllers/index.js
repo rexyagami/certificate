@@ -54,7 +54,7 @@ module.exports.PostUploadImage = (req, res) => {
             console.log(req.file);
             return;
           }
-    var imagePath = `/upload/${req.file.filename}`
+    var imagePath = req.file.location
     Image.create({
         image: imagePath,
         variableData: variableDataObject,
