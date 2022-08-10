@@ -380,6 +380,10 @@ p {
     margin: 3px 0px;
 }
 
+.genCertificates:hover {
+    color: white !important;
+}
+
 .genCertificates {
     background-color: rgb(105, 105, 205);
     color: white;
@@ -387,6 +391,10 @@ p {
     border: 0;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.Congratulations {
+    display: none !important;
 }
 
 #overlay {
@@ -759,7 +767,6 @@ input[type='color'] {
     justify-content: center;
     align-items: center;
     gap: 10px;
-    max-width: 300px;
 }
 
 .cert__main__container {
@@ -767,7 +774,7 @@ input[type='color'] {
     flex-direction: column;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 769px) {
     .cert__main__container {
         display: flex;
         flex-direction: row;
@@ -778,6 +785,15 @@ input[type='color'] {
 
     .cert__display {
         margin-top: 10px;
+    }
+
+    .Congratulations {
+        display: flex !important;
+    }
+
+    .cert__share {
+
+        max-width: 300px;
     }
 }
 
