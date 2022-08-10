@@ -25,13 +25,9 @@
             <canvas class="mt-3 certificate canvas__display" id="myCan" width="800px" height="600px">
             </canvas>
         </div>
-        <img src="<%= img.image %>"  alt="Certificate" id="scream" hidden>
-        <div class="cert__share__conatiner">
-            <div class="cert__share">
-                <a id="link" onclick="getCanvas()" class="genCertificates" href="#" role="button">Download Certificate</a>
-                <div class="text-muted"> Now genrate and download certificates eaily with Hack2skill.</div>
-            </div>
-            <div class="cert__share">
+        <img src="<%=img.variableData.image%>"  alt="Certificate" id="scream" hidden>
+        <div class="cert__share__conatiner ">
+            <div class="cert__share Congratulations">
                 <lord-icon
                     src="https://cdn.lordicon.com/tqywkdcz.json"
                     trigger="loop"
@@ -40,7 +36,14 @@
                 <div class="text-muted"> Congratulations! You won a Certificate.</div>
             </div>
             <div class="cert__share">
-                <a class="genCertificates" href="https://discord.gg/ZAVqeC9j" role="button">Join Our Discord community</a>
+                <a id="link" onclick="getCanvas()" class="genCertificates" href="#" role="button">Download</a>
+                <div class="text-muted"> Now genrate and download certificates eaily with Hack2skill.</div>
+            </div>
+            <div class="cert__share">
+                <div>Join our discord community.</div>
+                <div style="background-color: gray; border-radius:50%; width:60px; height:60px; display: flex; justify-content: center; align-items: center;"><img src="https://img.icons8.com/ios-filled/50/ffffff/discord-logo.png"/></div>
+                <div class="text-muted" style="width: 100%; display:flex; justify-content: center; align-items: center;"><div style="width: 30%;"><hr/></div>&nbsp;Here &nbsp;<div style="width: 30%;"><hr/></div></div>
+                <a class="genCertificates" href="https://discord.gg/ZAVqeC9j" role="button">Join Now</a>
             </div>
         </div>
     </div>
