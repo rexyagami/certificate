@@ -20,7 +20,7 @@
                     <div><button class="genCertificates" onclick="request(`<%=user.email%>`, `<%=user.name%>`)">Request Access</button></div>
                 <%} else{%>
                     <p style="text-align: center;">Access Request please be patient, till the request is granted.</p>   
-                    <div><button class="genCertificates">Access Requested</button></div>
+                    <div><button class="genCertificates"  onclick="logout()">Logout</button></div>
                 <%}%>
             </div>
         <%}%>

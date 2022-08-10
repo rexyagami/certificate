@@ -15,17 +15,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js" crossorigin="anonymous"
         referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.lordicon.com/xdjxvujz.js"></script>
+
 </head>
 
 <body>
-    <div class="container" style="display:flex; flex-direction:column;">
-        <a id="link" onclick="getCanvas()" class="genCertificates" href="#" role="button">Download Certificate</a>
-        <div id="preview" style="display: inline-block; margin-top: 10px; " width="800px" height="600px">
-            <canvas class="mt-3 certificate" id="myCan" width="800px" height="600px">
+    <div class="container cert__main__container">
+        <div id="preview" class="cert__display">
+            <canvas class="mt-3 certificate canvas__display" id="myCan" width="800px" height="600px">
             </canvas>
         </div>
-        <img src="<%= img.image %>" alt="Certificate" id="scream" hidden width="800px" height="600px">
-        <div id="trial"></div>
+        <img src="<%= img.image %>"  alt="Certificate" id="scream" hidden>
+        <div class="cert__share__conatiner">
+            <div class="cert__share">
+                <a id="link" onclick="getCanvas()" class="genCertificates" href="#" role="button">Download Certificate</a>
+                <div class="text-muted"> Now genrate and download certificates eaily with Hack2skill.</div>
+            </div>
+            <div class="cert__share">
+                <lord-icon
+                    src="https://cdn.lordicon.com/tqywkdcz.json"
+                    trigger="loop"
+                    style="width:150px;height:150px">
+                </lord-icon>
+                <div class="text-muted"> Congratulations! You won a Certificate.</div>
+            </div>
+            <div class="cert__share">
+                <a class="genCertificates" href="https://discord.gg/ZAVqeC9j" role="button">Join Our Discord community</a>
+            </div>
+        </div>
     </div>
     <!-- <div id="canvasImg"></div> -->
 </body>
@@ -41,6 +58,7 @@
         //     'https://s3-h2s-v2.s3.ap-south-1.amazonaws.com/2022-08-05T11%3A53%3A25.174Z-download%20%282%29.jpg';
         img.crossOrigin = "anonymous";
         img.onload = function (e) {
+            console.log("inhere")
             ctx.imageSmoothingEnabled = true;
             ctx.drawImage(img, 0, 0, 800, 600)
             // setting Variables
@@ -61,19 +79,19 @@
             let len = '<%=img.variableData.fonts.length%>';
             len = parseInt(len);
             for (let i = 0; i < len; i++) {
-                let trail = document.getElementById('trial');
                 ctx.font = sizes[i]+" "+fonts[i].replace(/&#34;/g,"");
-                trail.style.fontFamily = fonts[i];
                 let color = "rgb" + "(" + colors[i].replace('(', "").replace(')', "") + ")";
                 ctx.fillStyle = color;
                 ctx.textAlign = aligns[i];
                 let top =parseFloat(tops[i])+  parseInt(sizes[i].replace(/px/g,""));
-                console.log( parseInt(sizes[i].replace(/px/g,"")));
+                console.log( variables);
                 if(variables[i]==='name'){
                     ctx.fillText("<%=user.name%>", lefts[i], top + 5);
-                }else if(variables[i]==='certificateId'){
+                }
+                if(variables[i]==='certificateId'){
                     ctx.fillText("<%=user.certificateId%>", lefts[i], top+5);
-                }else if(variables[i]==='dateOfIssue'){
+                }
+                if(variables[i]==='dateOfIssue'){
                     let date = "<%=user.dateOfIssue%>";
                     ctx.fillText( date.slice(0,15), lefts[i], top + 5);
                 }
@@ -108,17 +126,21 @@
 <script>
     function getCanvas() {
         console.log("Function Called");
-        html2canvas($('#preview'), {
-            onrendered: function (canvas) {
-                var a = document.createElement('a');
-                var canvasImg = canvas.toDataURL("image/jpg");
-                canvasImg.crossOrigin = "anonymous";
-                // $('#canvasImg').html('<img src="' + canvasImg + '" alt="">');
-                a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
-                a.download = 'Hack2Skill-Certificate.jpg';
-                a.click();
-            }
-        });
+        // html2canvas($('#preview'), {
+        //     onrendered: function (canvas) {
+        //         var a = document.createElement('a');
+        //         var canvasImg = canvas.toDataURL("image/jpg");
+        //         canvasImg.crossOrigin = "anonymous";
+        //         // $('#canvasImg').html('<img src="' + canvasImg + '" alt="">');
+        //         a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+        //         a.download = 'Hack2Skill-Certificate.jpg';
+        //         a.click();
+        //     }
+        // });
+        var link = document.getElementById('link');
+            var c = document.getElementById('myCan');
+            link.setAttribute('download', 'Hack2skill-Certificate.png');
+            link.setAttribute('href', c.toDataURL("image/png").replace("image/png", "image/octet-stream"));
     }
 </script>
 

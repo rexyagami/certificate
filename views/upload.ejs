@@ -172,7 +172,7 @@
                 variable.id='certificateId';
                 e.style.display="none";
                 e.nextElementSibling.style.display="block";
-            }else{
+            }else if(s=== 'date'){
                 variable.value = 'dateOfIssue'
                 variable.id='dateOfIssue'
                 e.style.display="none";
@@ -234,7 +234,8 @@
             let gallery__left =document.getElementById('gallery').getBoundingClientRect().left;
             let vars =["name", "certificateId","dateOfIssue"]
             for(let i=1;i<len;i++){
-                const inputVariable = document.getElementById(vars[i-1]);
+                console.log();
+                const inputVariable = document.getElementById('gallery').children[i];
                 console.log(inputVariable);
                 if(inputVariable){
                     variables.push(inputVariable.value);
