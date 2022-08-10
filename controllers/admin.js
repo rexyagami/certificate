@@ -6,9 +6,11 @@ const mailer = require("../utils/mail");
 
 module.exports.GetAdminPage = (req, res) => {
     if(req.user) {
+        const page = req.params.page || 1;
+        const limit = 10;
         Image.find({},{
             variableData: 0, _id: 0
-        }).then((img) => {
+        }).sort({ "timestamp" : -1}).skip(limit*page).limit(10).then((img) => {
             // console.log(img)
             // res.render("admin/admin", {
             //     img: img
