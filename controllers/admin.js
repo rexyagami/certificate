@@ -11,7 +11,7 @@ module.exports.GetAdminPage = async (req, res) => {
         var count = await Image.count();
         Image.find({},{
             variableData: 0, _id: 0
-        }).sort({ "timestamp" : -1}).skip(limit*page).limit(10).then((img) => {
+        }).sort({ "timestamp" : -1}).skip(limit*(page-1)).limit(10).then((img) => {
             // console.log(img)
             // res.render("admin/admin", {
             //     img: img
@@ -63,7 +63,7 @@ module.exports.GetUsersPage = async (req, res) => {
         },{
             _id: 0, password: 0,
         }
-    ).sort({ "_id" : -1}).skip(limit*page).limit(10).then((users) => {
+    ).sort({ "_id" : -1}).skip(limit*(page-1)).limit(10).then((users) => {
         console.log(users)
         res.render("admin/users", {
             users: users,
