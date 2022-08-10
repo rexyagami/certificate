@@ -315,6 +315,10 @@ table th {
     align-items: center;
 }
 
+.drop-area {
+    position: relative;
+}
+
 .button {
     cursor: pointer;
     font-size: small;
@@ -334,6 +338,11 @@ p {
     height: 600px;
     margin: 30px auto;
     position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 #cert {
@@ -345,10 +354,6 @@ p {
 }
 
 #fileElem {
-    display: none;
-}
-
-#gallery {
     display: none;
 }
 
@@ -774,4 +779,13 @@ input[type='color'] {
     .cert__display {
         margin-top: 10px;
     }
+}
+
+.certificateUploadCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 800px;
+    height: 600px;
 }

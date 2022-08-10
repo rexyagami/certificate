@@ -53,9 +53,8 @@
         // var img = document.getElementById("scream");
         var img = document.createElement('img');
         img.crossOrigin = 'anonymous';
-        img.src = '<%= img.image %>';
-        // img.src =
-        //     'https://s3-h2s-v2.s3.ap-south-1.amazonaws.com/2022-08-05T11%3A53%3A25.174Z-download%20%282%29.jpg';
+        img.src = '<%=img.variableData.image%>';
+        console.log('<%=img.variableData.variables%>');
         img.crossOrigin = "anonymous";
         img.onload = function (e) {
             console.log("inhere")
@@ -86,14 +85,14 @@
                 let top =parseFloat(tops[i])+  parseInt(sizes[i].replace(/px/g,""));
                 console.log( variables);
                 if(variables[i]==='name'){
-                    ctx.fillText("<%=user.name%>", lefts[i], top + 5);
+                    ctx.fillText("<%=user.name%>", lefts[i], top +35);
                 }
                 if(variables[i]==='certificateId'){
-                    ctx.fillText("<%=user.certificateId%>", lefts[i], top+5);
+                    ctx.fillText("<%=user.certificateId%>", lefts[i], top+35);
                 }
                 if(variables[i]==='dateOfIssue'){
                     let date = "<%=user.dateOfIssue%>";
-                    ctx.fillText( date.slice(0,15), lefts[i], top + 5);
+                    ctx.fillText( date.slice(0,15), lefts[i], top +35);
                 }
                 console.log("len:", ctx.canvas.clientWidth)
             }
