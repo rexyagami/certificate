@@ -4,10 +4,11 @@ const Innovator = require("../models/innovator");
 const Image = require("../models/image");
 const mailer = require("../utils/mail");
 
-module.exports.GetAdminPage = (req, res) => {
+module.exports.GetAdminPage = async (req, res) => {
     if(req.user) {
         const page = req.params.page || 1;
         const limit = 10;
+        var count = await Image.count();
         Image.find({},{
             variableData: 0, _id: 0
         }).sort({ "timestamp" : -1}).skip(limit*page).limit(10).then((img) => {
@@ -23,7 +24,8 @@ module.exports.GetAdminPage = (req, res) => {
                 console.log(users)
                 res.render("admin/admin", {
                     users: users,
-                    img:img
+                    img:img,
+                    count: count
                 })
             })
         }) 
