@@ -12,8 +12,16 @@ router.get("/:eventName/:certificateId", (req, res) => {
         }
     ).then((img) => {
         User.findOne(
-            {
-                "certificateId": req.params.certificateId,
+            {   
+                $and: [
+                    {
+                        "eventName": req.params.eventName
+                    },
+                    {
+                    "certificateId": req.params.certificateId,
+                },
+            ]
+                
             },
             ).then((u) => {
                 console.log(u)
