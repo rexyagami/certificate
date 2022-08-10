@@ -14,7 +14,11 @@ function isSuperAdmin(req, res, next) {
 // Create Admin
 router.get("/", isSuperAdmin, adminController.GetAdminPage);
 
+router.get("/:page", isSuperAdmin, adminController.GetAdminPage);
+
 router.get("/users", isSuperAdmin, adminController.GetUsersPage);
+
+router.get("/users/:page", isSuperAdmin, adminController.GetUsersPage);
 
 // router.get("/create", adminController.UploadImage);
 

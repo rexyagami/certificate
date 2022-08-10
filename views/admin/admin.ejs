@@ -37,7 +37,7 @@
                              create Certificate button and get started now</p>
                     </div>
                 <%} else{%>
-                    <% for(i =img.length-1; i>=0; i--){%>
+                    <% for(i =0; i<img.length; i++){%>
                         <% let by = ''%>
                         <% for(j =0; j<users.length; j++){%>
                             <% if(users[j]._id.equals(img[i].createdBy)){%>
@@ -91,6 +91,12 @@
 
 
         </div>
+        <div class="flex">
+            <% for (j=1;j<=(count/10);j++) { %> 
+                <div> <%= j %> </div>
+            <% } %>
+        </div>
+        
         <script>
              const openModal= (e, img, date,by,sub, body)=>{
                 console.log(e)

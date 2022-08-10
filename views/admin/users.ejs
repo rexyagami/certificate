@@ -55,6 +55,11 @@
                 </tbody>
                 </table>
         </div>
+        <div class="flex">
+            <% for (j=1;j<=(count/10);j++) { %> 
+                <div> <%= j %> </div>
+            <% } %>
+        </div>
         <script>
             const changeRole = (email, role) => {
                 $.post("/api/change-role", {

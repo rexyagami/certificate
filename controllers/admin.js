@@ -4,11 +4,14 @@ const Innovator = require("../models/innovator");
 const Image = require("../models/image");
 const mailer = require("../utils/mail");
 
-module.exports.GetAdminPage = (req, res) => {
+module.exports.GetAdminPage = async (req, res) => {
     if(req.user) {
+        const page = req.params.page || 1;
+        const limit = 10;
+        var count = await Image.count();
         Image.find({},{
             variableData: 0, _id: 0
-        }).then((img) => {
+        }).sort({ "timestamp" : -1}).skip(limit*(page-1)).limit(10).then((img) => {
             // console.log(img)
             // res.render("admin/admin", {
             //     img: img
@@ -21,7 +24,8 @@ module.exports.GetAdminPage = (req, res) => {
                 console.log(users)
                 res.render("admin/admin", {
                     users: users,
-                    img:img
+                    img:img,
+                    count: count
                 })
             })
         }) 
@@ -29,7 +33,21 @@ module.exports.GetAdminPage = (req, res) => {
         res.redirect("/")
     }
 }
-module.exports.GetUsersPage = (req, res) => {
+module.exports.GetUsersPage = async (req, res) => {
+    const page = req.params.page || 1;
+    const limit = 10;
+    var count = await Innovator.find({
+        $or: 
+        [
+            {
+                "role" : "innovator" 
+            },
+            {
+                "role": "admin"
+            }
+        ]
+    }).count();
+    console.log(count)
     Innovator.find(
         {
             $or: 
@@ -45,10 +63,11 @@ module.exports.GetUsersPage = (req, res) => {
         },{
             _id: 0, password: 0,
         }
-    ).then((users) => {
+    ).sort({ "_id" : -1}).skip(limit*(page-1)).limit(10).then((users) => {
         console.log(users)
         res.render("admin/users", {
-            users: users
+            users: users,
+            count: count
         })
     })
     
