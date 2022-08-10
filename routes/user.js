@@ -29,9 +29,15 @@ router.get("/:eventName/:certificateId", (req, res) => {
                     user: u,
                     img: img
                 })
+            }).catch((err) => {
+                console.log(err);
+                res.render("404")
             });
 
-    })
+    }).catch((err) => {
+        console.log(err);
+        res.render("404")
+    });
       
   
     // Innovator.updateOne({email: req.query.email}, {$set: {hackAdmin: 'true'}})
