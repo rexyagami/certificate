@@ -155,7 +155,7 @@ table th {
     justify-content: center;
     width: 80vw;
     align-items: center;
-    padding-bottom: 5rem;
+    padding-bottom: 2rem;
 }
 
 .certificate__display {
@@ -177,8 +177,6 @@ table th {
     justify-content: end;
     padding: 0 5px;
 }
-
-.eventModal__Listing div {}
 
 .eventModal__Listing {
     display: flex;
@@ -813,7 +811,6 @@ input[type='color'] {
     height: 600px;
 }
 
-
 /* Pagination */
 .pagination ul {
     width: 100%;
@@ -823,6 +820,7 @@ input[type='color'] {
     padding: 8px;
     border-radius: 50px;
     box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 50px;
 }
 
 .pagination ul li {

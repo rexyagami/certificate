@@ -95,7 +95,6 @@
 
 
         </div>
-        
         <script>
              const openModal= (e, img, date,by,sub, body)=>{
                 console.log(e)
@@ -134,7 +133,7 @@
         <script>
             // selecting required element
             const element = document.querySelector(".pagination ul");
-            let totalPages = '<%=Math.ceil(count/10)%>';
+            let totalPages = '<%=count%>';
             totalPages =parseInt(totalPages);
             let page = '<%=page%>';
             page= parseInt(page);
@@ -146,11 +145,11 @@
             let beforePage = page - 1;
             let afterPage = page + 1;
             if(page > 1){ //show the next button if the page value is greater than 1
-                liTag += `<a href="/admin/${page-1}"><li class="btn prev"><span><i class="fas fa-angle-left"></i> Prev</span></li></a>`;
+                liTag += `<a href="/admin/?page=${page-1}"><li class="btn prev"><span><i class="fas fa-angle-left"></i> Prev</span></li></a>`;
             }
             if(page > 2){ //if page value is less than 2 then add 1 after the previous button
                 if(totalPages!=3&& totalPages!=4){
-                    liTag += `<a href="/admin/1"><li class="first numb"><span>1</span></li></a>`;
+                    liTag += `<a href="/admin/?page=1"><li class="first numb"><span>1</span></li></a>`;
                     if(page > 3){ //if page value is greater than 3 then add this (...) after the first li or page
                     liTag += `<li class="dots"><span>...</span></li>`;
                 }
@@ -180,18 +179,18 @@
                 }else{ //else leave empty to the active variable
                 active = "";
                 }
-                liTag += `<a href="/admin/${plength}"><li class="numb ${active}"><span>${plength}</span></li></a>`;
+                liTag += `<a href="/admin/?page=${plength}"><li class="numb ${active}"><span>${plength}</span></li></a>`;
             }
             if(page < totalPages - 1){ //if page value is less than totalPage value by -1 then show the last li or page
                 if(totalPages!=3 && totalPages!=4){
                     if(page < totalPages - 2){ //if page value is less than totalPage value by -2 then add this (...) before the last li or page
                 liTag += `<li class="dots"><span>...</span></li>`;
                 }
-                liTag += `<a href="/admin/${totalPages}"><li class="last numb"><span>${totalPages}</span></li></a>`;
+                liTag += `<a href="/admin/?page=${totalPages}"><li class="last numb"><span>${totalPages}</span></li></a>`;
                 }
             }
             if (page < totalPages) { //show the next button if the page value is less than totalPage(20)
-                liTag += `<a href="/admin/${page+1}"><li class="btn next"><span>Next <i class="fas fa-angle-right"></i></span></li></a>`;
+                liTag += `<a href="/admin/?page=${page+1}"><li class="btn next"><span>Next <i class="fas fa-angle-right"></i></span></li></a>`;
             }
             element.innerHTML = liTag; //add li tag inside ul tag
             return liTag; //reurn the li tag
