@@ -14,23 +14,10 @@ function isSuperAdmin(req, res, next) {
 // Create Admin
 router.get("/", isSuperAdmin, adminController.GetAdminPage);
 
-router.get("/:page", isSuperAdmin, adminController.GetAdminPage);
+// router.get("/:page", isSuperAdmin, adminController.GetAdminPage);
 
 router.get("/users", isSuperAdmin, adminController.GetUsersPage);
 
-router.get("/users/:page", isSuperAdmin, adminController.GetUsersPage);
-
-// router.get("/create", adminController.UploadImage);
-
-// router.post("/create", uploads.aws.single('file'), adminController.PostUploadImage);
-
-// // router.get("/upload-csv/:imagePath", (req, res) => {
-// //   res.render("uploadCsv");  
-// // })
-// router.post("/upload-csv", uploads.localStorage.single('csv'), adminController.UploadCSV)
-
-// router.get("/mailer/:eventName", adminController.GetMailerPage);
-
-// router.post("/mailer/:eventName", adminController.PostMailerPage);
+// router.get("/users/:page", isSuperAdmin, adminController.GetUsersPage);
 
 module.exports = router;

@@ -6,7 +6,7 @@ const mailer = require("../utils/mail");
 
 module.exports.GetAdminPage = async (req, res) => {
     if(req.user) {
-        const page = req.params.page || 1;
+        const page = req.query.page || 1;
         const limit = 10;
         var count = await Image.count();
         Image.find({},{
@@ -21,7 +21,7 @@ module.exports.GetAdminPage = async (req, res) => {
                     password: 0,
                 }
             ).then((users) => {
-                console.log(users)
+                //console.log(users)
                 res.render("admin/admin", {
                     users: users,
                     img:img,
@@ -34,7 +34,7 @@ module.exports.GetAdminPage = async (req, res) => {
     }
 }
 module.exports.GetUsersPage = async (req, res) => {
-    const page = req.params.page || 1;
+    const page = req.query.page ||  1;
     const limit = 10;
     var count = await Innovator.find({
         $or: 
@@ -64,7 +64,7 @@ module.exports.GetUsersPage = async (req, res) => {
             _id: 0, password: 0,
         }
     ).sort({ "_id" : -1}).skip(limit*(page-1)).limit(10).then((users) => {
-        console.log(users)
+        //console.log(users)
         res.render("admin/users", {
             users: users,
             count: count
