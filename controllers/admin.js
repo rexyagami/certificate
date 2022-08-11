@@ -25,7 +25,8 @@ module.exports.GetAdminPage = async (req, res) => {
                 res.render("admin/admin", {
                     users: users,
                     img:img,
-                    count: count
+                    count: count,
+                    page:page,
                 })
             })
         }) 
@@ -67,7 +68,8 @@ module.exports.GetUsersPage = async (req, res) => {
         console.log(users)
         res.render("admin/users", {
             users: users,
-            count: count
+            count: count,
+            page:page,
         })
     })
     
