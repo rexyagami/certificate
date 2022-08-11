@@ -172,16 +172,26 @@ table th {
 }
 
 .eventModal__titles {
-    font-weight: 500;
-    display: flex;
-    justify-content: end;
-    padding: 0 5px;
+    font-weight: 400;
+    color: gray;
+    font-size: small;
+    width: 50px;
+    padding-left: 20px;
+    white-space: nowrap;
 }
+
+
 
 .eventModal__Listing {
     display: flex;
+    gap: 80px;
     margin-bottom: 10px;
 
+}
+
+.eventModal__ans {
+    font-size: small;
+    padding-left: 6px;
 }
 
 .eventModal__header {
@@ -199,13 +209,12 @@ table th {
 .eventModal {
     display: none;
     position: relative;
-    justify-content: center;
-    align-items: center;
     width: 500px !important;
     height: fit-content !important;
     border-radius: 10px !important;
-    padding: 20px;
+    padding: 0 !important;
     padding-top: 70px !important;
+    align-items: start !important;
     flex-direction: column;
     z-index: 10;
 }
@@ -477,8 +486,8 @@ p {
     background-color: white;
     z-index: 30;
     position: fixed;
-    top: 35%;
-    left: 35%;
+    top: 33%;
+    left: 33%;
     display: none;
     border-radius: 20px;
     padding: 20px;
@@ -712,6 +721,10 @@ input[type='color'] {
     border: 1px dashed gray;
     border-radius: 5px;
     margin-top: 20px;
+}
+
+.text-blue {
+    color: blue;
 }
 
 .mail__var__container {
