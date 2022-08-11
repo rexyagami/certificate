@@ -8,10 +8,10 @@ module.exports.GetAdminPage = async (req, res) => {
     if(req.user) {
         const page = req.query.page || 1;
         const limit = 10;
-        var count = await Image.count();
+        const count = Math.ceil(await Image.count()/limit);
         Image.find({},{
             variableData: 0, _id: 0
-        }).sort({ "timestamp" : -1}).skip(limit*(page-1)).limit(10).then((img) => {
+        }).sort({ "_id" : -1}).skip(limit*(page-1)).limit(10).then((img) => {
             // console.log(img)
             // res.render("admin/admin", {
             //     img: img
@@ -36,7 +36,7 @@ module.exports.GetAdminPage = async (req, res) => {
 module.exports.GetUsersPage = async (req, res) => {
     const page = req.query.page ||  1;
     const limit = 10;
-    var count = await Innovator.find({
+    var count = Math.ceil(await Innovator.find({
         $or: 
         [
             {
@@ -46,7 +46,7 @@ module.exports.GetUsersPage = async (req, res) => {
                 "role": "admin"
             }
         ]
-    }).count();
+    }).count()/limit);
     console.log(count)
     Innovator.find(
         {
@@ -63,7 +63,7 @@ module.exports.GetUsersPage = async (req, res) => {
         },{
             _id: 0, password: 0,
         }
-    ).sort({ "_id" : -1}).skip(limit*(page-1)).limit(10).then((users) => {
+    ).sort({ "_id" : 1}).skip(limit*(page-1)).limit(10).then((users) => {
         //console.log(users)
         res.render("admin/users", {
             users: users,

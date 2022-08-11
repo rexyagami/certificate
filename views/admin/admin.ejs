@@ -92,8 +92,9 @@
 
         </div>
         <div class="flex">
-            <% for (j=1;j<=(count/10);j++) { %> 
-                <div> <%= j %> </div>
+            <% for (j=1;j<=count;j++) { %> 
+                <div> <a href="/admin/?page=<%= j %>"><%= j %></a></div>
+                <!-- <div> <button onclick="pagination(`<%= j %>`)"><%= j %></button> </div> -->
             <% } %>
         </div>
         

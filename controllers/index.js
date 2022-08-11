@@ -4,16 +4,23 @@ const Image = require("../models/image");
 const Innovator = require("../models/innovator")
 const mailer = require("../utils/mail");
 
-module.exports.GetHomePage = (req, res) => {
+module.exports.GetHomePage = async (req, res) => {
   if(req.user) {
     const createdBy = req.user._id;
+    const page = req.query.page || 1;
+    const limit = 10;
+    const count = Math.ceil(await Image.find(
+        {
+            createdBy: createdBy
+        }
+    ).count()/limit);
     Image.find(
         {
             createdBy: createdBy
         },{
           variableData: 0, _id: 0
         }
-    ).then((img) => {
+    ).sort({ "_id" : -1}).skip(limit*(page-1)).limit(10).then((img) => {
         // console.log(img)
         // res.render("home", {
         //     img: img
@@ -26,7 +33,8 @@ module.exports.GetHomePage = (req, res) => {
           console.log(user)
           res.render("home", {
               user: user,
-              img:img
+              img:img,
+              count: count
           })
       })
     })  
