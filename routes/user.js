@@ -25,10 +25,12 @@ router.get("/:eventName/:certificateId", (req, res) => {
             },
             ).then((u) => {
                 console.log(u)
-                res.render(("certificate") , {
-                    user: u,
-                    img: img
-                })
+                if(u && img)
+                    res.render(("certificate") , {
+                        user: u,
+                        img: img
+                    })
+                else res.render("404")
             }).catch((err) => {
                 console.log(err);
                 res.render("404")
