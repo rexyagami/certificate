@@ -19,8 +19,8 @@
                     <p style="text-align: center;">Oops! it seems you do not have acess to genrate certificates, request access now to start.</p>   
                     <div><button class="genCertificates" onclick="request(`<%=user.email%>`, `<%=user.name%>`)">Request Access</button></div>
                 <%} else{%>
-                    <p style="text-align: center;">Access Request please be patient, till the request is granted.</p>   
-                    <div><button class="genCertificates">Access Requested</button></div>
+                    <p style="text-align: center;">Access Requested please be patient, till the request is granted.</p>   
+                    <div><button class="genCertificates"  onclick="logout()">Logout</button></div>
                 <%}%>
             </div>
         <%}%>
@@ -54,46 +54,62 @@
                              create Certificate button and get started now</p>
                     </div>
                 <%} else{%>
-                    <% for(i =img.length-1; i>=0; i--){%>
-                        <div class="certificate__display" onclick="openModal('<%=img[i].eventName%>','<%=img[i].image%>','<%=img[i].timestamp%>')">
+                    <% for(i=0; i<img.length; i++){%>
+                        <div class="certificate__display" onclick="openModal('<%=img[i].eventName%>','<%=img[i].image%>','<%=img[i].timestamp%>', '<%=img[i].emailSubject%>','<%=img[i].emailBody%> ')">
                             <img src="<%=img[i].image%>" class="cert__Image"/>
                             <div class="event__Display">
                                 <%=img[i].eventName%>
                             </div>
                         </div>
-                    <%}%>
+                    <%}%>     
+                    
                 <%}%>
             </div>
+                <% if(img.length>0){%>
+                    <div class="pagination">
+                        <ul> <!--pages or li are comes from javascript --> </ul>
+                    </div>
+                <%}%>
             <div class="overlay" id="overlay" onclick="closeModal()"></div>
             <div class="eventModal" id="modal">
                 <div class="eventModal__header">
                     <div>Certificate Details</div>
                     <div style="cursor: pointer;" onclick="closeModal()">X</div>
                 </div>
-                <div class="eventModal__Listing">
-                    <div class="eventModal__titles">Event Name: </div>
-                    <div id="eventName"></div>
-                </div>
-                <div class="eventModal__Listing">
-                    <div class="eventModal__titles">Created On: </div>
-                    <div id="certOn"></div>
-                </div>
-                <div class="eventModal__Listing">
-                    <div class="eventModal__titles">Image: </div>
-                    <div><a id="certImage" href="">Link</a></div>
-                </div>
+                    <div class="eventModal__Listing">
+                        <div class="eventModal__titles">Event Name: </div>
+                        <div id="eventName" class="eventModal__ans"></div>
+                    </div>
+                    <div class="eventModal__Listing">
+                        <div class="eventModal__titles">Created On: </div>
+                        <div id="certOn" class="eventModal__ans"></div>
+                    </div>
+                    <div class="eventModal__Listing">
+                        <div class="eventModal__titles">Image: </div>
+                        <div class="eventModal__ans"><a id="certImage" class="text-blue" href="">Link</a></div>
+                    </div>
+                    <div class="eventModal__Listing">
+                        <div class="eventModal__titles">Email Subject: </div>
+                        <div id="mail" class="mail__sub eventModal__ans"></div>
+                    </div>
+                    <div class="eventModal__Listing">
+                        <div class="eventModal__titles">Email Body: </div>
+                        <div id="mailBody" class="mail__sub eventModal__ans"></div>
+                    </div>
                 
             </div>
 
         </div>
         <script>
-            const openModal= (e, img, date)=>{
+            const openModal= (e, img, date, sub, body)=>{
                 console.log(e)
                 console.log(img)
                 console.log(date)
                 document.getElementById('eventName').innerHTML=e;
                 document.getElementById('certOn').innerHTML=date.slice(0,15);
                 document.getElementById('certImage').href =img;
+                document.getElementById('mail').innerHTML= sub;
+                    document.getElementById('mailBody').innerHTML= body;
                 document.getElementById('modal').style.display = "flex";
                 document.getElementById('overlay').style.display = "flex";
 
@@ -122,6 +138,73 @@
             }
 
             // /api/change-role  (post) (req.body)
+        </script>
+         <!-- Pagination Script -->
+         <script>
+            // selecting required element
+            const element = document.querySelector(".pagination ul");
+            let totalPages = '<%=count%>';
+            totalPages =parseInt(totalPages);
+            let page = '<%=page%>';
+            page= parseInt(page);
+            //calling function with passing parameters and adding inside element which is ul tag
+            element.innerHTML = createPagination(totalPages, page);
+            function createPagination(totalPages, page){
+            let liTag = '';
+            let active;
+            let beforePage = page - 1;
+            let afterPage = page + 1;
+            if(page > 1){ //show the next button if the page value is greater than 1
+                liTag += `<a href="/?page=${page-1}"><li class="btn prev"><span><i class="fas fa-angle-left"></i> Prev</span></li></a>`;
+            }
+            if(page > 2){ //if page value is less than 2 then add 1 after the previous button
+                if(totalPages!=3&& totalPages!=4){
+                    liTag += `<a href="/?page=1"><li class="first numb"><span>1</span></li></a>`;
+                    if(page > 3){ //if page value is greater than 3 then add this (...) after the first li or page
+                    liTag += `<li class="dots"><span>...</span></li>`;
+                }
+                }
+            }
+            // how many pages or li show before the current li
+            if (page == totalPages && page!=1 && page!=2) {
+                beforePage = beforePage - 2;
+            } else if (page == totalPages - 1 && page!=1 && page!=2) {
+                beforePage = beforePage - 1;
+            }
+            // how many pages or li show after the current li
+            if (page == 1) {
+                afterPage = afterPage + 2;
+            } else if (page == 2) {
+                afterPage  = afterPage + 1;
+            }
+            for (var plength = beforePage; plength <= afterPage; plength++) {
+                if (plength > totalPages) { //if plength is greater than totalPage length then continue
+                continue;
+                }
+                if (plength == 0) { //if plength is 0 than add +1 in plength value
+                plength = plength + 1;
+                }
+                if(page == plength){ //if page is equal to plength than assign active string in the active variable
+                active = "active";
+                }else{ //else leave empty to the active variable
+                active = "";
+                }
+                liTag += `<a href="/?page=${plength}"><li class="numb ${active}"><span>${plength}</span></li></a>`;
+            }
+            if(page < totalPages - 1){ //if page value is less than totalPage value by -1 then show the last li or page
+                if(totalPages!=3 && totalPages!=4){
+                    if(page < totalPages - 2){ //if page value is less than totalPage value by -2 then add this (...) before the last li or page
+                liTag += `<li class="dots"><span>...</span></li>`;
+                }
+                liTag += `<a href="/?page=${totalPages}"><li class="last numb"><span>${totalPages}</span></li></a>`;
+                }
+            }
+            if (page < totalPages) { //show the next button if the page value is less than totalPage(20)
+                liTag += `<a href="/?page=${page+1}"><li class="btn next"><span>Next <i class="fas fa-angle-right"></i></span></li></a>`;
+            }
+            element.innerHTML = liTag; //add li tag inside ul tag
+            return liTag; //reurn the li tag
+            }
         </script>
     </body>
 </html>

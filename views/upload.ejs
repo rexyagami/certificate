@@ -19,7 +19,7 @@
                 <% if(uploadImage === true){%>
                     <div class="list__dropdown">
                         <div class="variable__list">
-                           <button class="createVariable" id="createVariable"onclick="createVariable(this,'name')" disabled>Create Name Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
+                           <button class="createVariable" id="createVariable"onclick="createVariable(this,'name')" >Create Name Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
                            <button style="display: none;" class="createVariable" id="createVariable" onclick="removeVariable(this,'name')">Remove Name Variable &nbsp; <i class="fa-solid fa-circle-minus"></i></button>
                            
                            <button class="createVariable" id="createVariable"onclick="createVariable(this,'id')">Create Id Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
@@ -35,7 +35,7 @@
                         <input name="eventName" id="eventName" placeholder="Event Name" class="form-control" required/>
                         </div>
                        <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
-                       <select id="font" style="width: 14rem;" class=" form-control" onclick="changeFont(this)">
+                       <select id="font" style="width: 14rem;" class=" form-control" onclick="changeFont(this)" onchange="changeFont(this)">
                            <option>Poppins</option>
                            <option>Roberto</option>
                            <option>Arial</option>
@@ -44,19 +44,29 @@
                        </select>
                        </div>
                        <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
-                           <select id="align" style="width: 14rem;" class="form-control" onclick="changeAlign(this)">
+                           <select id="align" style="width: 14rem;" class="form-control" onclick="changeAlign(this)" onchange="changeAlign(this)">
                                <option>Left</option>
                                <option>Right</option>
                                <option>Center</option>
                            </select>
                        </div>
-                       <div style="display: flex; align-items: center; margin-top:15px; gap:5px;"> <input class="form-control" type="number" id="size" value="11" onchange="changeSize(this)" style="width:70px;"/>
-                        &nbsp;&nbsp;&nbsp; <input type="color" id="color" onclick="changeColor(this)"/></div>
+                       <div style="display: flex; align-items: center; margin-top:15px; gap:5px;"> <input class="form-control" type="number" id="size" value="11" onchange="changeSize(this)"    onclick="changeSize(this)" style="width:70px;"/>
+                        &nbsp;&nbsp;&nbsp; <input type="color" id="color" onclick="changeColor(this)" onchange="changeColor(this)"/></div>
                        <button class="genCertificates" onclick="handleSubmit()">Upload Template</button>
                    </div>
                 <%}%>
                 <div class="left__list__item">Step 2 - Upload CSV File <i class="fa-solid fa-angle-up"></i></div>
-            </div>
+                <% if(uploadImage=== false){%>
+                    <div class="list__dropdown">
+                        <div class="alert-info">
+                            Note:<br/>
+                            Here is the link to a smaple CSV Template <a href="https://docs.google.com/spreadsheets/d/1M_Lo20PAvNtsTjjWTkJa212lJZpFQ0jdW2AVf82r4WE/edit#gid=0"><strong>Link</strong></a>.<br/>
+                            Your csv file should follow the same CSV format.
+
+                        </div>
+                    </div>
+                <%}%>
+               </div>
            
         </div>
         
@@ -67,14 +77,18 @@
             <!-- Image Dropper -->
             <div class="image__dropzone">
                 <% if(uploadImage == true){%>
-                <div id="drop-area" >
-                        <input type="file" class="form-control" id="fileElem" name="file"accept="image/*" onchange="handleFiles(this.files)">
-                        
-                        <label class="button" for="fileElem" style="display: flex; flex-direction:column; align-items: center;">
-                            <div style="font-size:xx-large ; color:gray;"><i class="fa-solid fa-upload"></i></div>
-                            Darg or Click to Upload Certificate <strong>Image to get Started.</strong></label>
-                        
+                <div id="drop-area" class="drop-area">
+                <div id="preview" class="cert__display">
+                    <canvas class="certificateUploadCanvas canvas__display" id="myCan" width="800px" height="600px">
+                    </canvas>
+                    <div id="gallery" width="800px" height="600px" style="z-index: 10;">
+                        <div style="font-size:xx-large ; color:gray;"><i class="fa-solid fa-upload" onclick="clickInput()" style="cursor:pointer ;"></i></div>
+                        Click to Upload Certificate <strong onclick="clickInput()" style="cursor:pointer ;">Image to get Started.</strong>
+                        (800 x 600) 
+                    </div>
                 </div>
+                </div>
+                <input type="file" class="d-none" id="cert__img" name="file"accept="image/*" onchange="fillCanvas(this)" >
                 <%}%>
                 <% if(uploadImage === false){%>
                     
@@ -91,9 +105,6 @@
                     </form>
             <%}%>
             </div>
-            <!-- Image Display -->
-                <div id="gallery"><div>ll</div>
-                </div>
             
         <div id="overlay" onclick="closeModal()">  </div>
         <div id="modal"> 
@@ -162,7 +173,7 @@
                 variable.id='certificateId';
                 e.style.display="none";
                 e.nextElementSibling.style.display="block";
-            }else{
+            }else if(s=== 'date'){
                 variable.value = 'dateOfIssue'
                 variable.id='dateOfIssue'
                 e.style.display="none";
@@ -222,9 +233,12 @@
             let len =document.getElementById('gallery').children.length;
             let gallery__top =document.getElementById('gallery').getBoundingClientRect().top;
             let gallery__left =document.getElementById('gallery').getBoundingClientRect().left;
-            let vars =["name", "certificateId","dateOfIssue"]
-            for(let i=1;i<len;i++){
-                const inputVariable = document.getElementById(vars[i-1]);
+            let canvas = document.getElementById('myCan');
+            const base64 = canvas.toDataURL();
+            // const base64 = getBase64StringFromDataURL(dataURL);
+            for(let i=0;i<len;i++){
+                console.log();
+                const inputVariable = document.getElementById('gallery').children[i];
                 console.log(inputVariable);
                 if(inputVariable){
                     variables.push(inputVariable.value);
@@ -250,6 +264,7 @@
             }else{
             
             let submitObject ={
+                image: base64,
                 variables: variables,
                 fonts: variable__fonts,
                 colors: variable__colors,
@@ -268,58 +283,6 @@
             }
         }
     </script>
-    <script>
-        // ************************ Drag and drop ***************** //
-        let dropArea = document.getElementById("drop-area");
-
-        // Prevent default drag behaviors
-        ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        dropArea.addEventListener(eventName, preventDefaults, false)   
-        document.body.addEventListener(eventName, preventDefaults, false)
-        })
-
-        // Handle dropped files
-        dropArea.addEventListener('drop', handleDrop, false)
-
-        function preventDefaults (e) {
-        e.preventDefault()
-        e.stopPropagation()
-        }
-
-        function handleDrop(e) {
-        var dt = e.dataTransfer
-        var files = dt.files
-
-        handleFiles(files)
-        }
-
-        let uploadProgress = []
-
-        function updateProgress(fileNumber, percent) {
-        uploadProgress[fileNumber] = percent
-        let total = uploadProgress.reduce((tot, curr) => tot + curr, 0) / uploadProgress.length
-        progressBar.value = total
-        }
-
-        function handleFiles(files) {
-        files = [...files]
-        files.forEach(previewFile)
-        }
-
-        function previewFile(file) {
-        let reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onloadend = function() {
-            let img = document.createElement('img')
-            img.src = reader.result;
-            img.id='cert';
-            document.getElementById('gallery').replaceChild(img, document.getElementById('gallery').childNodes[0]);
-            document.getElementById('gallery').style.display ='block';
-            document.getElementById('drop-area').style.display ='none';
-            document.getElementById("createVariable").disabled= false;
-        }
-        }
-    </script>
         <script>
             function clickUpload(){
                 document.getElementById('up').click();
@@ -335,6 +298,31 @@
             const openDropdown= (e)=>{
                 e.nextElementSibling.style.display='flex';
 
+            }
+        </script>
+        <script>
+            const fillCanvas =(e)=>{
+                var img = new Image();
+                img.onload = draw;
+                img.onerror = failed;
+                img.src = URL.createObjectURL(e.files[0]);
+                };
+                function draw() {
+                var canvas = document.getElementById('myCan');
+                canvas.width = this.width;
+                canvas.height = this.height;
+                var ctx = canvas.getContext('2d');
+                ctx.drawImage(this, 0,0);
+                document.getElementById('drop-area').style.border=0;
+                document.getElementById('gallery').innerHTML='';
+                }
+                function failed() {
+                console.error("The provided file couldn't be loaded as an Image media");
+                }
+        </script>
+        <script>
+            const clickInput =()=>{
+                document.getElementById('cert__img').click();
             }
         </script>
 </body>

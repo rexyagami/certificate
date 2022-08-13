@@ -28,6 +28,7 @@ module.exports.PostSignUpPage = (req, res) => {
                     password: req.body.password,
                     role: "innovator",
                 });
+                if(process.env.SUPERADMINS.includes(newUser.email)) newUser.role = "superAdmin";
                 Innovator.createInnovator(newUser, (err, user) => {
                     if (err) throw err;
                     console.log(user);

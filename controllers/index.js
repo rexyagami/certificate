@@ -4,16 +4,23 @@ const Image = require("../models/image");
 const Innovator = require("../models/innovator")
 const mailer = require("../utils/mail");
 
-module.exports.GetHomePage = (req, res) => {
+module.exports.GetHomePage = async (req, res) => {
   if(req.user) {
     const createdBy = req.user._id;
+    const page = req.query.page || 1;
+    const limit = 10;
+    const count = Math.ceil(await Image.find(
+        {
+            createdBy: createdBy
+        }
+    ).count()/limit);
     Image.find(
         {
             createdBy: createdBy
         },{
           variableData: 0, _id: 0
         }
-    ).then((img) => {
+    ).sort({ "_id" : -1}).skip(limit*(page-1)).limit(10).then((img) => {
         // console.log(img)
         // res.render("home", {
         //     img: img
@@ -26,7 +33,9 @@ module.exports.GetHomePage = (req, res) => {
           console.log(user)
           res.render("home", {
               user: user,
-              img:img
+              img:img,
+              count: count,
+              page:page,
           })
       })
     })  
@@ -54,7 +63,7 @@ module.exports.PostUploadImage = (req, res) => {
             console.log(req.file);
             return;
           }
-    var imagePath = `/upload/${req.file.filename}`
+    var imagePath = req.file.location
     Image.create({
         image: imagePath,
         variableData: variableDataObject,
@@ -121,16 +130,36 @@ module.exports.GetMailerPage = (req, res) => {
 module.exports.PostMailerPage = (req, res) => {
     console.log(req.body.body)
     const eventName = req.params.eventName
-    User.find(
+    Image.findOneAndUpdate(
       {
         "eventName": eventName
+      },
+      {
+        $set: {
+          "emailSubject": req.body.subject,
+          "emailBody": req.body.body
+        }
       }
-    ).then((users) => {
-      console.log(users,"//////////////////////")
-      for(i=0;i<users.length;i++) {
-        mailer.sendCertificate(users[i].name, users[i].email, users[i].certificateLink, req.body.subject, req.body.body)
-        console.log(req.body);
-      }
+    ).then((doc) => {
+      console.log(doc)
+      User.find(
+        {
+          "eventName": eventName
+        }
+      ).then((users) => {
+        console.log(users,"//////////////////////")
+        for(i=0;i<users.length;i++) {
+          mailer.sendCertificate(users[i].name, users[i].email, users[i].certificateLink, eventName, req.body.subject, req.body.body)
+          console.log(req.body);
+        }
+      }).catch((err) => {
+        console.log(err)
+        res.redirect("/");
+      })
+      res.redirect("/");
+    }).catch((err) => {
+        console.log(err)
+        res.redirect("/");
     })
-    res.redirect("/");
+    
 }
