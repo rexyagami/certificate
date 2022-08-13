@@ -1,36 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload-Csv</title>
-    <link rel="stylesheet" href="/styles.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Upload CSV | H2S Certificate</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+        integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
     <div class="container">
-            <form class="card csvCard" action="/admin/upload-csv" method="POST" enctype="multipart/form-data" class="p-5">
+        <form class="card csvCard" action="/admin/upload-csv" method="POST" enctype="multipart/form-data" class="p-5">
             <h3>Upload your CSV File:</h3>
-                <input type="text" name="imagePath" value="<%= imagePath %>" class="d-none">
-                <input type="text" name="variableData" value="<%= variableData %>" class="d-none">
-                <div class="dropper" onclick="clickUpload()" id="dropper"> Click to upload your Csv file.</div>
-                <div class="dropper success" style="display: none;" id="success"> 
-                    <div style="font-size: large;"><i class="fa-solid fa-circle-check"></i></div>
-                    <div>File Uploadede SuccessFully.</div></div>
-                <div><input type="file" name="csv" id="up" class="d-none" onchange="changeContent()"></div>
-                <div><button type="submit" class="genCertificates my-5">Upload csv</button></div>
-            </form>
+            <input type="text" name="imagePath" value="<%= imagePath %>" class="d-none">
+            <input type="text" name="variableData" value="<%= variableData %>" class="d-none">
+            <div class="dropper" onclick="clickUpload()" id="dropper"> Click to upload your Csv file.</div>
+            <div class="dropper success" style="display: none;" id="success">
+                <div style="font-size: large;"><i class="fa-solid fa-circle-check"></i></div>
+                <div>File Uploadede SuccessFully.</div>
+            </div>
+            <div><input type="file" name="csv" id="up" class="d-none" onchange="changeContent()"></div>
+            <div><button type="submit" class="genCertificates my-5">Upload csv</button></div>
+        </form>
     </div>
 
     <script>
-        function clickUpload(){
+        function clickUpload() {
             document.getElementById('up').click();
         }
-        const changeContent=()=>{
-            document.getElementById('dropper').style.display='none';
-            document.getElementById('success').style.display='flex';
+        const changeContent = () => {
+            document.getElementById('dropper').style.display = 'none';
+            document.getElementById('success').style.display = 'flex';
         }
     </script>
 </body>
+
 </html>

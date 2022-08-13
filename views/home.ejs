@@ -1,37 +1,47 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title> Home | Certificate Automation</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/styles.css"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>    </head>
-    <body>
-        
-        <% if(user.role === "innovator"){%>
-            <div class="overlay" id="overlay" style="display: flex;"></div>
-            <div class="modal" id="modal" style="display: flex; justify-content: center; gap: 10px;">
-                <div><h3>Access to Genrate Certificates</h3></div>
-                <% if(user.requestAccess === false){%>
-                    <p style="text-align: center;">Oops! it seems you do not have acess to genrate certificates, request access now to start.</p>   
-                    <div><button class="genCertificates" onclick="request(`<%=user.email%>`, `<%=user.name%>`)">Request Access</button></div>
-                <%} else{%>
-                    <p style="text-align: center;">Access Requested please be patient, till the request is granted.</p>   
-                    <div><button class="genCertificates"  onclick="logout()">Logout</button></div>
-                <%}%>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Home | H2S Certificate</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+        integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <% if(user.role === "innovator"){%>
+    <div class="overlay" id="overlay" style="display: flex;"></div>
+    <div class="modal" id="modal" style="display: flex; justify-content: center; gap: 10px;">
+        <div>
+            <h3>Access to Genrate Certificates</h3>
+        </div>
+        <% if(user.requestAccess === false){%>
+        <p style="text-align: center;">Oops! it seems you do not have acess to genrate certificates, request access now
+            to start.</p>
+        <div><button class="genCertificates" onclick="request(`<%=user.email%>`, `<%=user.name%>`)">Request
+                Access</button></div>
+        <%} else{%>
+        <p style="text-align: center;">Access Requested please be patient, till the request is granted.</p>
+        <div><button class="genCertificates" onclick="logout()">Logout</button></div>
+        <%}%>
             </div>
         <%}%>
-        <div class="container" style="display: flex; flex-direction:column; justify-content: start; " >
+        <div class="container" style="display: flex; flex-direction:column; justify-content: start; ">
             <header>
-                <img src="/logo.png" width="100"/>
+                <img src="/logo.png" width="100" />
                 <div class="header__list">
                     <% if(user.role =="superAdmin"){%>
-                        <div class="header__list__item">
-                            <a href="/admin"><i class="fa-solid fa-screwdriver-wrench"></i> &nbsp; Admin</a>
-                        </div>
+                    <div class="header__list__item">
+                        <a href="/admin"><i class="fa-solid fa-screwdriver-wrench"></i> &nbsp; Admin</a>
+                    </div>
                     <%}%>
                     <div class="header__list__item" onclick="logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp; Logout</div>
 
@@ -51,24 +61,27 @@
                     <div class="no__certificates">
                         <div class="no__certificates__icon"><i class="fa-solid fa-store-slash"></i></div>
                         <p>Oops! no certificates found, click on the
-                             create Certificate button and get started now</p>
+                            create Certificate button and get started now</p>
                     </div>
-                <%} else{%>
+                    <%} else{%>
                     <% for(i=0; i<img.length; i++){%>
-                        <div class="certificate__display" onclick="openModal('<%=img[i].eventName%>','<%=img[i].image%>','<%=img[i].timestamp%>', '<%=img[i].emailSubject%>','<%=img[i].emailBody%> ')">
-                            <img src="<%=img[i].image%>" class="cert__Image"/>
-                            <div class="event__Display">
-                                <%=img[i].eventName%>
-                            </div>
+                    <div class="certificate__display"
+                        onclick="openModal('<%=img[i].eventName%>','<%=img[i].image%>','<%=img[i].timestamp%>', '<%=img[i].emailSubject%>','<%=img[i].emailBody%> ')">
+                        <img src="<%=img[i].image%>" class="cert__Image" />
+                        <div class="event__Display">
+                            <%=img[i].eventName%>
                         </div>
+                    </div>
                     <%}%>     
                     
                 <%}%>
-            </div>
+                </div>
                 <% if(img.length>0){%>
-                    <div class="pagination">
-                        <ul> <!--pages or li are comes from javascript --> </ul>
-                    </div>
+                <div class="pagination">
+                    <ul>
+                        <!--pages or li are comes from javascript -->
+                    </ul>
+                </div>
                 <%}%>
             <div class="overlay" id="overlay" onclick="closeModal()"></div>
             <div class="eventModal" id="modal">
@@ -139,72 +152,75 @@
 
             // /api/change-role  (post) (req.body)
         </script>
-         <!-- Pagination Script -->
-         <script>
+        <!-- Pagination Script -->
+        <script>
             // selecting required element
             const element = document.querySelector(".pagination ul");
             let totalPages = '<%=count%>';
-            totalPages =parseInt(totalPages);
-            let page = '<%=page%>';
-            page= parseInt(page);
-            //calling function with passing parameters and adding inside element which is ul tag
-            element.innerHTML = createPagination(totalPages, page);
-            function createPagination(totalPages, page){
-            let liTag = '';
-            let active;
-            let beforePage = page - 1;
-            let afterPage = page + 1;
-            if(page > 1){ //show the next button if the page value is greater than 1
-                liTag += `<a href="/?page=${page-1}"><li class="btn prev"><span><i class="fas fa-angle-left"></i> Prev</span></li></a>`;
-            }
-            if(page > 2){ //if page value is less than 2 then add 1 after the previous button
+                totalPages =parseInt(totalPages);
+                let page = '<%=page%>';
+                page= parseInt(page);
+                element.innerHTML = createPagination(totalPages, page);
+                function createPagination(totalPages, page){
+                let liTag = '';
+                let active;
+                let beforePage = page - 1;
+                let afterPage = page + 1;
+                if(page > 1){
+                liTag += `<a href="/?page=${page-1}">
+                    <li class="btn prev"><span><i class="fas fa-angle-left"></i> Prev</span></li>
+                </a>`;
+                }
+                if(page > 2){
                 if(totalPages!=3&& totalPages!=4){
-                    liTag += `<a href="/?page=1"><li class="first numb"><span>1</span></li></a>`;
-                    if(page > 3){ //if page value is greater than 3 then add this (...) after the first li or page
-                    liTag += `<li class="dots"><span>...</span></li>`;
-                }
-                }
-            }
-            // how many pages or li show before the current li
-            if (page == totalPages && page!=1 && page!=2) {
-                beforePage = beforePage - 2;
-            } else if (page == totalPages - 1 && page!=1 && page!=2) {
-                beforePage = beforePage - 1;
-            }
-            // how many pages or li show after the current li
-            if (page == 1) {
-                afterPage = afterPage + 2;
-            } else if (page == 2) {
-                afterPage  = afterPage + 1;
-            }
-            for (var plength = beforePage; plength <= afterPage; plength++) {
-                if (plength > totalPages) { //if plength is greater than totalPage length then continue
-                continue;
-                }
-                if (plength == 0) { //if plength is 0 than add +1 in plength value
-                plength = plength + 1;
-                }
-                if(page == plength){ //if page is equal to plength than assign active string in the active variable
-                active = "active";
-                }else{ //else leave empty to the active variable
-                active = "";
-                }
-                liTag += `<a href="/?page=${plength}"><li class="numb ${active}"><span>${plength}</span></li></a>`;
-            }
-            if(page < totalPages - 1){ //if page value is less than totalPage value by -1 then show the last li or page
-                if(totalPages!=3 && totalPages!=4){
-                    if(page < totalPages - 2){ //if page value is less than totalPage value by -2 then add this (...) before the last li or page
+                liTag += `<a href="/?page=1">
+                    <li class="first numb"><span>1</span></li>
+                </a>`;
+                if(page > 3){
                 liTag += `<li class="dots"><span>...</span></li>`;
                 }
-                liTag += `<a href="/?page=${totalPages}"><li class="last numb"><span>${totalPages}</span></li></a>`;
                 }
-            }
-            if (page < totalPages) { //show the next button if the page value is less than totalPage(20)
-                liTag += `<a href="/?page=${page+1}"><li class="btn next"><span>Next <i class="fas fa-angle-right"></i></span></li></a>`;
-            }
-            element.innerHTML = liTag; //add li tag inside ul tag
-            return liTag; //reurn the li tag
-            }
-        </script>
-    </body>
+                }
+                if (page == totalPages && page!=1 && page!=2) {
+                beforePage = beforePage - 2;
+                } else if (page == totalPages - 1 && page!=1 && page!=2) {
+                beforePage = beforePage - 1;
+                }
+                if (page == 1) {
+                afterPage = afterPage + 2;
+                } else if (page == 2) {
+                afterPage = afterPage + 1;
+                }
+                for (var plength = beforePage; plength <= afterPage; plength++) { if (plength> totalPages) {
+                    continue;
+                    }
+                    if (plength == 0) {
+                    plength = plength + 1;
+                    }
+                    if(page == plength){
+                    active = "active";
+                    }else{
+                    active = "";
+                    }
+                    liTag += `<a href="/?page=${plength}">
+                        <li class="numb ${active}"><span>${plength}</span></li>
+                    </a>`;
+                    }
+                    if(page < totalPages - 1){ if(totalPages!=3 && totalPages!=4){ if(page < totalPages - 2){ iTag
+                        +=`<li class="dots"><span>...</span></li>`;
+                        }
+                        liTag += `<a href="/?page=${totalPages}">
+                            <li class="last numb"><span>${totalPages}</span></li>
+                        </a>`;
+                        }
+                        }
+                        if (page < totalPages) { liTag +=`<a href="/?page=${page+1}">
+                            <li class="btn next"><span>Next <i class="fas fa-angle-right"></i></span></li></a>`;
+                            }
+                            element.innerHTML = liTag;
+                            return liTag;
+                            }
+                            </script>
+</body>
+
 </html>

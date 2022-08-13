@@ -1,108 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificate Genrator</title>
-    <link rel="stylesheet" href="/styles.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Create Certificate | H2S Certificate</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+        integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
     <div class="container">
         <div class="left">
-            <div class="branding"><a href="https://hack2skill.com"><img class="brandlogo" src="/logo.png"/></a></div>
-            <hr/>
-            <br/>
+            <div class="branding"><a href="https://hack2skill.com"><img class="brandlogo" src="/logo.png" /></a></div>
+            <hr />
+            <br />
             <div class="left__list">
                 <div class="left__list__item">Step 1 - Create Variables<i class="fa-solid fa-angle-down"></i></div>
                 <% if(uploadImage === true){%>
-                    <div class="list__dropdown">
-                        <div class="variable__list">
-                           <button class="createVariable" id="createVariable"onclick="createVariable(this,'name')" >Create Name Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
-                           <button style="display: none;" class="createVariable" id="createVariable" onclick="removeVariable(this,'name')">Remove Name Variable &nbsp; <i class="fa-solid fa-circle-minus"></i></button>
-                           
-                           <button class="createVariable" id="createVariable"onclick="createVariable(this,'id')">Create Id Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
-                           <button style="display: none;" class="createVariable" id="createVariable" onclick="removeVariable(this,'certificateId')">Remove Id Variable &nbsp; <i class="fa-solid fa-circle-minus"></i></button>
+                <div class="list__dropdown">
+                    <div class="variable__list">
+                        <button class="createVariable" id="createVariable" onclick="createVariable(this,'name')">Create
+                            Name Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
+                        <button style="display: none;" class="createVariable" id="createVariable"
+                            onclick="removeVariable(this,'name')">Remove Name Variable &nbsp; <i
+                                class="fa-solid fa-circle-minus"></i></button>
 
-                           <button class="createVariable" id="createVariable"onclick="createVariable(this,'date')">Create Date Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
-                           <button style="display: none;" class="createVariable" id="createVariable" onclick="removeVariable(this,'dateOfIssue')">Remove Date Variable &nbsp; <i class="fa-solid fa-circle-minus"></i></button>
+                        <button class="createVariable" id="createVariable" onclick="createVariable(this,'id')">Create Id
+                            Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
+                        <button style="display: none;" class="createVariable" id="createVariable"
+                            onclick="removeVariable(this,'certificateId')">Remove Id Variable &nbsp; <i
+                                class="fa-solid fa-circle-minus"></i></button>
 
-                        </div>
-                       <!-- Hidden Input to store variable id -->
-                       <input id="currentVariable" value="" type="text" class="d-none"/>
-                       <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
-                        <input name="eventName" id="eventName" placeholder="Event Name" class="form-control" required/>
-                        </div>
-                       <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
-                       <select id="font" style="width: 14rem;" class=" form-control" onclick="changeFont(this)" onchange="changeFont(this)">
-                           <option>Poppins</option>
-                           <option>Roberto</option>
-                           <option>Arial</option>
-                           <option>Dancing Script</option>
-                           <option>Open Sans</option>
-                       </select>
-                       </div>
-                       <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
-                           <select id="align" style="width: 14rem;" class="form-control" onclick="changeAlign(this)" onchange="changeAlign(this)">
-                               <option>Left</option>
-                               <option>Right</option>
-                               <option>Center</option>
-                           </select>
-                       </div>
-                       <div style="display: flex; align-items: center; margin-top:15px; gap:5px;"> <input class="form-control" type="number" id="size" value="11" onchange="changeSize(this)"    onclick="changeSize(this)" style="width:70px;"/>
-                        &nbsp;&nbsp;&nbsp; <input type="color" id="color" onclick="changeColor(this)" onchange="changeColor(this)"/></div>
-                       <button class="genCertificates" onclick="handleSubmit()">Upload Template</button>
-                   </div>
+                        <button class="createVariable" id="createVariable" onclick="createVariable(this,'date')">Create
+                            Date Variable &nbsp; <i class="fa-solid fa-circle-plus"></i></button>
+                        <button style="display: none;" class="createVariable" id="createVariable"
+                            onclick="removeVariable(this,'dateOfIssue')">Remove Date Variable &nbsp; <i
+                                class="fa-solid fa-circle-minus"></i></button>
+
+                    </div>
+                    <!-- Hidden Input to store variable id -->
+                    <input id="currentVariable" value="" type="text" class="d-none" />
+                    <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
+                        <input name="eventName" id="eventName" placeholder="Event Name" class="form-control" required />
+                    </div>
+                    <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
+                        <select id="font" style="width: 14rem;" class=" form-control" onclick="changeFont(this)"
+                            onchange="changeFont(this)">
+                            <option>Poppins</option>
+                            <option>Roberto</option>
+                            <option>Arial</option>
+                            <option>Dancing Script</option>
+                            <option>Open Sans</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-top:15px; gap:5px;">
+                        <select id="align" style="width: 14rem;" class="form-control" onclick="changeAlign(this)"
+                            onchange="changeAlign(this)">
+                            <option>Left</option>
+                            <option>Right</option>
+                            <option>Center</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-top:15px; gap:5px;"> <input
+                            class="form-control" type="number" id="size" value="11" onchange="changeSize(this)"
+                            onclick="changeSize(this)" style="width:70px;" />
+                        &nbsp;&nbsp;&nbsp; <input type="color" id="color" onclick="changeColor(this)"
+                            onchange="changeColor(this)" /></div>
+                    <button class="genCertificates" onclick="handleSubmit()">Upload Template</button>
+                </div>
                 <%}%>
                 <div class="left__list__item">Step 2 - Upload CSV File <i class="fa-solid fa-angle-up"></i></div>
                 <% if(uploadImage=== false){%>
-                    <div class="list__dropdown">
-                        <div class="alert-info">
-                            Note:<br/>
-                            Here is the link to a smaple CSV Template <a href="https://docs.google.com/spreadsheets/d/1M_Lo20PAvNtsTjjWTkJa212lJZpFQ0jdW2AVf82r4WE/edit#gid=0"><strong>Link</strong></a>.<br/>
-                            Your csv file should follow the same CSV format.
+                <div class="list__dropdown">
+                    <div class="alert-info">
+                        Note:<br />
+                        Here is the link to a smaple CSV Template <a
+                            href="https://docs.google.com/spreadsheets/d/1M_Lo20PAvNtsTjjWTkJa212lJZpFQ0jdW2AVf82r4WE/edit#gid=0"><strong>Link</strong></a>.<br />
+                        Your csv file should follow the same CSV format.
 
-                        </div>
                     </div>
+                </div>
                 <%}%>
                </div>
            
         </div>
         
         <% if(uploadImage == true){%>
-        <form action="" method="POST" enctype=multipart/form-data>
-            <%}%>
+                <form action="" method="POST" enctype=multipart/form-data> <%}%>
         <div class="right">
             <!-- Image Dropper -->
             <div class="image__dropzone">
-                <% if(uploadImage == true){%>
-                <div id="drop-area" class="drop-area">
-                <div id="preview" class="cert__display">
-                    <canvas class="certificateUploadCanvas canvas__display" id="myCan" width="800px" height="600px">
-                    </canvas>
-                    <div id="gallery" width="800px" height="600px" style="z-index: 10;">
-                        <div style="font-size:xx-large ; color:gray;"><i class="fa-solid fa-upload" onclick="clickInput()" style="cursor:pointer ;"></i></div>
-                        Click to Upload Certificate <strong onclick="clickInput()" style="cursor:pointer ;">Image to get Started.</strong>
-                        (800 x 600) 
+                <% if(uploadImage == true){%> <div id="drop-area" class="drop-area">
+                    <div id="preview" class="cert__display">
+                        <canvas class="certificateUploadCanvas canvas__display" id="myCan" width="800px" height="600px">
+                        </canvas>
+                        <div id="gallery" width="800px" height="600px" style="z-index: 10;">
+                            <div style="font-size:xx-large ; color:gray;"><i class="fa-solid fa-upload"
+                                    onclick="clickInput()" style="cursor:pointer ;"></i></div>
+                            Click to Upload Certificate <strong onclick="clickInput()" style="cursor:pointer ;">Image to
+                                get Started.</strong>
+                            (800 x 600)
+                        </div>
                     </div>
-                </div>
-                </div>
-                <input type="file" class="d-none" id="cert__img" name="file"accept="image/*" onchange="fillCanvas(this)" >
-                <%}%>
+            </div>
+            <input type="file" class="d-none" id="cert__img" name="file" accept="image/*" onchange="fillCanvas(this)">
+            <%}%>
                 <% if(uploadImage === false){%>
-                    
-                    <form class="csv__upload" action="/upload-csv" method="POST" enctype="multipart/form-data">
-                        <input type="text" name="eventName" value="<%= eventName %>" hidden>
-                    <div class="dropper" onclick="clickUpload()" id="dropper" style="flex-direction: column;"> 
-                        <div style="font-size:xx-large ; color:gray;"><i class="fa-solid fa-upload"></i></div>
-                        Click HERE to upload CSV.</div>
-                    <div class="dropper success" style="display: none;" id="success"> 
-                        <div style="font-size: large;"><i class="fa-solid fa-circle-check"></i></div>
-                        <div>File Uploaded Successfully.</div></div>
-                    <div><input type="file" name="csv" id="up" class="d-none" accept=".csv"  onchange="changeContent()"></div>
-                    <div><button type="submit" class="genCertificates my-5">Submit</button></div>
-                    </form>
+
+            <form class="csv__upload" action="/upload-csv" method="POST" enctype="multipart/form-data">
+                <input type="text" name="eventName" value="<%= eventName %>" hidden>
+                <div class="dropper" onclick="clickUpload()" id="dropper" style="flex-direction: column;">
+                    <div style="font-size:xx-large ; color:gray;"><i class="fa-solid fa-upload"></i></div>
+                    Click HERE to upload CSV.
+                </div>
+                <div class="dropper success" style="display: none;" id="success">
+                    <div style="font-size: large;"><i class="fa-solid fa-circle-check"></i></div>
+                    <div>File Uploaded Successfully.</div>
+                </div>
+                <div><input type="file" name="csv" id="up" class="d-none" accept=".csv" onchange="changeContent()">
+                </div>
+                <div><button type="submit" class="genCertificates my-5">Submit</button></div>
+            </form>
             <%}%>
             </div>
             
@@ -117,8 +139,8 @@
                 </div>
         </div>
         <% if(uploadImage == true){%>
-        </form>
-        <%}%>
+            </form>
+            <%}%>
     </div>
         
     </div>
@@ -150,8 +172,8 @@
         }
         const removeVariable = (e, s)=>{
             document.getElementById(s).remove();
-           e.style.display="none"
-           e.previousElementSibling.style.display="block";
+            e.style.display="none"
+            e.previousElementSibling.style.display="block";
         }
         const createVariable =(e, s)=>{
             // Creating input field
@@ -288,11 +310,11 @@
                 document.getElementById('up').click();
             }
             const changeContent=()=>{
-               if(document.getElementById('up').value != ''){
+                if(document.getElementById('up').value != ''){
                 document.getElementById('dropper').style.display='none';
                 document.getElementById('success').style.display='flex';
-               }
             }
+        }
         </script>
         <script>
             const openDropdown= (e)=>{
@@ -327,6 +349,3 @@
         </script>
 </body>
 </html>
-
-
-
